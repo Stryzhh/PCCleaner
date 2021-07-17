@@ -13,6 +13,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import oshi.SystemInfo;
+import oshi.hardware.CentralProcessor;
+import oshi.hardware.HardwareAbstractionLayer;
 
 public class MainController implements Initializable {
 
@@ -55,15 +57,29 @@ public class MainController implements Initializable {
     @FXML
     private Label OS;
     @FXML
+    private Label specs;
+    @FXML
     private ListView<String> specsList;
-    private SystemInfo info;
+    private final SystemInfo info = new SystemInfo();
+    private CentralProcessor processor;
+    private HardwareAbstractionLayer hardware;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        processor = info.getHardware().getProcessor();
+        hardware = info.getHardware();
+
         quickPane.toFront();
-        info = new SystemInfo();
-        System.out.println(info.getHardware().getGraphicsCards());
-        OS.setText(System.getProperty("os.name"));
+
+        StringBuilder gpus = new StringBuilder();
+        for (int i = 0; i < info.getHardware().getGraphicsCards().size(); i++) {
+            gpus.append(hardware.getGraphicsCards().get(i).getName()).append(", ");
+        }
+        OS.setText(String.valueOf(info.getOperatingSystem()));
+        specs.setText(gpus + processor.getProcessorIdentifier().getName() + ", " +
+                megabyte(hardware.getMemory().getTotal()) + " (MB) RAM");
+
+        loadSpecifications();
 
         logo.setImage(new Image(new File("images\\PCCleaner.png").toURI().toString()));
         quickIcon.setImage(new Image(new File("images\\quick.png").toURI().toString()));
@@ -77,25 +93,61 @@ public class MainController implements Initializable {
         closeIcon.setImage(new Image(new File("images\\close.png").toURI().toString()));
     }
 
-    public void specifications() {
-        specificationsPane.toFront();
-
+    private void loadSpecifications() {
         Platform.runLater(() -> {
-            long maxMemory = Runtime.getRuntime().maxMemory();
-            specsList.getItems().add(String.valueOf(info.getHardware().getGraphicsCards()));
-            specsList.getItems().add("Available processors (threads): " + Runtime.getRuntime().availableProcessors());
-            specsList.getItems().add("Free memory (MB): " + megabyte(Runtime.getRuntime().freeMemory()));
-            specsList.getItems().add("Maximum memory (MB): " + (megabyte(maxMemory) == Long.MAX_VALUE ? "no limit" : megabyte(maxMemory)));
-            specsList.getItems().add("Total memory available to JVM (MB): " + megabyte(Runtime.getRuntime().totalMemory()));
+            specsList.getItems().add("------ GPU INFO ------");
+            for (int i = 0; i < info.getHardware().getGraphicsCards().size(); i++) {
+                specsList.getItems().add("GPU " + (i + 1) + " : " + hardware.getGraphicsCards().get(i).getName());
+                specsList.getItems().add("VRAM Size: " + megabyte(hardware.getGraphicsCards().get(i).getVRam() * 2));
+                specsList.getItems().add("Vendor: " + hardware.getGraphicsCards().get(i).getVendor());
+                specsList.getItems().add("Version: " + hardware.getGraphicsCards().get(i).getVersionInfo());
+                specsList.getItems().add("Device ID: " + hardware.getGraphicsCards().get(i).getDeviceId());
+            }
 
+            specsList.getItems().add("------ CPU INFO ------");
+            specsList.getItems().add("Name: " + processor.getProcessorIdentifier().getName());
+            specsList.getItems().add("Processor Family: " + processor.getProcessorIdentifier());
+            specsList.getItems().add("Micro-architecture: " + processor.getProcessorIdentifier().getMicroarchitecture());
+            specsList.getItems().add("Frequency (GHz): " + processor.getProcessorIdentifier().getVendorFreq() / 1000000000.0);
+            specsList.getItems().add("Available processors (physical packages): " + processor.getPhysicalPackageCount());
+            specsList.getItems().add("Available processors (physical packages): " + processor.getPhysicalPackageCount());
+            specsList.getItems().add("Available processors (physical cores): " + processor.getLogicalProcessorCount());
+
+            specsList.getItems().add("------ MOTHERBOARD INFO ------");
+            specsList.getItems().add("Manufacturer: " + hardware.getComputerSystem().getBaseboard().getManufacturer());
+            specsList.getItems().add("Model: " + hardware.getComputerSystem().getModel());
+            specsList.getItems().add("Serial Number: " + hardware.getComputerSystem().getBaseboard().getSerialNumber());
+            specsList.getItems().add("Hardware UUID: " + hardware.getComputerSystem().getHardwareUUID());
+
+            specsList.getItems().add("------ RAM INFO ------");
+            specsList.getItems().add("Total Size (MB): " + megabyte(hardware.getMemory().getTotal()));
+            specsList.getItems().add("Available (MB): " + megabyte(hardware.getMemory().getAvailable()));
+            specsList.getItems().add("Page Size (KB): " + hardware.getMemory().getPageSize());
+
+            specsList.getItems().add("------ STORAGE INFO ------");
             File[] roots = File.listRoots();
-            for (File root : roots) {
-                specsList.getItems().add("File system root: " + root.getAbsolutePath());
-                specsList.getItems().add("Total space (GB): " + gigabyte(root.getTotalSpace()));
-                specsList.getItems().add("Free space (GB): " + gigabyte(root.getFreeSpace()));
-                specsList.getItems().add("Usable space (GB): " + gigabyte(root.getUsableSpace()));
+            for (int i = 0; i < roots.length; i++) {
+                specsList.getItems().add("Drive " + (i + 1) + " :");
+                specsList.getItems().add("File system root: " + roots[i].getAbsolutePath());
+                specsList.getItems().add("Total space (GB): " + gigabyte(roots[i].getTotalSpace()));
+                specsList.getItems().add("Free space (GB): " + gigabyte(roots[i].getFreeSpace()));
+                specsList.getItems().add("Usable space (GB): " + gigabyte(roots[i].getUsableSpace()));
+            }
+
+            specsList.getItems().add("------ POWER INFO ------");
+            for (int i = 0; i < hardware.getPowerSources().size(); i++) {
+                specsList.getItems().add("Source " + (i + 1) + " :");
+                specsList.getItems().add("Name: " + hardware.getPowerSources().get(i).getName());
+                specsList.getItems().add("Manufacturer: " + hardware.getPowerSources().get(i).getManufacturer());
+                specsList.getItems().add("Serial number: " + hardware.getPowerSources().get(i).getSerialNumber());
+                specsList.getItems().add("Max capacity: " + hardware.getPowerSources().get(i).getMaxCapacity());
+                specsList.getItems().add("Temperature: " + hardware.getPowerSources().get(i).getTemperature());
             }
         });
+    }
+
+    public void specifications() {
+        specificationsPane.toFront();
     }
 
     public void drag() {
