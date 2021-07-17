@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/PCCleaner-CleanYourComputer.iml" filepath="$PROJECT_DIR$/PCCleaner-CleanYourComputer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/PCCleaner.iml" filepath="$PROJECT_DIR$/PCCleaner.iml" />
     </modules>
   </component>
 </project>

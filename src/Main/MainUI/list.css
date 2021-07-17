@@ -1,12 +1,12 @@
 .list-view {
-	-fx-border-color: black;
+	-fx-border-color: #b9b9b9;
 }
 .list-view .list-cell:even {
--fx-background-color: #2D3447;
+-fx-background-color: white;
 -fx-text-fill: #b9b9b9;
 }
 .list-view .list-cell:odd {
--fx-background-color: #2D3447;
+-fx-background-color: white;
 -fx-text-fill: #b9b9b9;
 }
 .list-view:focused .list-cell:filled:focused:selected {
