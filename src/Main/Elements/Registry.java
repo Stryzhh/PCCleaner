@@ -1,4 +1,4 @@
-package Main.UIElements;
+package Main.Elements;
 
 import com.jfoenix.controls.JFXButton;
 import javafx.scene.control.TableView;
@@ -10,5 +10,9 @@ public class Registry {
     public static TableView<String> table;
     public static JFXButton review;
     public static JFXButton scan;
+
+    public static void load() {
+
+    }
 
 }

@@ -1,4 +1,4 @@
-package Main.UIElements;
+package Main.Elements;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
@@ -13,5 +13,9 @@ public class Custom {
     public static JFXButton applications;
     public static JFXButton analyze;
     public static JFXButton clean;
+
+    public static void load() {
+
+    }
 
 }

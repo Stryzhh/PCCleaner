@@ -1,4 +1,4 @@
-package Main.UIElements;
+package Main.Elements;
 
 import com.jfoenix.controls.JFXButton;
 import javafx.scene.control.Label;
@@ -11,5 +11,9 @@ public class Drivers {
     public static JFXButton see;
     public static JFXButton update;
     public static Label scanned;
+
+    public static void load() {
+
+    }
 
 }

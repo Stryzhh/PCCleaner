@@ -1,4 +1,4 @@
-package Main.UIElements;
+package Main.Elements;
 
 import com.jfoenix.controls.JFXButton;
 import javafx.scene.layout.AnchorPane;
@@ -13,5 +13,9 @@ public class Tools {
     public static JFXButton wiper;
     public static JFXButton analyze;
     public static JFXButton duplicate;
+
+    public static void load() {
+
+    }
 
 }

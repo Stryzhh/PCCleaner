@@ -1,6 +1,7 @@
-package Main;
+package Main.Elements;
 
-import Main.UIElements.Specifications;
+
+import Main.Neutral;
 import java.io.File;
 import javafx.application.Platform;
 import javafx.scene.control.ListView;
@@ -8,27 +9,11 @@ import oshi.SystemInfo;
 import oshi.hardware.CentralProcessor;
 import oshi.hardware.HardwareAbstractionLayer;
 
-public class Load {
+public class Specifications {
 
-    public static void quickClean() {
-    }
+    public static ListView<String> list;
 
-    public static void customClean() {
-    }
-
-    public static void registry() {
-    }
-
-    public static void drivers() {
-    }
-
-    public static void tools() {
-    }
-
-    public static void options() {
-    }
-
-    public static void specifications() {
+    public static void load() {
         SystemInfo info = new SystemInfo();
         CentralProcessor processor = info.getHardware().getProcessor();
         HardwareAbstractionLayer hardware = info.getHardware();
@@ -85,4 +70,5 @@ public class Load {
             }
         });
     }
+
 }

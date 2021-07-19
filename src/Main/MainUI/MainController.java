@@ -1,14 +1,13 @@
 package Main.MainUI;
 
-import Main.Load;
 import Main.Neutral;
-import Main.UIElements.Clean;
-import Main.UIElements.Custom;
-import Main.UIElements.Drivers;
-import Main.UIElements.Options;
-import Main.UIElements.Registry;
-import Main.UIElements.Specifications;
-import Main.UIElements.Tools;
+import Main.Elements.Clean;
+import Main.Elements.Custom;
+import Main.Elements.Drivers;
+import Main.Elements.Options;
+import Main.Elements.Registry;
+import Main.Elements.Specifications;
+import Main.Elements.Tools;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
 import java.io.File;
@@ -23,13 +22,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import oshi.SystemInfo;
-import oshi.hardware.CentralProcessor;
-import oshi.hardware.HardwareAbstractionLayer;
 
 public class MainController implements Initializable {
 
     @FXML private AnchorPane window;
-    @FXML private AnchorPane quickPane;
+    @FXML private AnchorPane cleanPane;
     @FXML private AnchorPane customPane;
     @FXML private AnchorPane customPanel;
     @FXML private AnchorPane registryPane;
@@ -40,6 +37,11 @@ public class MainController implements Initializable {
     @FXML private AnchorPane settingsPane;
     @FXML private AnchorPane settingsPanel;
     @FXML private AnchorPane specificationsPane;
+    @FXML private AnchorPane optSettingsPane;
+    @FXML private AnchorPane optIncludePane;
+    @FXML private AnchorPane optExcludePane;
+    @FXML private AnchorPane optAdvancedPane;
+    @FXML private AnchorPane optAboutPane;
 
     @FXML private ImageView logo;
     @FXML private ImageView minimizeIcon;
@@ -86,14 +88,14 @@ public class MainController implements Initializable {
     @FXML private ListView<JFXCheckBox> customList;
     @FXML private ListView<String> specsList;
 
-    private final SystemInfo info = new SystemInfo();
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        quickPane.toFront();
+        cleanPane.toFront();
         setUIElements();
 
         //sets operating system and basic specifications
+        version.setText("v1.0.0");
+        SystemInfo info = new SystemInfo();
         OS.setText(String.valueOf(info.getOperatingSystem()));
         StringBuilder gpus = new StringBuilder();
         for (int i = 0; i < info.getHardware().getGraphicsCards().size(); i++) {
@@ -103,13 +105,7 @@ public class MainController implements Initializable {
                 Neutral.gigabyte(info.getHardware().getMemory().getTotal()) + " (GB) RAM");
 
         //loads date onto panels
-        Load.quickClean();
-        Load.customClean();
-        Load.registry();
-        Load.drivers();
-        Load.tools();
-        Load.options();
-        Load.specifications();
+        Specifications.load();
 
         //setting images
         quickSetup.setImage(new Image(new File("images\\setup.png").toURI().toString()));
@@ -164,6 +160,11 @@ public class MainController implements Initializable {
 
         //options UI elements
         Options.panel = settingsPanel;
+        Options.settingsPane = optSettingsPane;
+        Options.includePane = optIncludePane;
+        Options.excludePane = optExcludePane;
+        Options.advancedPane = optAdvancedPane;
+        Options.aboutPane = optAboutPane;
         Options.settings = settingsSettings;
         Options.include = settingsInclude;
         Options.exclude = settingsExclude;
@@ -175,7 +176,7 @@ public class MainController implements Initializable {
     }
 
     public void clean() {
-        quickPane.toFront();
+        cleanPane.toFront();
     }
 
     public void custom() {
@@ -198,6 +199,26 @@ public class MainController implements Initializable {
         settingsPane.toFront();
     }
 
+    public void optionsSettings() {
+        optSettingsPane.toFront();
+    }
+
+    public void optionsInclude() {
+        optIncludePane.toFront();
+    }
+
+    public void optionsExclude() {
+        optExcludePane.toFront();
+    }
+
+    public void optionsAdvanced() {
+        optAdvancedPane.toFront();
+    }
+
+    public void optionsAbout() {
+        optAboutPane.toFront();
+    }
+
     public void specifications() {
         specificationsPane.toFront();
     }
@@ -208,6 +229,10 @@ public class MainController implements Initializable {
 
     public void minimize() {
         Neutral.minimize(window);
+    }
+
+    public void exit() {
+        System.exit(0);
     }
 
 }
