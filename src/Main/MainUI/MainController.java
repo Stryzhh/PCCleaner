@@ -1,14 +1,24 @@
 package Main.MainUI;
 
+import Main.Load;
 import Main.Neutral;
+import Main.UIElements.Clean;
+import Main.UIElements.Custom;
+import Main.UIElements.Drivers;
+import Main.UIElements.Options;
+import Main.UIElements.Registry;
+import Main.UIElements.Specifications;
+import Main.UIElements.Tools;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXCheckBox;
 import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TableView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -18,132 +28,174 @@ import oshi.hardware.HardwareAbstractionLayer;
 
 public class MainController implements Initializable {
 
-    @FXML
-    private AnchorPane window;
-    @FXML
-    private AnchorPane quickPane;
-    @FXML
-    private AnchorPane customPane;
-    @FXML
-    private AnchorPane registryPane;
-    @FXML
-    private AnchorPane driverPane;
-    @FXML
-    private AnchorPane toolsPane;
-    @FXML
-    private AnchorPane settingsPane;
-    @FXML
-    private AnchorPane specificationsPane;
-    @FXML
-    private ImageView logo;
-    @FXML
-    private ImageView quickIcon;
-    @FXML
-    private ImageView customIcon;
-    @FXML
-    private ImageView registryIcon;
-    @FXML
-    private ImageView driverIcon;
-    @FXML
-    private ImageView toolsIcon;
-    @FXML
-    private ImageView settingsIcon;
-    @FXML
-    private ImageView specificationsIcon;
-    @FXML
-    private ImageView minimizeIcon;
-    @FXML
-    private ImageView closeIcon;
-    @FXML
-    private Label OS;
-    @FXML
-    private Label specs;
-    @FXML
-    private ListView<String> specsList;
+    @FXML private AnchorPane window;
+    @FXML private AnchorPane quickPane;
+    @FXML private AnchorPane customPane;
+    @FXML private AnchorPane customPanel;
+    @FXML private AnchorPane registryPane;
+    @FXML private AnchorPane registryPanel;
+    @FXML private AnchorPane driverPane;
+    @FXML private AnchorPane toolsPane;
+    @FXML private AnchorPane toolsPanel;
+    @FXML private AnchorPane settingsPane;
+    @FXML private AnchorPane settingsPanel;
+    @FXML private AnchorPane specificationsPane;
+
+    @FXML private ImageView logo;
+    @FXML private ImageView minimizeIcon;
+    @FXML private ImageView closeIcon;
+    @FXML private ImageView quickIcon;
+    @FXML private ImageView quickSetup;
+    @FXML private ImageView customIcon;
+    @FXML private ImageView registryIcon;
+    @FXML private ImageView driverIcon;
+    @FXML private ImageView driverSetup;
+    @FXML private ImageView toolsIcon;
+    @FXML private ImageView optionsIcon;
+    @FXML private ImageView specificationsIcon;
+
+    @FXML private JFXButton quickClean;
+    @FXML private JFXButton customWindows;
+    @FXML private JFXButton customApplications;
+    @FXML private JFXButton customAnalyze;
+    @FXML private JFXButton customClean;
+    @FXML private JFXButton registryReview;
+    @FXML private JFXButton registryScan;
+    @FXML private JFXButton driverSee;
+    @FXML private JFXButton driverScan;
+    @FXML private JFXButton driverUpdate;
+    @FXML private JFXButton settingsSettings;
+    @FXML private JFXButton settingsInclude;
+    @FXML private JFXButton settingsExclude;
+    @FXML private JFXButton settingsAdvanced;
+    @FXML private JFXButton settingsAbout;
+    @FXML private JFXButton toolsUninstall;
+    @FXML private JFXButton toolsUpdater;
+    @FXML private JFXButton toolsStartup;
+    @FXML private JFXButton toolsPlugins;
+    @FXML private JFXButton toolsWiper;
+    @FXML private JFXButton toolsAnalyzer;
+    @FXML private JFXButton toolsDuplicates;
+
+    @FXML private Label OS;
+    @FXML private Label version;
+    @FXML private Label specs;
+    @FXML private Label driversScanned;
+
+    @FXML private TableView<String> registryTable;
+    @FXML private ListView<JFXCheckBox> customList;
+    @FXML private ListView<String> specsList;
+
     private final SystemInfo info = new SystemInfo();
-    private CentralProcessor processor;
-    private HardwareAbstractionLayer hardware;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        processor = info.getHardware().getProcessor();
-        hardware = info.getHardware();
-
         quickPane.toFront();
+        setUIElements();
 
+        //sets operating system and basic specifications
+        OS.setText(String.valueOf(info.getOperatingSystem()));
         StringBuilder gpus = new StringBuilder();
         for (int i = 0; i < info.getHardware().getGraphicsCards().size(); i++) {
-            gpus.append(hardware.getGraphicsCards().get(i).getName()).append(", ");
+            gpus.append(info.getHardware().getGraphicsCards().get(i).getName()).append(", ");
         }
-        OS.setText(String.valueOf(info.getOperatingSystem()));
-        specs.setText(gpus + processor.getProcessorIdentifier().getName() + ", " +
-                megabyte(hardware.getMemory().getTotal()) + " (MB) RAM");
+        specs.setText(gpus + info.getHardware().getProcessor().getProcessorIdentifier().getName() + ", " +
+                Neutral.gigabyte(info.getHardware().getMemory().getTotal()) + " (GB) RAM");
 
-        loadSpecifications();
+        //loads date onto panels
+        Load.quickClean();
+        Load.customClean();
+        Load.registry();
+        Load.drivers();
+        Load.tools();
+        Load.options();
+        Load.specifications();
 
+        //setting images
+        quickSetup.setImage(new Image(new File("images\\setup.png").toURI().toString()));
+        driverSetup.setImage(new Image(new File("images\\setup1.png").toURI().toString()));
         logo.setImage(new Image(new File("images\\PCCleaner.png").toURI().toString()));
         quickIcon.setImage(new Image(new File("images\\quick.png").toURI().toString()));
         customIcon.setImage(new Image(new File("images\\custom.png").toURI().toString()));
         registryIcon.setImage(new Image(new File("images\\registry.png").toURI().toString()));
         driverIcon.setImage(new Image(new File("images\\drivers.png").toURI().toString()));
         toolsIcon.setImage(new Image(new File("images\\tools.png").toURI().toString()));
-        settingsIcon.setImage(new Image(new File("images\\settings.png").toURI().toString()));
+        optionsIcon.setImage(new Image(new File("images\\settings.png").toURI().toString()));
         specificationsIcon.setImage(new Image(new File("images\\specifications.png").toURI().toString()));
         minimizeIcon.setImage(new Image(new File("images\\minimize.png").toURI().toString()));
         closeIcon.setImage(new Image(new File("images\\close.png").toURI().toString()));
     }
 
-    private void loadSpecifications() {
-        Platform.runLater(() -> {
-            specsList.getItems().add("------ GPU INFO ------");
-            for (int i = 0; i < info.getHardware().getGraphicsCards().size(); i++) {
-                specsList.getItems().add("GPU " + (i + 1) + " : " + hardware.getGraphicsCards().get(i).getName());
-                specsList.getItems().add("VRAM Size: " + megabyte(hardware.getGraphicsCards().get(i).getVRam() * 2));
-                specsList.getItems().add("Vendor: " + hardware.getGraphicsCards().get(i).getVendor());
-                specsList.getItems().add("Version: " + hardware.getGraphicsCards().get(i).getVersionInfo());
-                specsList.getItems().add("Device ID: " + hardware.getGraphicsCards().get(i).getDeviceId());
-            }
+    private void setUIElements() {
+        //clean UI elements
+        Clean.icon = quickSetup;
+        Clean.clean = quickClean;
 
-            specsList.getItems().add("------ CPU INFO ------");
-            specsList.getItems().add("Name: " + processor.getProcessorIdentifier().getName());
-            specsList.getItems().add("Processor Family: " + processor.getProcessorIdentifier());
-            specsList.getItems().add("Micro-architecture: " + processor.getProcessorIdentifier().getMicroarchitecture());
-            specsList.getItems().add("Frequency (GHz): " + processor.getProcessorIdentifier().getVendorFreq() / 1000000000.0);
-            specsList.getItems().add("Available processors (physical packages): " + processor.getPhysicalPackageCount());
-            specsList.getItems().add("Available processors (physical packages): " + processor.getPhysicalPackageCount());
-            specsList.getItems().add("Available processors (physical cores): " + processor.getLogicalProcessorCount());
+        //custom UI elements
+        Custom.panel = customPanel;
+        Custom.list = customList;
+        Custom.windows = customWindows;
+        Custom.applications = customApplications;
+        Custom.analyze = customAnalyze;
+        Custom.clean = customClean;
 
-            specsList.getItems().add("------ MOTHERBOARD INFO ------");
-            specsList.getItems().add("Manufacturer: " + hardware.getComputerSystem().getBaseboard().getManufacturer());
-            specsList.getItems().add("Model: " + hardware.getComputerSystem().getModel());
-            specsList.getItems().add("Serial Number: " + hardware.getComputerSystem().getBaseboard().getSerialNumber());
-            specsList.getItems().add("Hardware UUID: " + hardware.getComputerSystem().getHardwareUUID());
+        //registry UI elements
+        Registry.panel = registryPanel;
+        Registry.table = registryTable;
+        Registry.review = registryReview;
+        Registry.scan = registryScan;
 
-            specsList.getItems().add("------ RAM INFO ------");
-            specsList.getItems().add("Total Size (MB): " + megabyte(hardware.getMemory().getTotal()));
-            specsList.getItems().add("Available (MB): " + megabyte(hardware.getMemory().getAvailable()));
-            specsList.getItems().add("Page Size (KB): " + hardware.getMemory().getPageSize());
+        //drivers UI elements
+        Drivers.scanned = driversScanned;
+        Drivers.icon = driverSetup;
+        Drivers.scan = driverScan;
+        Drivers.see = driverSee;
+        Drivers.update = driverUpdate;
 
-            specsList.getItems().add("------ STORAGE INFO ------");
-            File[] roots = File.listRoots();
-            for (int i = 0; i < roots.length; i++) {
-                specsList.getItems().add("Drive " + (i + 1) + " :");
-                specsList.getItems().add("File system root: " + roots[i].getAbsolutePath());
-                specsList.getItems().add("Total space (GB): " + gigabyte(roots[i].getTotalSpace()));
-                specsList.getItems().add("Free space (GB): " + gigabyte(roots[i].getFreeSpace()));
-                specsList.getItems().add("Usable space (GB): " + gigabyte(roots[i].getUsableSpace()));
-            }
+        //tools UI elements
+        Tools.panel = toolsPanel;
+        Tools.uninstall = toolsUninstall;
+        Tools.updater = toolsUpdater;
+        Tools.startup = toolsStartup;
+        Tools.plugins = toolsPlugins;
+        Tools.wiper = toolsWiper;
+        Tools.analyze = toolsAnalyzer;
+        Tools.duplicate = toolsDuplicates;
 
-            specsList.getItems().add("------ POWER INFO ------");
-            for (int i = 0; i < hardware.getPowerSources().size(); i++) {
-                specsList.getItems().add("Source " + (i + 1) + " :");
-                specsList.getItems().add("Name: " + hardware.getPowerSources().get(i).getName());
-                specsList.getItems().add("Manufacturer: " + hardware.getPowerSources().get(i).getManufacturer());
-                specsList.getItems().add("Serial number: " + hardware.getPowerSources().get(i).getSerialNumber());
-                specsList.getItems().add("Max capacity: " + hardware.getPowerSources().get(i).getMaxCapacity());
-                specsList.getItems().add("Temperature: " + hardware.getPowerSources().get(i).getTemperature());
-            }
-        });
+        //options UI elements
+        Options.panel = settingsPanel;
+        Options.settings = settingsSettings;
+        Options.include = settingsInclude;
+        Options.exclude = settingsExclude;
+        Options.advanced = settingsAdvanced;
+        Options.about = settingsAbout;
+
+        //specifications UI elements
+        Specifications.list = specsList;
+    }
+
+    public void clean() {
+        quickPane.toFront();
+    }
+
+    public void custom() {
+        customPane.toFront();
+    }
+
+    public void registry() {
+        registryPane.toFront();
+    }
+
+    public void drivers() {
+        driverPane.toFront();
+    }
+
+    public void tools() {
+        toolsPane.toFront();
+    }
+
+    public void options() {
+        settingsPane.toFront();
     }
 
     public void specifications() {
@@ -157,15 +209,5 @@ public class MainController implements Initializable {
     public void minimize() {
         Neutral.minimize(window);
     }
-
-    public long megabyte(long value) {
-        return value / (1024 * 1024);
-    }
-
-    public long gigabyte(long value) {
-        return value / (1024 * 1024 * 1024);
-    }
-
-    public void exitApplication() { System.exit(1); }
 
 }

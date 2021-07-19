@@ -5,6 +5,10 @@ import javafx.stage.Stage;
 
 public class Neutral {
 
+    public static double gigabyte(long value) {
+        return (double) Math.round((double) value / (1073741824) * 1) / 1;
+    }
+
     public static void dragWindow(AnchorPane window) {
         Stage thisWindow = (Stage) window.getScene().getWindow();
 
