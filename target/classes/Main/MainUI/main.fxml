@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXCheckBox?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TableColumn?>
@@ -37,7 +39,7 @@
                   </ImageView>
                </graphic>
             </JFXButton>
-            <JFXButton layoutX="931.0" layoutY="5.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#minimize" prefHeight="20.0" prefWidth="30.0" style="-fx-graphic: url('@../../../images/email.png'); -fx-background-image: url('@../../../images/email.png');">
+            <JFXButton layoutX="932.0" layoutY="5.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#minimize" prefHeight="20.0" prefWidth="30.0" style="-fx-graphic: url('@../../../images/email.png'); -fx-background-image: url('@../../../images/email.png');">
                <graphic>
                   <ImageView fx:id="minimizeIcon" fitHeight="14.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -46,6 +48,12 @@
                   </ImageView>
                </graphic>
             </JFXButton>
+            <ImageView fx:id="minimizedLogo" fitHeight="22.0" fitWidth="20.0" layoutX="8.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../images/PCCleaner.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="36.0" layoutY="6.0" text="Clean your PC for free" />
          </children>
       </AnchorPane>
       <AnchorPane layoutY="91.0" prefHeight="610.0" prefWidth="107.0" style="-fx-background-color: #726d6d;">
@@ -307,72 +315,6 @@
                   </JFXButton>
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="optAboutPane" layoutX="148.0" prefHeight="567.0" prefWidth="745.0" style="-fx-background-color: white;">
-               <children>
-                  <Label layoutX="14.0" layoutY="67.0" prefHeight="22.0" prefWidth="72.0" text="Website:">
-                     <font>
-                        <Font name="Calibri Light" size="19.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="14.0" layoutY="120.0" prefHeight="22.0" prefWidth="52.0" text="Visit:">
-                     <font>
-                        <Font name="Calibri Light" size="19.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="50.0" layoutY="89.0" prefHeight="22.0" prefWidth="119.0" text="dafyddmaund.co.uk">
-                     <font>
-                        <Font name="Calibri Light" size="14.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="14.0" layoutY="14.0" prefHeight="22.0" prefWidth="72.0" text="Author(s)">
-                     <font>
-                        <Font name="Calibri Light" size="19.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="50.0" layoutY="36.0" prefHeight="22.0" prefWidth="119.0" text="Dafydd Maund">
-                     <font>
-                        <Font name="Calibri Light" size="14.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="50.0" layoutY="164.0" prefHeight="22.0" prefWidth="170.0" text="https://github.com/Stryzhh">
-                     <font>
-                        <Font name="Calibri Light" size="14.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="50.0" layoutY="142.0" prefHeight="22.0" prefWidth="119.0" text="dafyddmaund.co.uk">
-                     <font>
-                        <Font name="Calibri Light" size="14.0" />
-                     </font>
-                  </Label>
-               </children>
-            </AnchorPane>
-            <AnchorPane fx:id="optSettingsPane" layoutX="148.0" prefHeight="567.0" prefWidth="745.0" style="-fx-background-color: white;" />
-            <AnchorPane fx:id="optAdvancedPane" layoutX="148.0" prefHeight="567.0" prefWidth="745.0" style="-fx-background-color: white;" />
-            <AnchorPane fx:id="optIncludePane" layoutX="148.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="567.0" prefWidth="745.0" style="-fx-background-color: white;">
-               <children>
-                  <ListView layoutX="13.0" layoutY="89.0" prefHeight="465.0" prefWidth="594.0" style="-fx-border-color: #dadada;" />
-                  <JFXButton fx:id="customAnalyze1" layoutX="613.0" layoutY="90.0" prefHeight="37.0" prefWidth="125.0" style="-fx-background-color: #6eace0;" text="Add" textFill="WHITE">
-                     <font>
-                        <Font name="Calibri Light" size="15.0" />
-                     </font>
-                  </JFXButton>
-                  <JFXButton fx:id="customAnalyze11" layoutX="613.0" layoutY="135.0" prefHeight="37.0" prefWidth="125.0" style="-fx-background-color: #6eace0;" text="Remove" textFill="WHITE">
-                     <font>
-                        <Font name="Calibri Light" size="15.0" />
-                     </font>
-                  </JFXButton>
-                  <AnchorPane layoutX="13.0" layoutY="53.0" prefHeight="37.0" prefWidth="594.0" style="-fx-border-color: #dadada;">
-                     <children>
-                        <Label layoutX="14.0" layoutY="10.0" text="Custom files/folders to include when deleting" />
-                     </children>
-                  </AnchorPane>
-                  <AnchorPane layoutX="-1.0" prefHeight="37.0" prefWidth="746.0" style="-fx-border-color: #dadada;">
-                     <children>
-                        <Label layoutX="14.0" layoutY="10.0" text="Select additional files and folders to delete when cleaning your computer (use at your own risk)" />
-                     </children>
-                  </AnchorPane>
-               </children>
-            </AnchorPane>
             <AnchorPane fx:id="optExcludePane" layoutX="148.0" prefHeight="567.0" prefWidth="745.0" style="-fx-background-color: white;">
                <children>
                   <ListView layoutX="13.0" layoutY="89.0" prefHeight="465.0" prefWidth="594.0" style="-fx-border-color: #dadada;" />
@@ -381,7 +323,7 @@
                         <Font name="Calibri Light" size="15.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton fx:id="customAnalyze111" layoutX="613.0" layoutY="135.0" prefHeight="37.0" prefWidth="125.0" style="-fx-background-color: #6eace0;" text="Remove" textFill="WHITE">
+                  <JFXButton fx:id="customAnalyze111" layoutX="613.0" layoutY="135.0" prefHeight="37.0" prefWidth="125.0" style="-fx-background-color: #b9b9b9;" text="Remove">
                      <font>
                         <Font name="Calibri Light" size="15.0" />
                      </font>
@@ -393,9 +335,126 @@
                   </AnchorPane>
                   <AnchorPane layoutX="-1.0" prefHeight="37.0" prefWidth="746.0" style="-fx-border-color: #dadada;">
                      <children>
-                        <Label layoutX="14.0" layoutY="10.0" text="Select additional files and folders to keep when cleaning your computer (use at your own risk)" />
+                        <Label layoutX="14.0" layoutY="10.0" text="Select additional files and folders to keep (use at your own risk)" />
                      </children>
                   </AnchorPane>
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="optSettingsPane" layoutX="148.0" prefHeight="567.0" prefWidth="745.0" style="-fx-background-color: white;">
+               <children>
+                  <AnchorPane layoutX="-1.0" prefHeight="37.0" prefWidth="746.0" style="-fx-border-color: #dadada;">
+                     <children>
+                        <Label layoutX="14.0" layoutY="10.0" text="Basic Settings" />
+                     </children>
+                  </AnchorPane>
+                  <Label layoutX="14.0" layoutY="50.0" text="Language" />
+                  <JFXCheckBox checkedColor="#6ac968" layoutX="14.0" layoutY="91.0" prefHeight="18.0" prefWidth="170.0" text="Launch PCCleaner on startup" unCheckedColor="#dadada" />
+                  <JFXCheckBox checkedColor="#6ac968" layoutX="14.0" layoutY="118.0" prefHeight="18.0" prefWidth="170.0" selected="true" text="Clean recycling bin automatically after running clean" unCheckedColor="#dadada" />
+                  <ComboBox disable="true" layoutX="77.0" layoutY="46.0" prefHeight="25.0" prefWidth="178.0" promptText="English" />
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="optAdvancedPane" layoutX="148.0" prefHeight="567.0" prefWidth="745.0" style="-fx-background-color: white;">
+               <children>
+                  <AnchorPane layoutX="-1.0" prefHeight="37.0" prefWidth="746.0" style="-fx-border-color: #dadada;">
+                     <children>
+                        <Label layoutX="14.0" layoutY="10.0" text="Additional settings to help improve your experience (use at your own risk)" />
+                     </children>
+                  </AnchorPane>
+                  <JFXCheckBox checkedColor="#6ac968" layoutX="14.0" layoutY="47.0" prefHeight="18.0" prefWidth="170.0" selected="true" text="Produce file list report" unCheckedColor="#dadada" />
+                  <JFXCheckBox checkedColor="#6ac968" layoutX="14.0" layoutY="73.0" prefHeight="18.0" prefWidth="170.0" text="Hide warning messages" unCheckedColor="#dadada" />
+                  <JFXCheckBox checkedColor="#6ac968" layoutX="14.0" layoutY="99.0" prefHeight="18.0" prefWidth="170.0" text="Close program after quick clean" unCheckedColor="#dadada" />
+                  <JFXCheckBox checkedColor="#6ac968" layoutX="14.0" layoutY="127.0" prefHeight="18.0" prefWidth="170.0" text="Shutdown program after quick clean" unCheckedColor="#dadada" />
+                  <JFXCheckBox checkedColor="#6ac968" layoutX="14.0" layoutY="154.0" prefHeight="18.0" prefWidth="170.0" text="Close program after custom clean" unCheckedColor="#dadada" />
+                  <JFXCheckBox checkedColor="#6ac968" layoutX="14.0" layoutY="182.0" prefHeight="18.0" prefWidth="170.0" text="Shutdown program after custom clean" unCheckedColor="#dadada" />
+                  <JFXButton fx:id="registryScan1" layoutX="14.0" layoutY="224.0" prefHeight="37.0" prefWidth="125.0" style="-fx-background-color: #6eace0;" text="Restore default" textFill="WHITE">
+                     <font>
+                        <Font name="Calibri Light" size="15.0" />
+                     </font>
+                  </JFXButton>
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="optIncludePane" layoutX="148.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="567.0" prefWidth="745.0" style="-fx-background-color: white;">
+               <children>
+                  <ListView layoutX="13.0" layoutY="89.0" prefHeight="465.0" prefWidth="594.0" style="-fx-border-color: #dadada;" />
+                  <JFXButton fx:id="customAnalyze1" layoutX="613.0" layoutY="90.0" prefHeight="37.0" prefWidth="125.0" style="-fx-background-color: #6eace0;" text="Add" textFill="WHITE">
+                     <font>
+                        <Font name="Calibri Light" size="15.0" />
+                     </font>
+                  </JFXButton>
+                  <AnchorPane layoutX="13.0" layoutY="53.0" prefHeight="37.0" prefWidth="594.0" style="-fx-border-color: #dadada;">
+                     <children>
+                        <Label layoutX="14.0" layoutY="10.0" text="Custom files/folders to include when deleting" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="-1.0" prefHeight="37.0" prefWidth="746.0" style="-fx-border-color: #dadada;">
+                     <children>
+                        <Label layoutX="14.0" layoutY="10.0" text="Select additional files and folders to delete (use at your own risk)" />
+                     </children>
+                  </AnchorPane>
+                  <JFXButton fx:id="customAnalyze1111" layoutX="613.0" layoutY="135.0" prefHeight="37.0" prefWidth="125.0" style="-fx-background-color: #b9b9b9;" text="Remove">
+                     <font>
+                        <Font name="Calibri Light" size="15.0" />
+                     </font>
+                  </JFXButton>
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="optAboutPane" layoutX="148.0" prefHeight="567.0" prefWidth="745.0" style="-fx-background-color: white;">
+               <children>
+                  <Label layoutX="14.0" layoutY="202.0" prefHeight="22.0" prefWidth="96.0" text="Report Bugs">
+                     <font>
+                        <Font name="Calibri Bold Italic" size="19.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="14.0" layoutY="280.0" prefHeight="22.0" prefWidth="84.0" text="Author(s)">
+                     <font>
+                        <Font name="Calibri Bold Italic" size="19.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="53.0" layoutY="306.0" prefHeight="22.0" prefWidth="96.0" text="Dafydd Maund - ">
+                     <font>
+                        <Font name="Calibri Light" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="github" layoutX="53.0" layoutY="328.0" onMouseClicked="#openGithub" onMouseEntered="#handIcon" prefHeight="22.0" prefWidth="170.0" text="https://github.com/Stryzhh" textFill="#327dff">
+                     <font>
+                        <Font name="Calibri Light" size="14.0" />
+                     </font>
+                  </Label>
+                  <AnchorPane layoutX="-1.0" prefHeight="37.0" prefWidth="746.0" style="-fx-border-color: #dadada;">
+                     <children>
+                        <Label layoutX="14.0" layoutY="10.0" text="Information about this application and creator" />
+                     </children>
+                  </AnchorPane>
+                  <Label layoutX="14.0" layoutY="46.0" prefHeight="22.0" prefWidth="84.0" text="Overview">
+                     <font>
+                        <Font name="Calibri Bold Italic" size="19.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="48.0" layoutY="71.0" prefHeight="105.0" prefWidth="648.0" text="PCCleaner is software created to help keep your computer in good shape by boosting your PC's performance by&#10;disabling unwanted and unused apps to allow your computer to wake up faster, upon this, this software allows&#10;you to improve your PC's security by updating outdated software closing possible security holes. In the process&#10;you will gain more disk space because you're removing unwanted junk but more importantly, you maintain your&#10;privacy by safely removing trackers and other data which is left by websites and advertisers.">
+                     <font>
+                        <Font name="Calibri Light" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="48.0" layoutY="226.0" prefHeight="25.0" prefWidth="164.0" text="To Report bugs please visit">
+                     <font>
+                        <Font name="Calibri Light" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="422.0" layoutY="226.0" prefHeight="25.0" prefWidth="164.0" text="and post on the issue page">
+                     <font>
+                        <Font name="Calibri Light" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="repo" layoutX="202.0" layoutY="226.0" onMouseClicked="#openRepo" onMouseEntered="#handIcon" prefHeight="25.0" prefWidth="218.0" text="https://github.com/Stryzhh/PCCleaner" textFill="#327dff">
+                     <font>
+                        <Font name="Calibri Light" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="website" layoutX="148.0" layoutY="305.0" onMouseClicked="#openWebsite" onMouseEntered="#handIcon" prefHeight="25.0" prefWidth="112.0" text="dafyddmaund.co.uk" textFill="#327dff">
+                     <font>
+                        <Font name="Calibri Light" size="14.0" />
+                     </font>
+                  </Label>
                </children>
             </AnchorPane>
          </children></AnchorPane>

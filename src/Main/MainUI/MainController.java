@@ -10,11 +10,16 @@ import Main.Elements.Specifications;
 import Main.Elements.Tools;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
+import java.awt.*;
 import java.io.File;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Cursor;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableView;
@@ -43,6 +48,7 @@ public class MainController implements Initializable {
     @FXML private AnchorPane optAdvancedPane;
     @FXML private AnchorPane optAboutPane;
 
+    @FXML private ImageView minimizedLogo;
     @FXML private ImageView logo;
     @FXML private ImageView minimizeIcon;
     @FXML private ImageView closeIcon;
@@ -83,10 +89,15 @@ public class MainController implements Initializable {
     @FXML private Label version;
     @FXML private Label specs;
     @FXML private Label driversScanned;
+    @FXML private Label website;
+    @FXML private Label github;
+    @FXML private Label repo;
 
     @FXML private TableView<String> registryTable;
     @FXML private ListView<JFXCheckBox> customList;
     @FXML private ListView<String> specsList;
+
+    private final Desktop desktop = Desktop.getDesktop();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -110,6 +121,7 @@ public class MainController implements Initializable {
         //setting images
         quickSetup.setImage(new Image(new File("images\\setup.png").toURI().toString()));
         driverSetup.setImage(new Image(new File("images\\setup1.png").toURI().toString()));
+        minimizedLogo.setImage(new Image(new File("images\\PCCleaner.png").toURI().toString()));
         logo.setImage(new Image(new File("images\\PCCleaner.png").toURI().toString()));
         quickIcon.setImage(new Image(new File("images\\quick.png").toURI().toString()));
         customIcon.setImage(new Image(new File("images\\custom.png").toURI().toString()));
@@ -221,6 +233,24 @@ public class MainController implements Initializable {
 
     public void specifications() {
         specificationsPane.toFront();
+    }
+
+    public void openWebsite() throws URISyntaxException, IOException {
+        desktop.browse(new URI("https://stryzhh.github.io/"));
+    }
+
+    public void openGithub() throws URISyntaxException, IOException {
+        desktop.browse(new URI("https://github.com/Stryzhh"));
+    }
+
+    public void openRepo() throws URISyntaxException, IOException {
+        desktop.browse(new URI("https://github.com/Stryzhh/PCCleaner"));
+    }
+
+    public void handIcon() {
+        website.setCursor(Cursor.HAND);
+        github.setCursor(Cursor.HAND);
+        repo.setCursor(Cursor.HAND);
     }
 
     public void drag() {
