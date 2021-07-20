@@ -47,6 +47,12 @@ public class MainController implements Initializable {
     @FXML private AnchorPane optExcludePane;
     @FXML private AnchorPane optAdvancedPane;
     @FXML private AnchorPane optAboutPane;
+    @FXML private AnchorPane toolsUninstallPanel;
+    @FXML private AnchorPane toolsStartupPanel;
+    @FXML private AnchorPane toolsUpdaterPanel;
+    @FXML private AnchorPane toolsPluginsPanel;
+    @FXML private AnchorPane toolsAnalyzerPanel;
+    @FXML private AnchorPane toolsWiperPanel;
 
     @FXML private ImageView minimizedLogo;
     @FXML private ImageView logo;
@@ -83,7 +89,6 @@ public class MainController implements Initializable {
     @FXML private JFXButton toolsPlugins;
     @FXML private JFXButton toolsWiper;
     @FXML private JFXButton toolsAnalyzer;
-    @FXML private JFXButton toolsDuplicates;
 
     @FXML private Label OS;
     @FXML private Label version;
@@ -105,13 +110,13 @@ public class MainController implements Initializable {
         setUIElements();
 
         //sets operating system and basic specifications
-        version.setText("v1.0.0");
         SystemInfo info = new SystemInfo();
-        OS.setText(String.valueOf(info.getOperatingSystem()));
         StringBuilder gpus = new StringBuilder();
         for (int i = 0; i < info.getHardware().getGraphicsCards().size(); i++) {
             gpus.append(info.getHardware().getGraphicsCards().get(i).getName()).append(", ");
         }
+        version.setText("v1.0.0");
+        OS.setText(String.valueOf(info.getOperatingSystem()));
         specs.setText(gpus + info.getHardware().getProcessor().getProcessorIdentifier().getName() + ", " +
                 Neutral.gigabyte(info.getHardware().getMemory().getTotal()) + " (GB) RAM");
 
@@ -168,7 +173,6 @@ public class MainController implements Initializable {
         Tools.plugins = toolsPlugins;
         Tools.wiper = toolsWiper;
         Tools.analyze = toolsAnalyzer;
-        Tools.duplicate = toolsDuplicates;
 
         //options UI elements
         Options.panel = settingsPanel;
@@ -205,6 +209,30 @@ public class MainController implements Initializable {
 
     public void tools() {
         toolsPane.toFront();
+    }
+
+    public void toolsUninstall() {
+        toolsUninstallPanel.toFront();
+    }
+
+    public void toolsUpdater() {
+        toolsUpdaterPanel.toFront();
+    }
+
+    public void toolsStartup() {
+        toolsStartupPanel.toFront();
+    }
+
+    public void toolsPlugins() {
+        toolsPluginsPanel.toFront();
+    }
+
+    public void toolsAnalyzer() {
+        toolsAnalyzerPanel.toFront();
+    }
+
+    public void toolsWiper() {
+        toolsWiperPanel.toFront();
     }
 
     public void options() {
