@@ -40,7 +40,7 @@
                   </ImageView>
                </graphic>
             </JFXButton>
-            <JFXButton layoutX="932.0" layoutY="5.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#minimize" prefHeight="20.0" prefWidth="30.0" style="-fx-graphic: url('@../../../images/email.png'); -fx-background-image: url('@../../../images/email.png');" AnchorPane.rightAnchor="38.0" AnchorPane.topAnchor="5.0">
+            <JFXButton layoutX="898.0" layoutY="5.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#minimize" prefHeight="20.0" prefWidth="30.0" style="-fx-graphic: url('@../../../images/email.png'); -fx-background-image: url('@../../../images/email.png');" AnchorPane.rightAnchor="72.0" AnchorPane.topAnchor="5.0">
                <graphic>
                   <ImageView fx:id="minimizeIcon" fitHeight="14.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -55,6 +55,15 @@
                </image>
             </ImageView>
             <Label layoutX="36.0" layoutY="6.0" text="Clean your PC for free" AnchorPane.leftAnchor="36.0" AnchorPane.topAnchor="6.0" />
+            <JFXButton layoutX="932.0" layoutY="5.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#maximise" prefHeight="20.0" prefWidth="30.0" style="-fx-graphic: url('@../../../images/email.png'); -fx-background-image: url('@../../../images/email.png');" AnchorPane.rightAnchor="38.0" AnchorPane.topAnchor="5.0">
+               <graphic>
+                  <ImageView fx:id="maximiseIcon" fitHeight="14.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../images/maximise.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
          </children>
       </AnchorPane>
       <AnchorPane layoutY="91.0" prefHeight="610.0" prefWidth="107.0" style="-fx-background-color: #726d6d;" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="91.0">
@@ -475,31 +484,6 @@
                   </JFXButton>
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="optExcludePane" layoutX="148.0" prefHeight="567.0" prefWidth="745.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="148.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <children>
-                  <ListView layoutX="13.0" layoutY="89.0" prefHeight="465.0" prefWidth="594.0" style="-fx-border-color: #dadada;" AnchorPane.bottomAnchor="13.0" AnchorPane.leftAnchor="13.0" AnchorPane.rightAnchor="138.0" AnchorPane.topAnchor="89.0" />
-                  <JFXButton fx:id="customAnalyze12" layoutX="613.0" layoutY="90.0" prefHeight="37.0" prefWidth="125.0" style="-fx-background-color: #6eace0;" text="Add" textFill="WHITE" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="90.0">
-                     <font>
-                        <Font name="Calibri Light" size="15.0" />
-                     </font>
-                  </JFXButton>
-                  <JFXButton fx:id="customAnalyze111" layoutX="613.0" layoutY="135.0" prefHeight="37.0" prefWidth="125.0" style="-fx-background-color: #b9b9b9;" text="Remove" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="135.0">
-                     <font>
-                        <Font name="Calibri Light" size="15.0" />
-                     </font>
-                  </JFXButton>
-                  <AnchorPane layoutX="13.0" layoutY="53.0" prefHeight="37.0" prefWidth="594.0" style="-fx-border-color: #dadada;" AnchorPane.leftAnchor="13.0" AnchorPane.rightAnchor="138.0" AnchorPane.topAnchor="53.0">
-                     <children>
-                        <Label layoutX="16.0" layoutY="12.0" prefHeight="17.0" prefWidth="245.0" text="Custom files/folders to exclude when deleting" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="334.0" AnchorPane.topAnchor="11.0" />
-                     </children>
-                  </AnchorPane>
-                  <AnchorPane layoutX="-1.0" prefHeight="37.0" prefWidth="746.0" style="-fx-border-color: #dadada;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <children>
-                        <Label layoutX="14.0" layoutY="10.0" text="Select additional files and folders to keep (use at your own risk)" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="10.0" />
-                     </children>
-                  </AnchorPane>
-               </children>
-            </AnchorPane>
             <AnchorPane fx:id="optSettingsPane" layoutX="148.0" prefHeight="567.0" prefWidth="745.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="148.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
                   <AnchorPane layoutX="-1.0" prefHeight="37.0" prefWidth="746.0" style="-fx-border-color: #dadada;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -527,31 +511,6 @@
                   <JFXCheckBox fx:id="advancedCloseCustom" checkedColor="#6ac968" layoutX="14.0" layoutY="154.0" prefHeight="18.0" prefWidth="170.0" text="Close program after custom clean" unCheckedColor="#dadada" />
                   <JFXCheckBox fx:id="advancedShutdownCustom" checkedColor="#6ac968" layoutX="14.0" layoutY="182.0" prefHeight="18.0" prefWidth="170.0" text="Shutdown program after custom clean" unCheckedColor="#dadada" />
                   <JFXButton fx:id="advancedRestore" layoutX="14.0" layoutY="224.0" prefHeight="37.0" prefWidth="125.0" style="-fx-background-color: #6eace0;" text="Restore default" textFill="WHITE">
-                     <font>
-                        <Font name="Calibri Light" size="15.0" />
-                     </font>
-                  </JFXButton>
-               </children>
-            </AnchorPane>
-            <AnchorPane fx:id="optIncludePane" layoutX="148.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="567.0" prefWidth="745.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="148.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <children>
-                  <ListView layoutX="13.0" layoutY="89.0" prefHeight="465.0" prefWidth="594.0" style="-fx-border-color: #dadada;" AnchorPane.bottomAnchor="13.0" AnchorPane.leftAnchor="13.0" AnchorPane.rightAnchor="138.0" AnchorPane.topAnchor="89.0" />
-                  <JFXButton fx:id="customAnalyze1" layoutX="613.0" layoutY="90.0" prefHeight="37.0" prefWidth="125.0" style="-fx-background-color: #6eace0;" text="Add" textFill="WHITE" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="90.0">
-                     <font>
-                        <Font name="Calibri Light" size="15.0" />
-                     </font>
-                  </JFXButton>
-                  <AnchorPane layoutX="13.0" layoutY="53.0" prefHeight="37.0" prefWidth="594.0" style="-fx-border-color: #dadada;" AnchorPane.leftAnchor="13.0" AnchorPane.rightAnchor="138.0" AnchorPane.topAnchor="53.0">
-                     <children>
-                        <Label layoutX="14.0" layoutY="10.0" text="Custom files/folders to include when deleting" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="10.0" />
-                     </children>
-                  </AnchorPane>
-                  <AnchorPane layoutX="-1.0" prefHeight="37.0" prefWidth="746.0" style="-fx-border-color: #dadada;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <children>
-                        <Label layoutX="14.0" layoutY="10.0" text="Select additional files and folders to delete (use at your own risk)" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="10.0" />
-                     </children>
-                  </AnchorPane>
-                  <JFXButton fx:id="customAnalyze1111" layoutX="613.0" layoutY="135.0" prefHeight="37.0" prefWidth="125.0" style="-fx-background-color: #b9b9b9;" text="Remove" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="135.0">
                      <font>
                         <Font name="Calibri Light" size="15.0" />
                      </font>
@@ -615,6 +574,66 @@
                         <Font name="Calibri Light" size="14.0" />
                      </font>
                   </Label>
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="optExcludePane" layoutX="148.0" prefHeight="567.0" prefWidth="745.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="148.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <ListView fx:id="excludeList" layoutX="13.0" layoutY="89.0" prefHeight="465.0" prefWidth="594.0" style="-fx-border-color: #dadada;" AnchorPane.bottomAnchor="13.0" AnchorPane.leftAnchor="13.0" AnchorPane.rightAnchor="138.0" AnchorPane.topAnchor="89.0" />
+                  <JFXButton fx:id="excludeAddFile" layoutX="613.0" layoutY="90.0" prefHeight="37.0" prefWidth="125.0" style="-fx-background-color: #6eace0;" text="Add File" textFill="WHITE" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="90.0">
+                     <font>
+                        <Font name="Calibri Light" size="15.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="excludeRemove" disable="true" layoutX="613.0" layoutY="179.0" prefHeight="37.0" prefWidth="125.0" style="-fx-background-color: #6eace0;" text="Remove" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="179.0">
+                     <font>
+                        <Font name="Calibri Light" size="15.0" />
+                     </font>
+                  </JFXButton>
+                  <AnchorPane layoutX="13.0" layoutY="53.0" prefHeight="37.0" prefWidth="594.0" style="-fx-border-color: #dadada;" AnchorPane.leftAnchor="13.0" AnchorPane.rightAnchor="138.0" AnchorPane.topAnchor="53.0">
+                     <children>
+                        <Label layoutX="16.0" layoutY="12.0" prefHeight="17.0" prefWidth="245.0" text="Custom files/folders to exclude when deleting" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="334.0" AnchorPane.topAnchor="11.0" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="-1.0" prefHeight="37.0" prefWidth="746.0" style="-fx-border-color: #dadada;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <Label layoutX="14.0" layoutY="10.0" text="Select additional files and folders to keep (use at your own risk)" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="10.0" />
+                     </children>
+                  </AnchorPane>
+                  <JFXButton fx:id="excludeAddFolder" layoutX="613.0" layoutY="134.0" prefHeight="37.0" prefWidth="125.0" style="-fx-background-color: #6eace0;" text="Add Folder" textFill="WHITE" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="134.0">
+                     <font>
+                        <Font name="Calibri Light" size="15.0" />
+                     </font>
+                  </JFXButton>
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="optIncludePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="567.0" prefWidth="745.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="148.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <ListView fx:id="includeList" layoutX="13.0" layoutY="89.0" prefHeight="465.0" prefWidth="594.0" style="-fx-border-color: #dadada;" AnchorPane.bottomAnchor="13.0" AnchorPane.leftAnchor="13.0" AnchorPane.rightAnchor="138.0" AnchorPane.topAnchor="89.0" />
+                  <JFXButton fx:id="includeAddFile" layoutX="613.0" layoutY="90.0" prefHeight="37.0" prefWidth="125.0" style="-fx-background-color: #6eace0;" text="Add File" textFill="WHITE" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="90.0">
+                     <font>
+                        <Font name="Calibri Light" size="15.0" />
+                     </font>
+                  </JFXButton>
+                  <AnchorPane layoutX="13.0" layoutY="53.0" prefHeight="37.0" prefWidth="594.0" style="-fx-border-color: #dadada;" AnchorPane.leftAnchor="13.0" AnchorPane.rightAnchor="138.0" AnchorPane.topAnchor="53.0">
+                     <children>
+                        <Label layoutX="14.0" layoutY="10.0" text="Custom files/folders to include when deleting" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="10.0" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="-1.0" prefHeight="37.0" prefWidth="746.0" style="-fx-border-color: #dadada;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <Label layoutX="14.0" layoutY="10.0" text="Select additional files and folders to delete (use at your own risk)" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="10.0" />
+                     </children>
+                  </AnchorPane>
+                  <JFXButton fx:id="includeRemove" disable="true" layoutX="613.0" layoutY="179.0" prefHeight="37.0" prefWidth="125.0" style="-fx-background-color: #6eace0;" text="Remove" textFill="WHITE" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="179.0">
+                     <font>
+                        <Font name="Calibri Light" size="15.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="includeAddFolder" layoutX="613.0" layoutY="134.0" prefHeight="37.0" prefWidth="125.0" style="-fx-background-color: #6eace0;" text="Add Folder" textFill="WHITE">
+                     <font>
+                        <Font name="Calibri Light" size="15.0" />
+                     </font>
+                  </JFXButton>
                </children>
             </AnchorPane>
          </children></AnchorPane>

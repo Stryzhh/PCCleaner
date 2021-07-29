@@ -2,20 +2,26 @@ package Main.Elements;
 
 import Main.Configuration.AdvancedSettings;
 import Main.Configuration.BasicSettings;
+import Main.Configuration.Config;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
+import java.awt.*;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Reader;
+import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
+import javafx.scene.control.ListView;
 import javafx.scene.layout.AnchorPane;
+import javax.swing.*;
 
 public class Options {
 
+    //main ui elements
     public static AnchorPane panel;
     public static AnchorPane settingsPane;
     public static AnchorPane includePane;
@@ -27,8 +33,24 @@ public class Options {
     public static JFXButton exclude;
     public static JFXButton advanced;
     public static JFXButton about;
+
+    //settings elements
     public static JFXCheckBox startup;
     public static JFXCheckBox recycle;
+
+    //include elements
+    public static ListView<File> includeList;
+    public static JFXButton includeAddFile;
+    public static JFXButton includeAddFolder;
+    public static JFXButton includeRemove;
+
+    //exclude elements
+    public static ListView<File> excludeList;
+    public static JFXButton excludeAddFile;
+    public static JFXButton excludeAddFolder;
+    public static JFXButton excludeRemove;
+
+    //advanced settings elements
     public static JFXCheckBox produceList;
     public static JFXCheckBox hideWarnings;
     public static JFXCheckBox closeQuick;
@@ -63,11 +85,60 @@ public class Options {
     }
 
     public static void include() {
+        includeRemove.disableProperty().bind(includeList.getSelectionModel().selectedItemProperty().isNull());
 
+        includeAddFile.setOnAction(e-> {
+            FileDialog dialog = new FileDialog((Dialog) null, "Select file to include");
+            dialog.setMode(FileDialog.LOAD);
+            dialog.setAlwaysOnTop(true);
+            dialog.setVisible(true);
+
+            if (dialog.getFile() != null) {
+                File file = new File(dialog.getFile());
+                Platform.runLater(() -> includeList.getItems().add(file));
+                System.out.println(file);
+                Config.includeFiles.add(file);
+            }
+        });
+        includeAddFolder.setOnAction(e-> {
+
+        });
+        includeRemove.setOnAction(e-> {
+            File item = includeList.getSelectionModel().getSelectedItem();
+            if (item != null) {
+                if (Config.includeFiles.contains(item)) {
+                    Config.includeFiles.remove(item);
+                } else Config.includeFolders.remove(item);
+            }
+        });
     }
 
     public static void exclude() {
+        excludeRemove.disableProperty().bind(excludeList.getSelectionModel().selectedItemProperty().isNull());
 
+        excludeAddFile.setOnAction(e-> {
+            FileDialog dialog = new FileDialog((Dialog) null, "Select file to exclude");
+            dialog.setMode(FileDialog.LOAD);
+            dialog.setAlwaysOnTop(true);
+            dialog.setVisible(true);
+
+            if (dialog.getFile() != null) {
+                File file = new File(dialog.getFile());
+                Config.excludeFiles.add(file);
+                excludeList.getItems().add(file);
+            }
+        });
+        excludeAddFolder.setOnAction(e-> {
+
+        });
+        excludeRemove.setOnAction(e-> {
+            File item = excludeList.getSelectionModel().getSelectedItem();
+            if (item != null) {
+                if (Config.excludeFiles.contains(item)) {
+                    Config.excludeFiles.remove(item);
+                } else Config.excludeFolders.remove(item);
+            }
+        });
     }
 
     public static void advanced() {

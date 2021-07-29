@@ -57,6 +57,7 @@ public class MainController implements Initializable {
     @FXML private ImageView minimizedLogo;
     @FXML private ImageView logo;
     @FXML private ImageView minimizeIcon;
+    @FXML private ImageView maximiseIcon;
     @FXML private ImageView closeIcon;
     @FXML private ImageView quickIcon;
     @FXML private ImageView quickSetup;
@@ -112,6 +113,16 @@ public class MainController implements Initializable {
     @FXML private JFXCheckBox basicStartup;
     @FXML private JFXCheckBox basicRecycle;
 
+    @FXML private ListView<File> includeList;
+    @FXML private JFXButton includeAddFile;
+    @FXML private JFXButton includeAddFolder;
+    @FXML private JFXButton includeRemove;
+
+    @FXML private ListView<File> excludeList;
+    @FXML private JFXButton excludeAddFile;
+    @FXML private JFXButton excludeAddFolder;
+    @FXML private JFXButton excludeRemove;
+
     private final Desktop desktop = Desktop.getDesktop();
 
     @Override
@@ -152,6 +163,7 @@ public class MainController implements Initializable {
         optionsIcon.setImage(new Image(new File("images\\settings.png").toURI().toString()));
         specificationsIcon.setImage(new Image(new File("images\\specifications.png").toURI().toString()));
         minimizeIcon.setImage(new Image(new File("images\\minimize.png").toURI().toString()));
+        maximiseIcon.setImage(new Image(new File("images\\maximise.png").toURI().toString()));
         closeIcon.setImage(new Image(new File("images\\close.png").toURI().toString()));
     }
 
@@ -211,6 +223,14 @@ public class MainController implements Initializable {
         Options.restoreAdvanced = advancedRestore;
         Options.startup = basicStartup;
         Options.recycle = basicRecycle;
+        Options.includeAddFile = includeAddFile;
+        Options.includeAddFolder = includeAddFolder;
+        Options.includeRemove = includeRemove;
+        Options.includeList = includeList;
+        Options.excludeAddFile = excludeAddFile;
+        Options.excludeAddFolder = excludeAddFolder;
+        Options.excludeRemove = excludeRemove;
+        Options.excludeList = excludeList;
 
         //specifications UI elements
         Specifications.list = specsList;
@@ -308,6 +328,10 @@ public class MainController implements Initializable {
 
     public void minimize() {
         Neutral.minimize(window);
+    }
+
+    public void maximise() {
+        Neutral.maximise(window);
     }
 
     public void exit() {

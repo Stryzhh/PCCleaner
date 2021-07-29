@@ -14,4 +14,8 @@ public class Neutral {
         thisWindow.setIconified(true);
     }
 
+    public static void maximise(AnchorPane window) {
+        Stage thisWindow = (Stage) window.getScene().getWindow();
+        thisWindow.setMaximized(!thisWindow.isMaximized());
+    }
 }
