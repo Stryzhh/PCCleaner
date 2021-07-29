@@ -25,6 +25,11 @@ The features of this program:
   * View your current drivers.
   * Repair existing drivers.
 
+* Customize your configuration
+  * Choose which files/folders to include.
+  * Choose which files/folders to exclude.
+  * Change settings to your wanted result.
+
 * GUI
   * Simple and nice-looking.
   * Easy to use.
