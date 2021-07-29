@@ -102,6 +102,16 @@ public class MainController implements Initializable {
     @FXML private ListView<JFXCheckBox> customList;
     @FXML private ListView<String> specsList;
 
+    @FXML private JFXCheckBox advancedProduceFileList;
+    @FXML private JFXCheckBox advancedHideWarning;
+    @FXML private JFXCheckBox advancedCloseQuick;
+    @FXML private JFXCheckBox advancedShutdownQuick;
+    @FXML private JFXCheckBox advancedCloseCustom;
+    @FXML private JFXCheckBox advancedShutdownCustom;
+    @FXML private JFXButton advancedRestore;
+    @FXML private JFXCheckBox basicStartup;
+    @FXML private JFXCheckBox basicRecycle;
+
     private final Desktop desktop = Desktop.getDesktop();
 
     @Override
@@ -121,6 +131,12 @@ public class MainController implements Initializable {
                 Neutral.gigabyte(info.getHardware().getMemory().getTotal()) + " (GB) RAM");
 
         //loads date onto panels
+        Clean.load();
+        Custom.load();
+        Registry.load();
+        Drivers.load();
+        Tools.load();
+        Options.load();
         Specifications.load();
 
         //setting images
@@ -186,6 +202,15 @@ public class MainController implements Initializable {
         Options.exclude = settingsExclude;
         Options.advanced = settingsAdvanced;
         Options.about = settingsAbout;
+        Options.produceList = advancedProduceFileList;
+        Options.hideWarnings = advancedHideWarning;
+        Options.closeQuick = advancedCloseQuick;
+        Options.shutdownQuick = advancedShutdownQuick;
+        Options.closeCustom = advancedCloseCustom;
+        Options.shutdownCustom = advancedShutdownCustom;
+        Options.restoreAdvanced = advancedRestore;
+        Options.startup = basicStartup;
+        Options.recycle = basicRecycle;
 
         //specifications UI elements
         Specifications.list = specsList;
@@ -279,10 +304,6 @@ public class MainController implements Initializable {
         website.setCursor(Cursor.HAND);
         github.setCursor(Cursor.HAND);
         repo.setCursor(Cursor.HAND);
-    }
-
-    public void drag() {
-        Neutral.dragWindow(window);
     }
 
     public void minimize() {

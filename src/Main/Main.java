@@ -19,8 +19,12 @@ public class Main extends Application {
         Parent startWindow = FXMLLoader.load(Objects.requireNonNull(getClass()
                 .getClassLoader().getResource("Main/MainUI/main.fxml")));
 
+
         window.initStyle(StageStyle.UNDECORATED);
         window.setScene(new Scene(startWindow, 1000, 700));
+        ResizeHelper.addResizeListener(window);
+        window.setMinWidth(1000);
+        window.setMinHeight(700);
         window.show();
     }
 

@@ -29,7 +29,7 @@ public class Specifications {
                 list.getItems().add("Device ID: " + hardware.getGraphicsCards().get(i).getDeviceId());
             }
 
-            list.getItems().add("------ CPU INFO ------");
+            list.getItems().add("\n------ CPU INFO ------");
             list.getItems().add("Name: " + processor.getProcessorIdentifier().getName());
             list.getItems().add("Processor Family: " + processor.getProcessorIdentifier());
             list.getItems().add("Micro-architecture: " + processor.getProcessorIdentifier().getMicroarchitecture());
@@ -38,18 +38,18 @@ public class Specifications {
             list.getItems().add("Available processors (physical cores): " + processor.getPhysicalProcessorCount());
             list.getItems().add("Available processors (logical cores): " + processor.getLogicalProcessorCount());
 
-            list.getItems().add("------ MOTHERBOARD INFO ------");
+            list.getItems().add("\n------ MOTHERBOARD INFO ------");
             list.getItems().add("Manufacturer: " + hardware.getComputerSystem().getBaseboard().getManufacturer());
             list.getItems().add("Model: " + hardware.getComputerSystem().getModel());
             list.getItems().add("Serial Number: " + hardware.getComputerSystem().getBaseboard().getSerialNumber());
             list.getItems().add("Hardware UUID: " + hardware.getComputerSystem().getHardwareUUID());
 
-            list.getItems().add("------ RAM INFO ------");
+            list.getItems().add("\n------ RAM INFO ------");
             list.getItems().add("Total Size: " + Neutral.gigabyte(hardware.getMemory().getTotal()) + " GB");
             list.getItems().add("Available: " + Neutral.gigabyte(hardware.getMemory().getAvailable()) + " GB");
             list.getItems().add("Page Size: " + hardware.getMemory().getPageSize() + " KB");
 
-            list.getItems().add("------ STORAGE INFO ------");
+            list.getItems().add("\n------ STORAGE INFO ------");
             File[] roots = File.listRoots();
             for (int i = 0; i < roots.length; i++) {
                 list.getItems().add("Drive " + (i + 1) + " :");
@@ -59,7 +59,7 @@ public class Specifications {
                 list.getItems().add("Usable space: " + Neutral.gigabyte(roots[i].getUsableSpace()) + " GB");
             }
 
-            list.getItems().add("------ POWER INFO ------");
+            list.getItems().add("\n------ POWER INFO ------");
             for (int i = 0; i < hardware.getPowerSources().size(); i++) {
                 list.getItems().add("Source " + (i + 1) + " :");
                 list.getItems().add("Name: " + hardware.getPowerSources().get(i).getName());

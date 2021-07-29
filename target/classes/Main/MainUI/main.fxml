@@ -13,25 +13,25 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="window" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMousePressed="#drag" prefHeight="700.0" prefWidth="1000.0" style="-fx-background-color: #545252;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Main.MainUI.MainController">
+<AnchorPane fx:id="window" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" style="-fx-background-color: #545252;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Main.MainUI.MainController">
    <children>
-      <ImageView fx:id="logo" fitHeight="59.0" fitWidth="59.0" layoutX="25.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="logo" fitHeight="59.0" fitWidth="59.0" layoutX="25.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="28.0">
          <image>
             <Image url="@../../../images/PCCleaner.png" />
          </image>
       </ImageView>
-      <Label layoutX="107.0" layoutY="36.0" style="-fx-font-weight: bold;" text="PCCleaner" textFill="#dadada">
+      <Label layoutX="107.0" layoutY="36.0" style="-fx-font-weight: bold;" text="PCCleaner" textFill="#dadada" AnchorPane.leftAnchor="107.0" AnchorPane.topAnchor="36.0">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <Label fx:id="version" layoutX="107.0" layoutY="65.0" style="-fx-text-fill: #b9b9b9;" text="v1.0.0" textFill="WHITE" />
-      <Label fx:id="OS" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="386.0" layoutY="43.0" prefHeight="17.0" prefWidth="600.0" style="-fx-text-fill: #b9b9b9;" text="Operating System" textFill="WHITE" />
-      <Label fx:id="specs" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="386.0" layoutY="60.0" prefHeight="17.0" prefWidth="600.0" style="-fx-text-fill: #b9b9b9;" text="Computer Specifications" textFill="WHITE" />
-      <JFXButton layoutX="878.0" layoutY="667.0" style="-fx-text-fill: #b9b9b9;" text="Check for updates" underline="true" />
-      <AnchorPane prefHeight="30.0" prefWidth="1000.0" style="-fx-background-color: white;">
+      <Label fx:id="version" layoutX="107.0" layoutY="65.0" style="-fx-text-fill: #b9b9b9;" text="v1.0.0" textFill="WHITE" AnchorPane.leftAnchor="107.0" AnchorPane.topAnchor="65.0" />
+      <Label fx:id="OS" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="386.0" layoutY="43.0" prefHeight="17.0" prefWidth="600.0" style="-fx-text-fill: #b9b9b9;" text="Operating System" textFill="WHITE" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="43.0" />
+      <Label fx:id="specs" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="386.0" layoutY="60.0" prefHeight="17.0" prefWidth="600.0" style="-fx-text-fill: #b9b9b9;" text="Computer Specifications" textFill="WHITE" AnchorPane.rightAnchor="14.0" />
+      <JFXButton layoutX="878.0" layoutY="667.0" style="-fx-text-fill: #b9b9b9;" text="Check for updates" underline="true" AnchorPane.bottomAnchor="8.0" AnchorPane.rightAnchor="10.0" />
+      <AnchorPane prefHeight="30.0" prefWidth="1000.0" style="-fx-background-color: white;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <JFXButton layoutX="966.0" layoutY="5.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#exit" prefHeight="20.0" prefWidth="30.0" style="-fx-graphic: url('@../../../images/email.png'); -fx-background-image: url('@../../../images/email.png');">
+            <JFXButton layoutX="966.0" layoutY="5.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#exit" prefHeight="20.0" prefWidth="30.0" style="-fx-graphic: url('@../../../images/email.png'); -fx-background-image: url('@../../../images/email.png');" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
                <graphic>
                   <ImageView fx:id="closeIcon" fitHeight="14.0" fitWidth="14.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -40,7 +40,7 @@
                   </ImageView>
                </graphic>
             </JFXButton>
-            <JFXButton layoutX="932.0" layoutY="5.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#minimize" prefHeight="20.0" prefWidth="30.0" style="-fx-graphic: url('@../../../images/email.png'); -fx-background-image: url('@../../../images/email.png');">
+            <JFXButton layoutX="932.0" layoutY="5.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#minimize" prefHeight="20.0" prefWidth="30.0" style="-fx-graphic: url('@../../../images/email.png'); -fx-background-image: url('@../../../images/email.png');" AnchorPane.rightAnchor="38.0" AnchorPane.topAnchor="5.0">
                <graphic>
                   <ImageView fx:id="minimizeIcon" fitHeight="14.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -49,51 +49,16 @@
                   </ImageView>
                </graphic>
             </JFXButton>
-            <ImageView fx:id="minimizedLogo" fitHeight="22.0" fitWidth="20.0" layoutX="8.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="minimizedLogo" fitHeight="22.0" fitWidth="20.0" layoutX="8.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="8.0" AnchorPane.topAnchor="5.0">
                <image>
                   <Image url="@../../../images/PCCleaner.png" />
                </image>
             </ImageView>
-            <Label layoutX="36.0" layoutY="6.0" text="Clean your PC for free" />
+            <Label layoutX="36.0" layoutY="6.0" text="Clean your PC for free" AnchorPane.leftAnchor="36.0" AnchorPane.topAnchor="6.0" />
          </children>
       </AnchorPane>
-      <AnchorPane layoutY="91.0" prefHeight="610.0" prefWidth="107.0" style="-fx-background-color: #726d6d;">
+      <AnchorPane layoutY="91.0" prefHeight="610.0" prefWidth="107.0" style="-fx-background-color: #726d6d;" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="91.0">
          <children>
-            <JFXButton alignment="CENTER" onAction="#clean" prefHeight="82.0" prefWidth="107.0" style="-fx-border-color: grey; -fx-border-width: 1 0 1 0;" text="&#10;&#10;&#10;Quick Clean&#10;" textFill="WHITE">
-               <font>
-                  <Font size="10.0" />
-               </font>
-            </JFXButton>
-            <JFXButton alignment="CENTER" layoutY="81.0" onAction="#custom" prefHeight="82.0" prefWidth="107.0" style="-fx-border-width: 1 0 1 0; -fx-border-color: grey;" text="&#10;&#10;&#10;Custom Clean&#10;" textFill="WHITE">
-               <font>
-                  <Font size="10.0" />
-               </font>
-            </JFXButton>
-            <JFXButton alignment="CENTER" layoutY="162.0" onAction="#registry" prefHeight="82.0" prefWidth="107.0" style="-fx-border-width: 1 0 1 0; -fx-border-color: grey;" text="&#10;&#10;&#10;Registry&#10;" textFill="WHITE">
-               <font>
-                  <Font size="10.0" />
-               </font>
-            </JFXButton>
-            <JFXButton alignment="CENTER" layoutX="1.0" layoutY="243.0" onAction="#drivers" prefHeight="82.0" prefWidth="107.0" style="-fx-border-width: 1 0 1 0; -fx-border-color: grey;" text="&#10;&#10;&#10;Driver Updater" textFill="WHITE">
-               <font>
-                  <Font size="10.0" />
-               </font>
-            </JFXButton>
-            <JFXButton alignment="CENTER" layoutY="324.0" onAction="#tools" prefHeight="82.0" prefWidth="107.0" style="-fx-border-width: 1 0 1 0; -fx-border-color: grey;" text="&#10;&#10;&#10;Tools&#10;" textFill="WHITE">
-               <font>
-                  <Font size="10.0" />
-               </font>
-            </JFXButton>
-            <JFXButton alignment="CENTER" layoutY="405.0" onAction="#options" prefHeight="82.0" prefWidth="107.0" style="-fx-border-width: 1 0 1 0; -fx-border-color: grey;" text="&#10;&#10;&#10;Options&#10;" textFill="WHITE">
-               <font>
-                  <Font size="10.0" />
-               </font>
-            </JFXButton>
-            <JFXButton alignment="CENTER" layoutY="486.0" onAction="#specifications" prefHeight="82.0" prefWidth="107.0" style="-fx-border-width: 1 0 1 0; -fx-border-color: grey;" text="&#10;&#10;&#10;Full Specifications&#10;" textFill="WHITE">
-               <font>
-                  <Font size="10.0" />
-               </font>
-            </JFXButton>
             <ImageView fx:id="quickIcon" fitHeight="52.0" fitWidth="57.0" layoutX="28.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../images/quick.png" />
@@ -129,41 +94,76 @@
                   <Image url="@../../../images/specifications.png" />
                </image>
             </ImageView>
+            <JFXButton alignment="CENTER" onAction="#clean" prefHeight="82.0" prefWidth="107.0" style="-fx-border-color: grey; -fx-border-width: 1 0 1 0;" text="&#10;&#10;&#10;Quick Clean&#10;" textFill="WHITE">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </JFXButton>
+            <JFXButton alignment="CENTER" layoutY="81.0" onAction="#custom" prefHeight="82.0" prefWidth="107.0" style="-fx-border-width: 1 0 1 0; -fx-border-color: grey;" text="&#10;&#10;&#10;Custom Clean&#10;" textFill="WHITE">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </JFXButton>
+            <JFXButton alignment="CENTER" layoutY="162.0" onAction="#registry" prefHeight="82.0" prefWidth="107.0" style="-fx-border-width: 1 0 1 0; -fx-border-color: grey;" text="&#10;&#10;&#10;Registry&#10;" textFill="WHITE">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </JFXButton>
+            <JFXButton alignment="CENTER" layoutX="1.0" layoutY="243.0" onAction="#drivers" prefHeight="82.0" prefWidth="107.0" style="-fx-border-width: 1 0 1 0; -fx-border-color: grey;" text="&#10;&#10;&#10;Driver Updater" textFill="WHITE">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </JFXButton>
+            <JFXButton alignment="CENTER" layoutY="324.0" onAction="#tools" prefHeight="82.0" prefWidth="107.0" style="-fx-border-width: 1 0 1 0; -fx-border-color: grey;" text="&#10;&#10;&#10;Tools&#10;" textFill="WHITE">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </JFXButton>
+            <JFXButton alignment="CENTER" layoutY="405.0" onAction="#options" prefHeight="82.0" prefWidth="107.0" style="-fx-border-width: 1 0 1 0; -fx-border-color: grey;" text="&#10;&#10;&#10;Options&#10;" textFill="WHITE">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </JFXButton>
+            <JFXButton alignment="CENTER" layoutY="486.0" onAction="#specifications" prefHeight="82.0" prefWidth="107.0" style="-fx-border-width: 1 0 1 0; -fx-border-color: grey;" text="&#10;&#10;&#10;Full Specifications&#10;" textFill="WHITE">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </JFXButton>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="customPane" layoutX="107.0" layoutY="91.0" prefHeight="567.0" prefWidth="893.0" style="-fx-background-color: white;">
+      <AnchorPane fx:id="customPane" layoutX="107.0" layoutY="91.0" prefHeight="567.0" prefWidth="893.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="42.0" AnchorPane.leftAnchor="107.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="91.0">
          <children>
-            <ListView fx:id="customList" layoutX="221.0" layoutY="44.0" prefHeight="465.0" prefWidth="660.0" stylesheets="@list.css" />
-            <AnchorPane fx:id="customPanel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="567.0" prefWidth="210.0" style="-fx-background-color: #eeecec; -fx-border-color: #dadada;">
+            <ListView fx:id="customList" layoutX="221.0" layoutY="44.0" prefHeight="465.0" prefWidth="660.0" stylesheets="@list.css" AnchorPane.bottomAnchor="58.0" AnchorPane.leftAnchor="221.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="44.0" />
+            <AnchorPane fx:id="customPanel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="567.0" prefWidth="210.0" style="-fx-background-color: #eeecec; -fx-border-color: #dadada;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <JFXButton fx:id="customWindows" alignment="CENTER" prefHeight="44.0" prefWidth="105.0" style="-fx-border-color: #dadada; -fx-border-width: 1 1 1 0;" text="Windows">
+                  <JFXButton fx:id="customWindows" alignment="CENTER" prefHeight="44.0" prefWidth="105.0" style="-fx-border-color: #dadada; -fx-border-width: 1 1 1 0;" text="Windows" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="-1.0">
                      <font>
                         <Font name="Calibri Light" size="15.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton fx:id="customApplications" alignment="CENTER" layoutX="105.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="44.0" prefWidth="105.0" style="-fx-border-color: #dadada; -fx-border-width: 1 1 1 0;" text="Applications">
+                  <JFXButton fx:id="customApplications" alignment="CENTER" layoutX="105.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="44.0" prefWidth="105.0" style="-fx-border-color: #dadada; -fx-border-width: 1 1 1 0;" text="Applications" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="-1.0">
                      <font>
                         <Font name="Calibri Light" size="15.0" />
                      </font>
                   </JFXButton>
                </children>
             </AnchorPane>
-            <JFXButton fx:id="customAnalyze" layoutX="222.0" layoutY="519.0" prefHeight="37.0" prefWidth="96.0" style="-fx-background-color: #6eace0;" text="Analyze" textFill="WHITE">
+            <JFXButton fx:id="customAnalyze" layoutX="222.0" layoutY="519.0" prefHeight="37.0" prefWidth="96.0" style="-fx-background-color: #6eace0;" text="Analyze" textFill="WHITE" AnchorPane.bottomAnchor="11.0" AnchorPane.leftAnchor="222.0">
                <font>
                   <Font name="Calibri Light" size="15.0" />
                </font>
             </JFXButton>
-            <JFXButton fx:id="customClean" layoutX="786.0" layoutY="519.0" prefHeight="37.0" prefWidth="96.0" style="-fx-background-color: #6eace0;" text="Clean" textFill="WHITE">
+            <JFXButton fx:id="customClean" layoutX="786.0" layoutY="519.0" prefHeight="37.0" prefWidth="96.0" style="-fx-background-color: #6eace0;" text="Clean" textFill="WHITE" AnchorPane.bottomAnchor="11.0" AnchorPane.rightAnchor="10.0">
                <font>
                   <Font name="Calibri Light" size="15.0" />
                </font>
             </JFXButton>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="registryPane" layoutX="107.0" layoutY="91.0" prefHeight="567.0" prefWidth="893.0" style="-fx-background-color: white;">
+      <AnchorPane fx:id="registryPane" layoutX="107.0" layoutY="91.0" prefHeight="567.0" prefWidth="893.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="42.0" AnchorPane.leftAnchor="107.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="91.0">
          <children>
-            <AnchorPane fx:id="registryPanel" prefHeight="567.0" prefWidth="211.0" style="-fx-background-color: #eeecec; -fx-border-color: #dadada;" />
-            <TableView fx:id="registryTable" layoutX="222.0" layoutY="49.0" prefHeight="465.0" prefWidth="660.0">
+            <AnchorPane fx:id="registryPanel" prefHeight="567.0" prefWidth="211.0" style="-fx-background-color: #eeecec; -fx-border-color: #dadada;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+            <TableView fx:id="registryTable" layoutX="222.0" layoutY="49.0" prefHeight="465.0" prefWidth="660.0" AnchorPane.bottomAnchor="53.0" AnchorPane.leftAnchor="222.0" AnchorPane.rightAnchor="11.0" AnchorPane.topAnchor="49.0">
               <columns>
                 <TableColumn prefWidth="60.0" text="Selected" />
                 <TableColumn prefWidth="200.0" text="Problem" />
@@ -171,18 +171,18 @@
                   <TableColumn prefWidth="200.0" text="Registry Key" />
               </columns>
             </TableView>
-            <JFXButton fx:id="registryScan" layoutX="222.0" layoutY="521.0" prefHeight="37.0" prefWidth="96.0" style="-fx-background-color: #6eace0;" text="Scan" textFill="WHITE">
+            <JFXButton fx:id="registryScan" layoutX="222.0" layoutY="521.0" prefHeight="37.0" prefWidth="96.0" style="-fx-background-color: #6eace0;" text="Scan" textFill="WHITE" AnchorPane.bottomAnchor="9.0" AnchorPane.leftAnchor="222.0">
                <font>
                   <Font name="Calibri Light" size="15.0" />
                </font>
             </JFXButton>
-            <JFXButton fx:id="registryReview" layoutX="757.0" layoutY="521.0" prefHeight="37.0" prefWidth="125.0" style="-fx-background-color: #6eace0;" text="Review" textFill="WHITE">
+            <JFXButton fx:id="registryReview" layoutX="757.0" layoutY="521.0" prefHeight="37.0" prefWidth="125.0" style="-fx-background-color: #6eace0;" text="Review" textFill="WHITE" AnchorPane.bottomAnchor="9.0" AnchorPane.rightAnchor="10.0">
                <font>
                   <Font name="Calibri Light" size="15.0" />
                </font>
             </JFXButton>
          </children></AnchorPane>
-      <AnchorPane fx:id="driverPane" layoutX="107.0" layoutY="91.0" prefHeight="567.0" prefWidth="893.0" style="-fx-background-color: white;">
+      <AnchorPane fx:id="driverPane" layoutX="107.0" layoutY="91.0" prefHeight="567.0" prefWidth="893.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="42.0" AnchorPane.leftAnchor="107.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="91.0">
          <children>
             <ImageView fx:id="driverSetup" fitHeight="257.0" fitWidth="358.0" layoutX="276.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -215,149 +215,350 @@
                </font>
             </JFXButton>
          </children></AnchorPane>
-      <AnchorPane fx:id="specificationsPane" layoutX="107.0" layoutY="91.0" prefHeight="567.0" prefWidth="893.0" style="-fx-background-color: white;">
+      <AnchorPane fx:id="specificationsPane" layoutX="107.0" layoutY="91.0" prefHeight="567.0" prefWidth="893.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="42.0" AnchorPane.leftAnchor="107.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="91.0">
          <children>
-            <ListView fx:id="specsList" layoutX="173.0" layoutY="14.0" prefHeight="540.0" prefWidth="547.0" stylesheets="@list.css" />
+            <ListView fx:id="specsList" layoutX="173.0" layoutY="14.0" prefHeight="540.0" prefWidth="547.0" stylesheets="@list.css" AnchorPane.bottomAnchor="13.0" AnchorPane.leftAnchor="173.0" AnchorPane.rightAnchor="173.0" AnchorPane.topAnchor="14.0" />
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="cleanPane" layoutX="107.0" layoutY="91.0" prefHeight="567.0" prefWidth="893.0" style="-fx-background-color: white;">
+      <AnchorPane fx:id="toolsPane" layoutX="107.0" layoutY="91.0" prefHeight="567.0" prefWidth="893.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="42.0" AnchorPane.leftAnchor="107.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="91.0">
+         <children>
+            <AnchorPane fx:id="toolsPanel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="567.0" prefWidth="148.0" style="-fx-background-color: #eeecec; -fx-border-color: #dadada;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <JFXButton fx:id="toolsUninstall" alignment="CENTER" onAction="#toolsUninstall" prefHeight="44.0" prefWidth="148.0" style="-fx-border-color: #dadada; -fx-border-width: 1 0 1 0;" text="Uninstall" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="-1.0">
+                     <font>
+                        <Font name="Calibri Light" size="15.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="toolsUpdater" alignment="CENTER" layoutY="43.0" onAction="#toolsUpdater" prefHeight="44.0" prefWidth="148.0" style="-fx-border-color: #dadada; -fx-border-width: 1 0 1 0;" text="Software Updater" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="42.0">
+                     <font>
+                        <Font name="Calibri Light" size="15.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="toolsStartup" alignment="CENTER" layoutX="2.0" layoutY="85.0" onAction="#toolsStartup" prefHeight="44.0" prefWidth="148.0" style="-fx-border-color: #dadada; -fx-border-width: 1 0 1 0;" text="Startup" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="85.0">
+                     <font>
+                        <Font name="Calibri Light" size="15.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="toolsPlugins" alignment="CENTER" layoutX="2.0" layoutY="130.0" onAction="#toolsPlugins" prefHeight="44.0" prefWidth="148.0" style="-fx-border-color: #dadada; -fx-border-width: 1 0 1 0;" text="Browser Plugins" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="128.0">
+                     <font>
+                        <Font name="Calibri Light" size="15.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="toolsWiper" alignment="CENTER" layoutY="172.0" onAction="#toolsWiper" prefHeight="44.0" prefWidth="148.0" style="-fx-border-color: #dadada; -fx-border-width: 1 0 1 0;" text="Disk Wiper" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="171.0">
+                     <font>
+                        <Font name="Calibri Light" size="15.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="toolsAnalyzer" alignment="CENTER" layoutY="215.0" onAction="#toolsAnalyzer" prefHeight="44.0" prefWidth="148.0" style="-fx-border-color: #dadada; -fx-border-width: 1 0 1 0;" text="Disk Analyzer" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="214.0">
+                     <font>
+                        <Font name="Calibri Light" size="15.0" />
+                     </font>
+                  </JFXButton>
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="toolsUninstallPanel" layoutX="148.0" prefHeight="567.0" prefWidth="745.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="148.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <AnchorPane layoutX="-1.0" prefHeight="37.0" prefWidth="746.0" style="-fx-border-color: #dadada;" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <Label layoutX="16.0" layoutY="12.0" prefHeight="17.0" prefWidth="230.0" text="Select programs you wish to uninstall" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="500.0" AnchorPane.topAnchor="11.0" />
+                     </children>
+                  </AnchorPane>
+                  <TableView fx:id="registryTable1" layoutX="14.0" layoutY="81.0" prefHeight="472.0" prefWidth="600.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="131.0" AnchorPane.topAnchor="81.0">
+                     <columns>
+                        <TableColumn prefWidth="200.0" text="Program" />
+                        <TableColumn prefWidth="200.0" text="Publisher" />
+                        <TableColumn minWidth="0.0" prefWidth="200.0" text="Size" />
+                     </columns>
+                  </TableView>
+                  <TextField layoutX="14.0" layoutY="52.0" prefHeight="25.0" prefWidth="194.0" promptText="Search" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="52.0" />
+                  <JFXButton fx:id="registryScan11" layoutX="621.0" layoutY="81.0" prefHeight="37.0" prefWidth="117.0" style="-fx-background-color: #6eace0;" text="Uninstall" textFill="WHITE" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="81.0">
+                     <font>
+                        <Font name="Calibri Light" size="15.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="registryScan111" layoutX="621.0" layoutY="125.0" prefHeight="37.0" prefWidth="117.0" style="-fx-background-color: #6eace0;" text="Save to text file" textFill="WHITE" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="125.0">
+                     <font>
+                        <Font name="Calibri Light" size="15.0" />
+                     </font>
+                  </JFXButton>
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="toolsUpdaterPanel" layoutX="148.0" prefHeight="567.0" prefWidth="745.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="148.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <AnchorPane layoutX="-1.0" prefHeight="37.0" prefWidth="746.0" style="-fx-border-color: #dadada;" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <Label layoutX="14.0" layoutY="10.0" text="Choose programs you would like to update" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="10.0" />
+                     </children>
+                  </AnchorPane>
+                  <TableView fx:id="registryTable11" layoutX="14.0" layoutY="52.0" prefHeight="501.0" prefWidth="600.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="131.0" AnchorPane.topAnchor="52.0">
+                     <columns>
+                        <TableColumn prefWidth="100.0" text="Select" />
+                        <TableColumn prefWidth="125.0" text="Programs" />
+                        <TableColumn prefWidth="125.0" text="New Version" />
+                        <TableColumn prefWidth="125.0" text="Current Version" />
+                        <TableColumn prefWidth="125.0" text="Size" />
+                     </columns>
+                  </TableView>
+                  <JFXButton fx:id="registryScan112" layoutX="620.0" layoutY="52.0" prefHeight="37.0" prefWidth="117.0" style="-fx-background-color: #6eace0;" text="Update All" textFill="WHITE" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="52.0">
+                     <font>
+                        <Font name="Calibri Light" size="15.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="registryScan1111" layoutX="620.0" layoutY="96.0" prefHeight="37.0" prefWidth="117.0" style="-fx-background-color: #6eace0;" text="Refresh" textFill="WHITE" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="102.0">
+                     <font>
+                        <Font name="Calibri Light" size="15.0" />
+                     </font>
+                  </JFXButton>
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="toolsStartupPanel" layoutX="148.0" prefHeight="567.0" prefWidth="745.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="148.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <AnchorPane layoutX="-1.0" prefHeight="37.0" prefWidth="746.0" style="-fx-border-color: #dadada;" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <Label layoutX="14.0" layoutY="10.0" text="Select programs you wish to load up on waking up your computer" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="10.0" />
+                     </children>
+                  </AnchorPane>
+                  <TableView fx:id="registryTable111" layoutX="14.0" layoutY="52.0" prefHeight="501.0" prefWidth="600.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="131.0" AnchorPane.topAnchor="52.0">
+                     <columns>
+                        <TableColumn prefWidth="100.0" text="Enabled" />
+                        <TableColumn prefWidth="100.0" text="Key" />
+                        <TableColumn prefWidth="200.0" text="Program" />
+                        <TableColumn prefWidth="200.0" text="File" />
+                     </columns>
+                  </TableView>
+                  <JFXButton fx:id="registryScan1121" layoutX="620.0" layoutY="52.0" prefHeight="37.0" prefWidth="117.0" style="-fx-background-color: grey;" text="Enable" textFill="WHITE" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="52.0">
+                     <font>
+                        <Font name="Calibri Light" size="15.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="registryScan11111" layoutX="620.0" layoutY="96.0" prefHeight="37.0" prefWidth="117.0" style="-fx-background-color: grey;" text="Disable" textFill="WHITE" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="99.0">
+                     <font>
+                        <Font name="Calibri Light" size="15.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="registryScan111111" layoutX="620.0" layoutY="140.0" prefHeight="37.0" prefWidth="117.0" style="-fx-background-color: #6eace0;" text="Save to text file" textFill="WHITE" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="144.0">
+                     <font>
+                        <Font name="Calibri Light" size="15.0" />
+                     </font>
+                  </JFXButton>
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="toolsPluginsPanel" layoutX="148.0" prefHeight="567.0" prefWidth="745.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="148.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <AnchorPane layoutX="-1.0" prefHeight="37.0" prefWidth="746.0" style="-fx-border-color: #dadada;" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <Label layoutX="14.0" layoutY="10.0" text="Plugins that run when your browser starts" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="10.0" />
+                     </children>
+                  </AnchorPane>
+                  <TableView fx:id="registryTable1111" layoutX="14.0" layoutY="81.0" prefHeight="472.0" prefWidth="600.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="131.0" AnchorPane.topAnchor="81.0">
+                     <columns>
+                        <TableColumn text="Enabled" />
+                        <TableColumn text="Key" />
+                        <TableColumn prefWidth="180.0" text="Program" />
+                        <TableColumn text="Profile" />
+                        <TableColumn prefWidth="180.0" text="File" />
+                     </columns>
+                  </TableView>
+                  <JFXButton fx:id="registryScan11211" layoutX="621.0" layoutY="45.0" prefHeight="37.0" prefWidth="117.0" style="-fx-background-color: grey;" text="Enable" textFill="WHITE" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="45.0">
+                     <font>
+                        <Font name="Calibri Light" size="15.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="registryScan111112" layoutX="621.0" layoutY="89.0" prefHeight="37.0" prefWidth="117.0" style="-fx-background-color: grey;" text="Disable" textFill="WHITE" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="90.0">
+                     <font>
+                        <Font name="Calibri Light" size="15.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="registryScan1111111" layoutX="621.0" layoutY="133.0" prefHeight="37.0" prefWidth="117.0" style="-fx-background-color: #6eace0;" text="Save to text file" textFill="WHITE" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="135.0">
+                     <font>
+                        <Font name="Calibri Light" size="15.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="toolsUninstall1" alignment="CENTER" layoutX="14.0" layoutY="45.0" prefHeight="37.0" prefWidth="300.0" style="-fx-border-color: #dadada;" text="Google Chrome">
+                     <font>
+                        <Font name="Calibri Light" size="15.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="toolsUninstall11" alignment="CENTER" layoutX="313.0" layoutY="45.0" prefHeight="37.0" prefWidth="301.0" style="-fx-border-color: #dadada;" text="Internet Explorer">
+                     <font>
+                        <Font name="Calibri Light" size="15.0" />
+                     </font>
+                  </JFXButton>
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="toolsAnalyzerPanel" layoutX="148.0" prefHeight="567.0" prefWidth="745.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="148.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <AnchorPane layoutX="-1.0" prefHeight="37.0" prefWidth="746.0" style="-fx-border-color: #dadada;" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <Label layoutX="14.0" layoutY="10.0" text="Scan to see which type of files are using diskspace on your computer" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="10.0" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="toolsAnalyzerPanel1" layoutX="14.0" layoutY="70.0" prefHeight="150.0" prefWidth="220.0" style="-fx-background-color: white; -fx-border-color: #dadada;" />
+                  <Label layoutX="14.0" layoutY="50.0" text="Categories" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="50.0" />
+                  <Label layoutX="14.0" layoutY="229.0" text="Drives" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="230.0" />
+                  <ListView fx:id="customList1" layoutX="14.0" layoutY="249.0" prefHeight="150.0" prefWidth="220.0" stylesheets="@list.css" />
+                  <JFXButton fx:id="registryScan11111111" layoutX="117.0" layoutY="411.0" prefHeight="37.0" prefWidth="117.0" style="-fx-background-color: #6eace0;" text="Analyze" textFill="WHITE">
+                     <font>
+                        <Font name="Calibri Light" size="15.0" />
+                     </font>
+                  </JFXButton>
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="toolsWiperPanel" layoutX="148.0" prefHeight="567.0" prefWidth="745.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="148.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <AnchorPane prefHeight="37.0" prefWidth="746.0" style="-fx-border-color: #dadada;" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <Label layoutX="14.0" layoutY="10.0" text="Securely wipe contents of a specified drive" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="10.0" />
+                     </children>
+                  </AnchorPane>
+                  <Label layoutX="14.0" layoutY="50.0" text="Drives" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="50.0" />
+                  <ListView fx:id="customList11" layoutX="14.0" layoutY="70.0" prefHeight="150.0" prefWidth="220.0" stylesheets="@list.css" />
+                  <JFXButton fx:id="registryScan111111111" layoutX="117.0" layoutY="232.0" prefHeight="37.0" prefWidth="117.0" style="-fx-background-color: #6eace0;" text="Wipe" textFill="WHITE">
+                     <font>
+                        <Font name="Calibri Light" size="15.0" />
+                     </font>
+                  </JFXButton>
+               </children>
+            </AnchorPane>
+         </children></AnchorPane>
+      <AnchorPane fx:id="cleanPane" layoutX="107.0" layoutY="91.0" prefHeight="567.0" prefWidth="893.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="42.0" AnchorPane.leftAnchor="107.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="91.0">
          <children>
             <ImageView fx:id="quickSetup" fitHeight="291.0" fitWidth="332.0" layoutX="281.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../images/setup.png" />
                </image>
             </ImageView>
-            <JFXButton fx:id="quickClean" layoutX="347.0" layoutY="431.0" prefHeight="52.0" prefWidth="200.0" style="-fx-background-color: #6eace0;" text="Perform Quick Clean" textFill="WHITE">
+            <JFXButton fx:id="quickClean" layoutX="370.0" layoutY="428.0" prefHeight="52.0" style="-fx-background-color: #6eace0;" text="Perform Quick Clean" textFill="WHITE">
                <font>
                   <Font name="Calibri Light" size="16.0" />
                </font>
             </JFXButton>
-            <Label layoutX="305.0" layoutY="332.0" text="Clean Your Computer">
+            <Label layoutX="305.0" layoutY="330.0" prefHeight="40.0" prefWidth="284.0" text="Clean Your Computer">
                <font>
                   <Font name="Calibri Bold" size="32.0" />
                </font>
             </Label>
-            <Label layoutX="268.0" layoutY="380.0" text="Remove all unwanted junk from your machine" textFill="#aba4a4">
+            <Label layoutX="266.0" layoutY="380.0" prefHeight="22.0" prefWidth="362.0" text="Remove all unwanted junk from your machine" textFill="#aba4a4">
                <font>
                   <Font name="Calibri" size="19.0" />
                </font>
             </Label>
          </children></AnchorPane>
-      <AnchorPane fx:id="settingsPane" layoutX="107.0" layoutY="91.0" prefHeight="567.0" prefWidth="893.0" style="-fx-background-color: white;">
+      <AnchorPane fx:id="settingsPane" layoutX="107.0" layoutY="91.0" prefHeight="567.0" prefWidth="893.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="42.0" AnchorPane.leftAnchor="107.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="91.0">
          <children>
-            <AnchorPane fx:id="settingsPanel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="567.0" prefWidth="148.0" style="-fx-background-color: #eeecec; -fx-border-color: #dadada;">
+            <AnchorPane fx:id="settingsPanel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="567.0" prefWidth="148.0" style="-fx-background-color: #eeecec; -fx-border-color: #dadada;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <JFXButton fx:id="settingsSettings" alignment="CENTER" onAction="#optionsSettings" prefHeight="44.0" prefWidth="148.0" style="-fx-border-color: #dadada; -fx-border-width: 1 0 1 0;" text="Settings">
+                  <JFXButton fx:id="settingsSettings" alignment="CENTER" onAction="#optionsSettings" prefHeight="44.0" prefWidth="148.0" style="-fx-border-color: #dadada; -fx-border-width: 1 0 1 0;" text="Settings" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <font>
                         <Font name="Calibri Light" size="15.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton fx:id="settingsInclude" alignment="CENTER" layoutY="43.0" onAction="#optionsInclude" prefHeight="44.0" prefWidth="148.0" style="-fx-border-color: #dadada; -fx-border-width: 1 0 1 0;" text="Include">
+                  <JFXButton fx:id="settingsInclude" alignment="CENTER" layoutY="43.0" onAction="#optionsInclude" prefHeight="44.0" prefWidth="148.0" style="-fx-border-color: #dadada; -fx-border-width: 1 0 1 0;" text="Include" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="43.0">
                      <font>
                         <Font name="Calibri Light" size="15.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton fx:id="settingsExclude" alignment="CENTER" layoutY="86.0" onAction="#optionsExclude" prefHeight="44.0" prefWidth="148.0" style="-fx-border-color: #dadada; -fx-border-width: 1 0 1 0;" text="Exclude">
+                  <JFXButton fx:id="settingsExclude" alignment="CENTER" layoutY="86.0" onAction="#optionsExclude" prefHeight="44.0" prefWidth="148.0" style="-fx-border-color: #dadada; -fx-border-width: 1 0 1 0;" text="Exclude" AnchorPane.leftAnchor="1.0" AnchorPane.topAnchor="86.0">
                      <font>
                         <Font name="Calibri Light" size="15.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton fx:id="settingsAdvanced" alignment="CENTER" layoutY="129.0" onAction="#optionsAdvanced" prefHeight="44.0" prefWidth="148.0" style="-fx-border-color: #dadada; -fx-border-width: 1 0 1 0;" text="Advanced">
+                  <JFXButton fx:id="settingsAdvanced" alignment="CENTER" layoutY="129.0" onAction="#optionsAdvanced" prefHeight="44.0" prefWidth="148.0" style="-fx-border-color: #dadada; -fx-border-width: 1 0 1 0;" text="Advanced" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="129.0">
                      <font>
                         <Font name="Calibri Light" size="15.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton fx:id="settingsAbout" alignment="CENTER" layoutY="172.0" onAction="#optionsAbout" prefHeight="44.0" prefWidth="148.0" style="-fx-border-color: #dadada; -fx-border-width: 1 0 1 0;" text="About">
+                  <JFXButton fx:id="settingsAbout" alignment="CENTER" layoutY="172.0" onAction="#optionsAbout" prefHeight="44.0" prefWidth="148.0" style="-fx-border-color: #dadada; -fx-border-width: 1 0 1 0;" text="About" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="172.0">
                      <font>
                         <Font name="Calibri Light" size="15.0" />
                      </font>
                   </JFXButton>
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="optExcludePane" layoutX="148.0" prefHeight="567.0" prefWidth="745.0" style="-fx-background-color: white;">
+            <AnchorPane fx:id="optExcludePane" layoutX="148.0" prefHeight="567.0" prefWidth="745.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="148.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <ListView layoutX="13.0" layoutY="89.0" prefHeight="465.0" prefWidth="594.0" style="-fx-border-color: #dadada;" />
-                  <JFXButton fx:id="customAnalyze12" layoutX="613.0" layoutY="90.0" prefHeight="37.0" prefWidth="125.0" style="-fx-background-color: #6eace0;" text="Add" textFill="WHITE">
+                  <ListView layoutX="13.0" layoutY="89.0" prefHeight="465.0" prefWidth="594.0" style="-fx-border-color: #dadada;" AnchorPane.bottomAnchor="13.0" AnchorPane.leftAnchor="13.0" AnchorPane.rightAnchor="138.0" AnchorPane.topAnchor="89.0" />
+                  <JFXButton fx:id="customAnalyze12" layoutX="613.0" layoutY="90.0" prefHeight="37.0" prefWidth="125.0" style="-fx-background-color: #6eace0;" text="Add" textFill="WHITE" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="90.0">
                      <font>
                         <Font name="Calibri Light" size="15.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton fx:id="customAnalyze111" layoutX="613.0" layoutY="135.0" prefHeight="37.0" prefWidth="125.0" style="-fx-background-color: #b9b9b9;" text="Remove">
+                  <JFXButton fx:id="customAnalyze111" layoutX="613.0" layoutY="135.0" prefHeight="37.0" prefWidth="125.0" style="-fx-background-color: #b9b9b9;" text="Remove" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="135.0">
                      <font>
                         <Font name="Calibri Light" size="15.0" />
                      </font>
                   </JFXButton>
-                  <AnchorPane layoutX="13.0" layoutY="53.0" prefHeight="37.0" prefWidth="594.0" style="-fx-border-color: #dadada;">
+                  <AnchorPane layoutX="13.0" layoutY="53.0" prefHeight="37.0" prefWidth="594.0" style="-fx-border-color: #dadada;" AnchorPane.leftAnchor="13.0" AnchorPane.rightAnchor="138.0" AnchorPane.topAnchor="53.0">
                      <children>
-                        <Label layoutX="14.0" layoutY="10.0" text="Custom files/folders to exclude when deleting" />
+                        <Label layoutX="16.0" layoutY="12.0" prefHeight="17.0" prefWidth="245.0" text="Custom files/folders to exclude when deleting" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="334.0" AnchorPane.topAnchor="11.0" />
                      </children>
                   </AnchorPane>
-                  <AnchorPane layoutX="-1.0" prefHeight="37.0" prefWidth="746.0" style="-fx-border-color: #dadada;">
+                  <AnchorPane layoutX="-1.0" prefHeight="37.0" prefWidth="746.0" style="-fx-border-color: #dadada;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Label layoutX="14.0" layoutY="10.0" text="Select additional files and folders to keep (use at your own risk)" />
+                        <Label layoutX="14.0" layoutY="10.0" text="Select additional files and folders to keep (use at your own risk)" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="10.0" />
                      </children>
                   </AnchorPane>
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="optSettingsPane" layoutX="148.0" prefHeight="567.0" prefWidth="745.0" style="-fx-background-color: white;">
+            <AnchorPane fx:id="optSettingsPane" layoutX="148.0" prefHeight="567.0" prefWidth="745.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="148.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <AnchorPane layoutX="-1.0" prefHeight="37.0" prefWidth="746.0" style="-fx-border-color: #dadada;">
+                  <AnchorPane layoutX="-1.0" prefHeight="37.0" prefWidth="746.0" style="-fx-border-color: #dadada;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Label layoutX="14.0" layoutY="10.0" text="Basic Settings" />
+                        <Label layoutX="14.0" layoutY="10.0" text="Basic Settings" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="10.0" />
                      </children>
                   </AnchorPane>
                   <Label layoutX="14.0" layoutY="50.0" text="Language" />
-                  <JFXCheckBox checkedColor="#6ac968" layoutX="14.0" layoutY="91.0" prefHeight="18.0" prefWidth="170.0" text="Launch PCCleaner on startup" unCheckedColor="#dadada" />
-                  <JFXCheckBox checkedColor="#6ac968" layoutX="14.0" layoutY="118.0" prefHeight="18.0" prefWidth="170.0" selected="true" text="Clean recycling bin automatically after running clean" unCheckedColor="#dadada" />
+                  <JFXCheckBox fx:id="basicStartup" checkedColor="#6ac968" layoutX="14.0" layoutY="91.0" prefHeight="18.0" prefWidth="170.0" text="Launch PCCleaner on startup" unCheckedColor="#dadada" />
+                  <JFXCheckBox fx:id="basicRecycle" checkedColor="#6ac968" layoutX="14.0" layoutY="118.0" prefHeight="18.0" prefWidth="170.0" selected="true" text="Clean recycling bin automatically after running clean" unCheckedColor="#dadada" />
                   <ComboBox disable="true" layoutX="77.0" layoutY="46.0" prefHeight="25.0" prefWidth="178.0" promptText="English" />
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="optAdvancedPane" layoutX="148.0" prefHeight="567.0" prefWidth="745.0" style="-fx-background-color: white;">
+            <AnchorPane fx:id="optAdvancedPane" layoutX="148.0" prefHeight="567.0" prefWidth="745.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="148.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <AnchorPane layoutX="-1.0" prefHeight="37.0" prefWidth="746.0" style="-fx-border-color: #dadada;">
+                  <AnchorPane layoutX="-1.0" prefHeight="37.0" prefWidth="746.0" style="-fx-border-color: #dadada;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Label layoutX="14.0" layoutY="10.0" text="Additional settings to help improve your experience (use at your own risk)" />
+                        <Label layoutX="14.0" layoutY="10.0" text="Additional settings to help improve your experience (use at your own risk)" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="10.0" />
                      </children>
                   </AnchorPane>
-                  <JFXCheckBox checkedColor="#6ac968" layoutX="14.0" layoutY="47.0" prefHeight="18.0" prefWidth="170.0" selected="true" text="Produce file list report" unCheckedColor="#dadada" />
-                  <JFXCheckBox checkedColor="#6ac968" layoutX="14.0" layoutY="73.0" prefHeight="18.0" prefWidth="170.0" text="Hide warning messages" unCheckedColor="#dadada" />
-                  <JFXCheckBox checkedColor="#6ac968" layoutX="14.0" layoutY="99.0" prefHeight="18.0" prefWidth="170.0" text="Close program after quick clean" unCheckedColor="#dadada" />
-                  <JFXCheckBox checkedColor="#6ac968" layoutX="14.0" layoutY="127.0" prefHeight="18.0" prefWidth="170.0" text="Shutdown program after quick clean" unCheckedColor="#dadada" />
-                  <JFXCheckBox checkedColor="#6ac968" layoutX="14.0" layoutY="154.0" prefHeight="18.0" prefWidth="170.0" text="Close program after custom clean" unCheckedColor="#dadada" />
-                  <JFXCheckBox checkedColor="#6ac968" layoutX="14.0" layoutY="182.0" prefHeight="18.0" prefWidth="170.0" text="Shutdown program after custom clean" unCheckedColor="#dadada" />
-                  <JFXButton fx:id="registryScan1" layoutX="14.0" layoutY="224.0" prefHeight="37.0" prefWidth="125.0" style="-fx-background-color: #6eace0;" text="Restore default" textFill="WHITE">
+                  <JFXCheckBox fx:id="advancedProduceFileList" checkedColor="#6ac968" layoutX="14.0" layoutY="47.0" prefHeight="18.0" prefWidth="170.0" selected="true" text="Produce file list report" unCheckedColor="#dadada" />
+                  <JFXCheckBox fx:id="advancedHideWarning" checkedColor="#6ac968" layoutX="14.0" layoutY="73.0" prefHeight="18.0" prefWidth="170.0" text="Hide warning messages" unCheckedColor="#dadada" />
+                  <JFXCheckBox fx:id="advancedCloseQuick" checkedColor="#6ac968" layoutX="14.0" layoutY="99.0" prefHeight="18.0" prefWidth="170.0" text="Close program after quick clean" unCheckedColor="#dadada" />
+                  <JFXCheckBox fx:id="advancedShutdownQuick" checkedColor="#6ac968" layoutX="14.0" layoutY="127.0" prefHeight="18.0" prefWidth="170.0" text="Shutdown program after quick clean" unCheckedColor="#dadada" />
+                  <JFXCheckBox fx:id="advancedCloseCustom" checkedColor="#6ac968" layoutX="14.0" layoutY="154.0" prefHeight="18.0" prefWidth="170.0" text="Close program after custom clean" unCheckedColor="#dadada" />
+                  <JFXCheckBox fx:id="advancedShutdownCustom" checkedColor="#6ac968" layoutX="14.0" layoutY="182.0" prefHeight="18.0" prefWidth="170.0" text="Shutdown program after custom clean" unCheckedColor="#dadada" />
+                  <JFXButton fx:id="advancedRestore" layoutX="14.0" layoutY="224.0" prefHeight="37.0" prefWidth="125.0" style="-fx-background-color: #6eace0;" text="Restore default" textFill="WHITE">
                      <font>
                         <Font name="Calibri Light" size="15.0" />
                      </font>
                   </JFXButton>
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="optIncludePane" layoutX="148.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="567.0" prefWidth="745.0" style="-fx-background-color: white;">
+            <AnchorPane fx:id="optIncludePane" layoutX="148.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="567.0" prefWidth="745.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="148.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <ListView layoutX="13.0" layoutY="89.0" prefHeight="465.0" prefWidth="594.0" style="-fx-border-color: #dadada;" />
-                  <JFXButton fx:id="customAnalyze1" layoutX="613.0" layoutY="90.0" prefHeight="37.0" prefWidth="125.0" style="-fx-background-color: #6eace0;" text="Add" textFill="WHITE">
+                  <ListView layoutX="13.0" layoutY="89.0" prefHeight="465.0" prefWidth="594.0" style="-fx-border-color: #dadada;" AnchorPane.bottomAnchor="13.0" AnchorPane.leftAnchor="13.0" AnchorPane.rightAnchor="138.0" AnchorPane.topAnchor="89.0" />
+                  <JFXButton fx:id="customAnalyze1" layoutX="613.0" layoutY="90.0" prefHeight="37.0" prefWidth="125.0" style="-fx-background-color: #6eace0;" text="Add" textFill="WHITE" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="90.0">
                      <font>
                         <Font name="Calibri Light" size="15.0" />
                      </font>
                   </JFXButton>
-                  <AnchorPane layoutX="13.0" layoutY="53.0" prefHeight="37.0" prefWidth="594.0" style="-fx-border-color: #dadada;">
+                  <AnchorPane layoutX="13.0" layoutY="53.0" prefHeight="37.0" prefWidth="594.0" style="-fx-border-color: #dadada;" AnchorPane.leftAnchor="13.0" AnchorPane.rightAnchor="138.0" AnchorPane.topAnchor="53.0">
                      <children>
-                        <Label layoutX="14.0" layoutY="10.0" text="Custom files/folders to include when deleting" />
+                        <Label layoutX="14.0" layoutY="10.0" text="Custom files/folders to include when deleting" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="10.0" />
                      </children>
                   </AnchorPane>
-                  <AnchorPane layoutX="-1.0" prefHeight="37.0" prefWidth="746.0" style="-fx-border-color: #dadada;">
+                  <AnchorPane layoutX="-1.0" prefHeight="37.0" prefWidth="746.0" style="-fx-border-color: #dadada;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Label layoutX="14.0" layoutY="10.0" text="Select additional files and folders to delete (use at your own risk)" />
+                        <Label layoutX="14.0" layoutY="10.0" text="Select additional files and folders to delete (use at your own risk)" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="10.0" />
                      </children>
                   </AnchorPane>
-                  <JFXButton fx:id="customAnalyze1111" layoutX="613.0" layoutY="135.0" prefHeight="37.0" prefWidth="125.0" style="-fx-background-color: #b9b9b9;" text="Remove">
+                  <JFXButton fx:id="customAnalyze1111" layoutX="613.0" layoutY="135.0" prefHeight="37.0" prefWidth="125.0" style="-fx-background-color: #b9b9b9;" text="Remove" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="135.0">
                      <font>
                         <Font name="Calibri Light" size="15.0" />
                      </font>
                   </JFXButton>
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="optAboutPane" layoutX="148.0" prefHeight="567.0" prefWidth="745.0" style="-fx-background-color: white;">
+            <AnchorPane fx:id="optAboutPane" layoutX="148.0" prefHeight="567.0" prefWidth="745.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="148.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
                   <Label layoutX="14.0" layoutY="202.0" prefHeight="22.0" prefWidth="96.0" text="Report Bugs">
                      <font>
@@ -379,9 +580,9 @@
                         <Font name="Calibri Light" size="14.0" />
                      </font>
                   </Label>
-                  <AnchorPane layoutX="-1.0" prefHeight="37.0" prefWidth="746.0" style="-fx-border-color: #dadada;">
+                  <AnchorPane layoutX="-1.0" prefHeight="37.0" prefWidth="746.0" style="-fx-border-color: #dadada;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Label layoutX="14.0" layoutY="10.0" text="Information about this application and creator" />
+                        <Label layoutX="14.0" layoutY="10.0" text="Information about this application and creator" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="10.0" />
                      </children>
                   </AnchorPane>
                   <Label layoutX="14.0" layoutY="46.0" prefHeight="22.0" prefWidth="84.0" text="Overview">
@@ -414,207 +615,6 @@
                         <Font name="Calibri Light" size="14.0" />
                      </font>
                   </Label>
-               </children>
-            </AnchorPane>
-         </children></AnchorPane>
-      <AnchorPane fx:id="toolsPane" layoutX="107.0" layoutY="91.0" prefHeight="567.0" prefWidth="893.0" style="-fx-background-color: white;">
-         <children>
-            <AnchorPane fx:id="toolsPanel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="567.0" prefWidth="148.0" style="-fx-background-color: #eeecec; -fx-border-color: #dadada;">
-               <children>
-                  <JFXButton fx:id="toolsUninstall" alignment="CENTER" onAction="#toolsUninstall" prefHeight="44.0" prefWidth="148.0" style="-fx-border-color: #dadada; -fx-border-width: 1 0 1 0;" text="Uninstall">
-                     <font>
-                        <Font name="Calibri Light" size="15.0" />
-                     </font>
-                  </JFXButton>
-                  <JFXButton fx:id="toolsUpdater" alignment="CENTER" layoutY="43.0" onAction="#toolsUpdater" prefHeight="44.0" prefWidth="148.0" style="-fx-border-color: #dadada; -fx-border-width: 1 0 1 0;" text="Software Updater">
-                     <font>
-                        <Font name="Calibri Light" size="15.0" />
-                     </font>
-                  </JFXButton>
-                  <JFXButton fx:id="toolsStartup" alignment="CENTER" layoutY="86.0" onAction="#toolsStartup" prefHeight="44.0" prefWidth="148.0" style="-fx-border-color: #dadada; -fx-border-width: 1 0 1 0;" text="Startup">
-                     <font>
-                        <Font name="Calibri Light" size="15.0" />
-                     </font>
-                  </JFXButton>
-                  <JFXButton fx:id="toolsPlugins" alignment="CENTER" layoutY="129.0" onAction="#toolsPlugins" prefHeight="44.0" prefWidth="148.0" style="-fx-border-color: #dadada; -fx-border-width: 1 0 1 0;" text="Browser Plugins">
-                     <font>
-                        <Font name="Calibri Light" size="15.0" />
-                     </font>
-                  </JFXButton>
-                  <JFXButton fx:id="toolsWiper" alignment="CENTER" layoutY="172.0" onAction="#toolsWiper" prefHeight="44.0" prefWidth="148.0" style="-fx-border-color: #dadada; -fx-border-width: 1 0 1 0;" text="Disk Wiper">
-                     <font>
-                        <Font name="Calibri Light" size="15.0" />
-                     </font>
-                  </JFXButton>
-                  <JFXButton fx:id="toolsAnalyzer" alignment="CENTER" layoutY="215.0" onAction="#toolsAnalyzer" prefHeight="44.0" prefWidth="148.0" style="-fx-border-color: #dadada; -fx-border-width: 1 0 1 0;" text="Disk Analyzer">
-                     <font>
-                        <Font name="Calibri Light" size="15.0" />
-                     </font>
-                  </JFXButton>
-               </children>
-            </AnchorPane>
-            <AnchorPane fx:id="toolsUninstallPanel" layoutX="148.0" prefHeight="567.0" prefWidth="745.0" style="-fx-background-color: white;">
-               <children>
-                  <AnchorPane layoutX="-1.0" prefHeight="37.0" prefWidth="746.0" style="-fx-border-color: #dadada;">
-                     <children>
-                        <Label layoutX="14.0" layoutY="10.0" text="Select programs you wish to uninstall" />
-                     </children>
-                  </AnchorPane>
-                  <TableView fx:id="registryTable1" layoutX="14.0" layoutY="81.0" prefHeight="472.0" prefWidth="600.0">
-                     <columns>
-                        <TableColumn prefWidth="200.0" text="Program" />
-                        <TableColumn prefWidth="200.0" text="Publisher" />
-                        <TableColumn minWidth="0.0" prefWidth="200.0" text="Size" />
-                     </columns>
-                  </TableView>
-                  <TextField layoutX="14.0" layoutY="52.0" prefHeight="25.0" prefWidth="194.0" promptText="Search" />
-                  <JFXButton fx:id="registryScan11" layoutX="621.0" layoutY="81.0" prefHeight="37.0" prefWidth="117.0" style="-fx-background-color: #6eace0;" text="Uninstall" textFill="WHITE">
-                     <font>
-                        <Font name="Calibri Light" size="15.0" />
-                     </font>
-                  </JFXButton>
-                  <JFXButton fx:id="registryScan111" layoutX="621.0" layoutY="125.0" prefHeight="37.0" prefWidth="117.0" style="-fx-background-color: #6eace0;" text="Save to text file" textFill="WHITE">
-                     <font>
-                        <Font name="Calibri Light" size="15.0" />
-                     </font>
-                  </JFXButton>
-               </children>
-            </AnchorPane>
-            <AnchorPane fx:id="toolsUpdaterPanel" layoutX="148.0" prefHeight="567.0" prefWidth="745.0" style="-fx-background-color: white;">
-               <children>
-                  <AnchorPane layoutX="-1.0" prefHeight="37.0" prefWidth="746.0" style="-fx-border-color: #dadada;">
-                     <children>
-                        <Label layoutX="14.0" layoutY="10.0" text="Choose programs you would like to update" />
-                     </children>
-                  </AnchorPane>
-                  <TableView fx:id="registryTable11" layoutX="14.0" layoutY="52.0" prefHeight="501.0" prefWidth="600.0">
-                     <columns>
-                        <TableColumn prefWidth="100.0" text="Select" />
-                        <TableColumn prefWidth="125.0" text="Programs" />
-                        <TableColumn prefWidth="125.0" text="New Version" />
-                        <TableColumn prefWidth="125.0" text="Current Version" />
-                        <TableColumn prefWidth="125.0" text="Size" />
-                     </columns>
-                  </TableView>
-                  <JFXButton fx:id="registryScan112" layoutX="620.0" layoutY="52.0" prefHeight="37.0" prefWidth="117.0" style="-fx-background-color: #6eace0;" text="Update All" textFill="WHITE">
-                     <font>
-                        <Font name="Calibri Light" size="15.0" />
-                     </font>
-                  </JFXButton>
-                  <JFXButton fx:id="registryScan1111" layoutX="620.0" layoutY="96.0" prefHeight="37.0" prefWidth="117.0" style="-fx-background-color: #6eace0;" text="Refresh" textFill="WHITE">
-                     <font>
-                        <Font name="Calibri Light" size="15.0" />
-                     </font>
-                  </JFXButton>
-               </children>
-            </AnchorPane>
-            <AnchorPane fx:id="toolsStartupPanel" layoutX="148.0" prefHeight="567.0" prefWidth="745.0" style="-fx-background-color: white;">
-               <children>
-                  <AnchorPane layoutX="-1.0" prefHeight="37.0" prefWidth="746.0" style="-fx-border-color: #dadada;">
-                     <children>
-                        <Label layoutX="14.0" layoutY="10.0" text="Select programs you wish to load up on waking up your computer" />
-                     </children>
-                  </AnchorPane>
-                  <TableView fx:id="registryTable111" layoutX="14.0" layoutY="52.0" prefHeight="501.0" prefWidth="600.0">
-                     <columns>
-                        <TableColumn prefWidth="100.0" text="Enabled" />
-                        <TableColumn prefWidth="100.0" text="Key" />
-                        <TableColumn prefWidth="200.0" text="Program" />
-                        <TableColumn prefWidth="200.0" text="File" />
-                     </columns>
-                  </TableView>
-                  <JFXButton fx:id="registryScan1121" layoutX="620.0" layoutY="52.0" prefHeight="37.0" prefWidth="117.0" style="-fx-background-color: grey;" text="Enable" textFill="WHITE">
-                     <font>
-                        <Font name="Calibri Light" size="15.0" />
-                     </font>
-                  </JFXButton>
-                  <JFXButton fx:id="registryScan11111" layoutX="620.0" layoutY="96.0" prefHeight="37.0" prefWidth="117.0" style="-fx-background-color: grey;" text="Disable" textFill="WHITE">
-                     <font>
-                        <Font name="Calibri Light" size="15.0" />
-                     </font>
-                  </JFXButton>
-                  <JFXButton fx:id="registryScan111111" layoutX="620.0" layoutY="140.0" prefHeight="37.0" prefWidth="117.0" style="-fx-background-color: #6eace0;" text="Save to text file" textFill="WHITE">
-                     <font>
-                        <Font name="Calibri Light" size="15.0" />
-                     </font>
-                  </JFXButton>
-               </children>
-            </AnchorPane>
-            <AnchorPane fx:id="toolsPluginsPanel" layoutX="148.0" prefHeight="567.0" prefWidth="745.0" style="-fx-background-color: white;">
-               <children>
-                  <AnchorPane layoutX="-1.0" prefHeight="37.0" prefWidth="746.0" style="-fx-border-color: #dadada;">
-                     <children>
-                        <Label layoutX="14.0" layoutY="10.0" text="Plugins that run when your browser starts" />
-                     </children>
-                  </AnchorPane>
-                  <TableView fx:id="registryTable1111" layoutX="14.0" layoutY="81.0" prefHeight="472.0" prefWidth="600.0">
-                     <columns>
-                        <TableColumn text="Enabled" />
-                        <TableColumn text="Key" />
-                        <TableColumn prefWidth="180.0" text="Program" />
-                        <TableColumn text="Profile" />
-                        <TableColumn prefWidth="180.0" text="File" />
-                     </columns>
-                  </TableView>
-                  <JFXButton fx:id="registryScan11211" layoutX="621.0" layoutY="45.0" prefHeight="37.0" prefWidth="117.0" style="-fx-background-color: grey;" text="Enable" textFill="WHITE">
-                     <font>
-                        <Font name="Calibri Light" size="15.0" />
-                     </font>
-                  </JFXButton>
-                  <JFXButton fx:id="registryScan111112" layoutX="621.0" layoutY="89.0" prefHeight="37.0" prefWidth="117.0" style="-fx-background-color: grey;" text="Disable" textFill="WHITE">
-                     <font>
-                        <Font name="Calibri Light" size="15.0" />
-                     </font>
-                  </JFXButton>
-                  <JFXButton fx:id="registryScan1111111" layoutX="621.0" layoutY="133.0" prefHeight="37.0" prefWidth="117.0" style="-fx-background-color: #6eace0;" text="Save to text file" textFill="WHITE">
-                     <font>
-                        <Font name="Calibri Light" size="15.0" />
-                     </font>
-                  </JFXButton>
-                  <JFXButton fx:id="toolsUninstall1" alignment="CENTER" layoutX="14.0" layoutY="45.0" prefHeight="37.0" prefWidth="300.0" style="-fx-border-color: #dadada;" text="Google Chrome">
-                     <font>
-                        <Font name="Calibri Light" size="15.0" />
-                     </font>
-                  </JFXButton>
-                  <JFXButton fx:id="toolsUninstall11" alignment="CENTER" layoutX="313.0" layoutY="45.0" prefHeight="37.0" prefWidth="301.0" style="-fx-border-color: #dadada;" text="Internet Explorer">
-                     <font>
-                        <Font name="Calibri Light" size="15.0" />
-                     </font>
-                  </JFXButton>
-               </children>
-            </AnchorPane>
-            <AnchorPane fx:id="toolsAnalyzerPanel" layoutX="148.0" prefHeight="567.0" prefWidth="745.0" style="-fx-background-color: white;">
-               <children>
-                  <AnchorPane layoutX="-1.0" prefHeight="37.0" prefWidth="746.0" style="-fx-border-color: #dadada;">
-                     <children>
-                        <Label layoutX="14.0" layoutY="10.0" text="Scan to see which type of files are using diskspace on your computer" />
-                     </children>
-                  </AnchorPane>
-                  <AnchorPane fx:id="toolsAnalyzerPanel1" layoutX="14.0" layoutY="70.0" prefHeight="150.0" prefWidth="220.0" style="-fx-background-color: white; -fx-border-color: #dadada;" />
-                  <Label layoutX="14.0" layoutY="50.0" text="Categories" />
-                  <Label layoutX="14.0" layoutY="229.0" text="Drives" />
-                  <ListView fx:id="customList1" layoutX="14.0" layoutY="249.0" prefHeight="150.0" prefWidth="220.0" stylesheets="@list.css" />
-                  <JFXButton fx:id="registryScan11111111" layoutX="117.0" layoutY="411.0" prefHeight="37.0" prefWidth="117.0" style="-fx-background-color: #6eace0;" text="Analyze" textFill="WHITE">
-                     <font>
-                        <Font name="Calibri Light" size="15.0" />
-                     </font>
-                  </JFXButton>
-               </children>
-            </AnchorPane>
-            <AnchorPane fx:id="toolsWiperPanel" layoutX="148.0" prefHeight="567.0" prefWidth="745.0" style="-fx-background-color: white;">
-               <children>
-                  <AnchorPane layoutX="-1.0" prefHeight="37.0" prefWidth="746.0" style="-fx-border-color: #dadada;">
-                     <children>
-                        <Label layoutX="14.0" layoutY="10.0" text="Securely wipe contents of a specified drive" />
-                     </children>
-                  </AnchorPane>
-                  <Label layoutX="14.0" layoutY="50.0" text="Drives" />
-                  <ListView fx:id="customList11" layoutX="14.0" layoutY="70.0" prefHeight="150.0" prefWidth="220.0" stylesheets="@list.css" />
-                  <JFXButton fx:id="registryScan111111111" layoutX="117.0" layoutY="232.0" prefHeight="37.0" prefWidth="117.0" style="-fx-background-color: #6eace0;" text="Wipe" textFill="WHITE">
-                     <font>
-                        <Font name="Calibri Light" size="15.0" />
-                     </font>
-                  </JFXButton>
                </children>
             </AnchorPane>
          </children></AnchorPane>
