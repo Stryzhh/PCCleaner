@@ -17,9 +17,10 @@ import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.AnchorPane;
-import javax.swing.*;
+import javafx.stage.DirectoryChooser;
+import javafx.stage.FileChooser;
 
-public class Options {
+public class Options extends Component {
 
     //main ui elements
     public static AnchorPane panel;
@@ -58,8 +59,12 @@ public class Options {
     public static JFXCheckBox closeCustom;
     public static JFXCheckBox shutdownCustom;
     public static JFXButton restoreAdvanced;
+    private static Config config;
 
     public static void load() {
+        aboutPane.toFront();
+        config = loadSettings();
+        loadLists();
         settings();
         include();
         exclude();
@@ -87,28 +92,54 @@ public class Options {
     public static void include() {
         includeRemove.disableProperty().bind(includeList.getSelectionModel().selectedItemProperty().isNull());
 
-        includeAddFile.setOnAction(e-> {
-            FileDialog dialog = new FileDialog((Dialog) null, "Select file to include");
-            dialog.setMode(FileDialog.LOAD);
-            dialog.setAlwaysOnTop(true);
-            dialog.setVisible(true);
+        includeAddFile.setOnAction(e -> Platform.runLater(() -> {
+            FileChooser fileChooser = new FileChooser();
+            File result = fileChooser.showOpenDialog(null);
 
-            if (dialog.getFile() != null) {
-                File file = new File(dialog.getFile());
-                Platform.runLater(() -> includeList.getItems().add(file));
-                System.out.println(file);
-                Config.includeFiles.add(file);
+            if (result != null) {
+                if (!config.getIncludeItems().contains(result)) {
+                    config.getIncludeItems().add(result);
+                    includeList.getItems().add(result);
+                }
+                config.getExcludeItems().remove(result);
+            }
+            try {
+                updateJSON();
+                config = loadSettings();
+                loadLists();
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        }));
+        includeAddFolder.setOnAction(e -> {
+            DirectoryChooser chooser = new DirectoryChooser();
+            File result = chooser.showDialog(null);
+
+            if (result != null) {
+                if (!config.getIncludeItems().contains(result)) {
+                    config.getIncludeItems().add(result);
+                    includeList.getItems().add(result);
+                }
+                config.getExcludeItems().remove(result);
+            }
+            try {
+                updateJSON();
+                config = loadSettings();
+                loadLists();
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
             }
         });
-        includeAddFolder.setOnAction(e-> {
-
-        });
-        includeRemove.setOnAction(e-> {
+        includeRemove.setOnAction(e -> {
             File item = includeList.getSelectionModel().getSelectedItem();
             if (item != null) {
-                if (Config.includeFiles.contains(item)) {
-                    Config.includeFiles.remove(item);
-                } else Config.includeFolders.remove(item);
+                includeList.getItems().remove(item);
+                config.getIncludeItems().remove(item);
+            }
+            try {
+                updateJSON();
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
             }
         });
     }
@@ -116,33 +147,60 @@ public class Options {
     public static void exclude() {
         excludeRemove.disableProperty().bind(excludeList.getSelectionModel().selectedItemProperty().isNull());
 
-        excludeAddFile.setOnAction(e-> {
-            FileDialog dialog = new FileDialog((Dialog) null, "Select file to exclude");
-            dialog.setMode(FileDialog.LOAD);
-            dialog.setAlwaysOnTop(true);
-            dialog.setVisible(true);
+        excludeAddFile.setOnAction(e -> {
+            FileChooser fileChooser = new FileChooser();
+            File result = fileChooser.showOpenDialog(null);
 
-            if (dialog.getFile() != null) {
-                File file = new File(dialog.getFile());
-                Config.excludeFiles.add(file);
-                excludeList.getItems().add(file);
+            if (result != null) {
+                if (!config.getExcludeItems().contains(result)) {
+                    config.getExcludeItems().add(result);
+                    excludeList.getItems().add(result);
+                }
+                config.getIncludeItems().remove(result);
+            }
+            try {
+                updateJSON();
+                config = loadSettings();
+                loadLists();
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
             }
         });
-        excludeAddFolder.setOnAction(e-> {
+        excludeAddFolder.setOnAction(e -> {
+            DirectoryChooser chooser = new DirectoryChooser();
+            File result = chooser.showDialog(null);
 
+            if (result != null) {
+                if (!config.getExcludeItems().contains(result)) {
+                    config.getExcludeItems().add(result);
+                    excludeList.getItems().add(result);
+                }
+                config.getIncludeItems().remove(result);
+            }
+            try {
+                updateJSON();
+                config = loadSettings();
+                loadLists();
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
         });
-        excludeRemove.setOnAction(e-> {
+        excludeRemove.setOnAction(e -> {
             File item = excludeList.getSelectionModel().getSelectedItem();
             if (item != null) {
-                if (Config.excludeFiles.contains(item)) {
-                    Config.excludeFiles.remove(item);
-                } else Config.excludeFolders.remove(item);
+                excludeList.getItems().remove(item);
+                config.getExcludeItems().remove(item);
+            }
+            try {
+                updateJSON();
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
             }
         });
     }
 
     public static void advanced() {
-        restoreAdvanced.setOnAction(e-> {
+        restoreAdvanced.setOnAction(e -> {
             produceList.setSelected(false);
             hideWarnings.setSelected(false);
             closeQuick.setSelected(false);
@@ -175,6 +233,34 @@ public class Options {
         shutdownQuick.selectedProperty().addListener((ObservableValue<? extends Boolean> ov, Boolean old_val, Boolean new_val) -> amendAdvancedSettings());
         closeCustom.selectedProperty().addListener((ObservableValue<? extends Boolean> ov, Boolean old_val, Boolean new_val) -> amendAdvancedSettings());
         shutdownCustom.selectedProperty().addListener((ObservableValue<? extends Boolean> ov, Boolean old_val, Boolean new_val) -> amendAdvancedSettings());
+    }
+
+    private static void updateJSON() throws IOException {
+        FileWriter fw = new FileWriter("config/files.json");
+        Gson g = new GsonBuilder().setPrettyPrinting().create();
+
+        fw.write(g.toJson(config));
+        fw.close();
+    }
+
+    private static Config loadSettings() {
+        try {
+            return new Gson().fromJson(new FileReader(new File("config/files.json")), Config.class);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
+
+    private static void loadLists() {
+        includeList.getItems().clear();
+        excludeList.getItems().clear();
+        for (File file : config.getIncludeItems()) {
+            includeList.getItems().add(file);
+        }
+        for (File file : config.getExcludeItems()) {
+            excludeList.getItems().add(file);
+        }
     }
 
     private static void amendBasicSettings() {

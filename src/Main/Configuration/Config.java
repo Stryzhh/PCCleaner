@@ -5,9 +5,22 @@ import java.util.ArrayList;
 
 public class Config {
 
-    public static ArrayList<File> includeFiles;
-    public static ArrayList<File> excludeFiles;
-    public static ArrayList<File> includeFolders;
-    public static ArrayList<File> excludeFolders;
+    private ArrayList<File> includeItems = new ArrayList<>();
+    private ArrayList<File> excludeItems = new ArrayList<>();
 
+    public void setIncludeItems(ArrayList<File> includeItems) {
+        this.includeItems = includeItems;
+    }
+
+    public ArrayList<File> getIncludeItems() {
+        return includeItems;
+    }
+
+    public void setExcludeItems(ArrayList<File> excludeItems) {
+        this.excludeItems = excludeItems;
+    }
+
+    public ArrayList<File> getExcludeItems() {
+        return excludeItems;
+    }
 }

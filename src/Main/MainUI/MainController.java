@@ -1,5 +1,6 @@
 package Main.MainUI;
 
+import Main.Elements.FileModel;
 import Main.Neutral;
 import Main.Elements.Clean;
 import Main.Elements.Custom;
@@ -22,7 +23,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -113,6 +116,16 @@ public class MainController implements Initializable {
     @FXML private JFXCheckBox basicStartup;
     @FXML private JFXCheckBox basicRecycle;
 
+    @FXML private JFXCheckBox analyzePictures;
+    @FXML private JFXCheckBox analyzeMusic;
+    @FXML private JFXCheckBox analyzeDocuments;
+    @FXML private JFXCheckBox analyzeVideo;
+    @FXML private JFXCheckBox analyzeEmail;
+    @FXML private JFXCheckBox analyzeCompressed;
+    @FXML private JFXCheckBox analyzeEverything;
+    @FXML private ListView<File> analyzeDrives;
+    @FXML private JFXButton btnAnalyze;
+
     @FXML private ListView<File> includeList;
     @FXML private JFXButton includeAddFile;
     @FXML private JFXButton includeAddFolder;
@@ -122,6 +135,11 @@ public class MainController implements Initializable {
     @FXML private JFXButton excludeAddFile;
     @FXML private JFXButton excludeAddFolder;
     @FXML private JFXButton excludeRemove;
+
+    @FXML private TableView<FileModel> fileTable;
+    @FXML private TableColumn<FileModel, String> name;
+    @FXML private TableColumn<FileModel, String> path;
+    @FXML private TableColumn<FileModel, String> type;
 
     private final Desktop desktop = Desktop.getDesktop();
 
@@ -140,6 +158,10 @@ public class MainController implements Initializable {
         OS.setText(String.valueOf(info.getOperatingSystem()));
         specs.setText(gpus + info.getHardware().getProcessor().getProcessorIdentifier().getName() + ", " +
                 Neutral.gigabyte(info.getHardware().getMemory().getTotal()) + " (GB) RAM");
+
+        name.setCellValueFactory(new PropertyValueFactory<>("Name"));
+        path.setCellValueFactory(new PropertyValueFactory<>("Path"));
+        type.setCellValueFactory(new PropertyValueFactory<>("Type"));
 
         //loads date onto panels
         Clean.load();
@@ -201,6 +223,19 @@ public class MainController implements Initializable {
         Tools.plugins = toolsPlugins;
         Tools.wiper = toolsWiper;
         Tools.analyze = toolsAnalyzer;
+        Tools.analyzePictures = analyzePictures;
+        Tools.analyzeMusic = analyzeMusic;
+        Tools.analyzeDocuments = analyzeDocuments;
+        Tools.analyzeVideo = analyzeVideo;
+        Tools.analyzeCompressed = analyzeCompressed;
+        Tools.analyzeEmail = analyzeEmail;
+        Tools.analyzeEverything = analyzeEverything;
+        Tools.analyzeDrives = analyzeDrives;
+        Tools.btnAnalyze = btnAnalyze;
+        Tools.fileTable = fileTable;
+        Tools.name = name;
+        Tools.path = path;
+        Tools.type = type;
 
         //options UI elements
         Options.panel = settingsPanel;
