@@ -1,5 +1,6 @@
 package Main.MainUI;
 
+import Main.Applications.Software;
 import Main.Elements.FileModel;
 import Main.Neutral;
 import Main.Elements.Clean;
@@ -17,14 +18,17 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -139,9 +143,26 @@ public class MainController implements Initializable {
     @FXML private JFXButton excludeRemove;
 
     @FXML private TableView<FileModel> fileTable;
-    @FXML private TableColumn<FileModel, String> name;
-    @FXML private TableColumn<FileModel, String> path;
-    @FXML private TableColumn<FileModel, String> type;
+    @FXML private TableColumn<FileModel, String> analyzeName;
+    @FXML private TableColumn<FileModel, String> analyzePath;
+    @FXML private TableColumn<FileModel, String> analyzeType;
+
+    @FXML private TextField uninstallSearch;
+    @FXML private TableView<Software> uninstallTable;
+    @FXML private TableColumn<Software, String> uninstallName;
+    @FXML private TableColumn<Software, String> uninstallPublisher;
+    @FXML private TableColumn<Software, String> uninstallLocation;
+    @FXML private TableColumn<Software, LocalDateTime> uninstallDate;
+    @FXML private TableColumn<Software, String> uninstallVersion;
+    @FXML private JFXButton btnUninstall;
+    @FXML private JFXButton uninstallSave;
+
+    @FXML private ListView<String> wiperDeleted;
+    @FXML private ListView<File> wiperDrives;
+    @FXML private JFXButton wipeDrive;
+    @FXML private JFXButton cancelWipe;
+    @FXML private ComboBox<Integer> comboWipes;
+    @FXML private Label wiperStatus;
 
     private final Desktop desktop = Desktop.getDesktop();
 
@@ -149,6 +170,9 @@ public class MainController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         cleanPane.toFront();
         setUIElements();
+        comboWipes.getItems().add(1);
+        comboWipes.getItems().add(2);
+        comboWipes.getItems().add(3);
 
         //sets operating system and basic specifications
         SystemInfo info = new SystemInfo();
@@ -161,9 +185,15 @@ public class MainController implements Initializable {
         specs.setText(gpus + info.getHardware().getProcessor().getProcessorIdentifier().getName() + ", " +
                 Neutral.gigabyte(info.getHardware().getMemory().getTotal()) + " (GB) RAM");
 
-        name.setCellValueFactory(new PropertyValueFactory<>("Name"));
-        path.setCellValueFactory(new PropertyValueFactory<>("Path"));
-        type.setCellValueFactory(new PropertyValueFactory<>("Type"));
+        analyzeName.setCellValueFactory(new PropertyValueFactory<>("Name"));
+        analyzePath.setCellValueFactory(new PropertyValueFactory<>("Path"));
+        analyzeType.setCellValueFactory(new PropertyValueFactory<>("Type"));
+
+        uninstallName.setCellValueFactory(new PropertyValueFactory<>("Name"));
+        uninstallPublisher.setCellValueFactory(new PropertyValueFactory<>("Publisher"));
+        uninstallLocation.setCellValueFactory(new PropertyValueFactory<>("Location"));
+        uninstallDate.setCellValueFactory(new PropertyValueFactory<>("Date"));
+        uninstallVersion.setCellValueFactory(new PropertyValueFactory<>("Version"));
 
         //loads date onto panels
         Clean.load();
@@ -235,11 +265,26 @@ public class MainController implements Initializable {
         Tools.analyzeDrives = analyzeDrives;
         Tools.btnAnalyze = btnAnalyze;
         Tools.fileTable = fileTable;
-        Tools.name = name;
-        Tools.path = path;
-        Tools.type = type;
+        Tools.name = analyzeName;
+        Tools.path = analyzePath;
+        Tools.type = analyzeType;
         Tools.analyzeStatus = analyzeStatus;
         Tools.btnCancel = btnCancel;
+        Tools.wiperDeleted = wiperDeleted;
+        Tools.wiperDrives = wiperDrives;
+        Tools.wipeDrive = wipeDrive;
+        Tools.wiperStatus = wiperStatus;
+        Tools.comboWipes = comboWipes;
+        Tools.cancelWipe = cancelWipe;
+        Tools.uninstallSearch = uninstallSearch;
+        Tools.uninstallTable = uninstallTable;
+        Tools.uninstallName = uninstallName;
+        Tools.uninstallPublisher = uninstallPublisher;
+        Tools.uninstallLocation = uninstallLocation;
+        Tools.uninstallDate = uninstallDate;
+        Tools.uninstallVersion = uninstallVersion;
+        Tools.uninstallSave = uninstallSave;
+        Tools.btnUninstall = btnUninstall;
 
         //options UI elements
         Options.panel = settingsPanel;

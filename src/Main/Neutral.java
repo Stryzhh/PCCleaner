@@ -18,4 +18,5 @@ public class Neutral {
         Stage thisWindow = (Stage) window.getScene().getWindow();
         thisWindow.setMaximized(!thisWindow.isMaximized());
     }
+
 }
