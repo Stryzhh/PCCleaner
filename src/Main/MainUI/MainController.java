@@ -101,6 +101,7 @@ public class MainController implements Initializable {
     @FXML private Label website;
     @FXML private Label github;
     @FXML private Label repo;
+    @FXML private Label analyzeStatus;
 
     @FXML private TableView<String> registryTable;
     @FXML private ListView<JFXCheckBox> customList;
@@ -125,6 +126,7 @@ public class MainController implements Initializable {
     @FXML private JFXCheckBox analyzeEverything;
     @FXML private ListView<File> analyzeDrives;
     @FXML private JFXButton btnAnalyze;
+    @FXML private JFXButton btnCancel;
 
     @FXML private ListView<File> includeList;
     @FXML private JFXButton includeAddFile;
@@ -236,6 +238,8 @@ public class MainController implements Initializable {
         Tools.name = name;
         Tools.path = path;
         Tools.type = type;
+        Tools.analyzeStatus = analyzeStatus;
+        Tools.btnCancel = btnCancel;
 
         //options UI elements
         Options.panel = settingsPanel;

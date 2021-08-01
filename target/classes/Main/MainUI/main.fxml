@@ -644,13 +644,20 @@
                         <Font name="Calibri Light" size="15.0" />
                      </font>
                   </JFXButton>
-                  <TableView fx:id="fileTable" layoutX="242.0" layoutY="70.0" prefHeight="488.0" prefWidth="495.0" AnchorPane.bottomAnchor="9.0" AnchorPane.leftAnchor="242.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="70.0">
+                  <TableView fx:id="fileTable" layoutX="242.0" layoutY="70.0" prefHeight="458.0" prefWidth="495.0" AnchorPane.bottomAnchor="39.0" AnchorPane.leftAnchor="242.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="70.0">
                     <columns>
                       <TableColumn fx:id="name" prefWidth="171.0" text="Name" />
                         <TableColumn fx:id="path" prefWidth="262.0" text="Path" />
                         <TableColumn fx:id="type" minWidth="0.0" prefWidth="47.0" text="Type" />
                     </columns>
                   </TableView>
+                  <Label fx:id="analyzeStatus" layoutX="242.0" layoutY="50.0" text="Status:" />
+                  <Label layoutX="563.0" layoutY="50.0" text="Hold Ctrl to select multiple items" />
+                  <JFXButton fx:id="btnCancel" layoutX="640.0" layoutY="534.0" prefHeight="17.0" prefWidth="96.0" style="-fx-background-color: #6eace0;" text="Cancel" textFill="WHITE">
+                     <font>
+                        <Font name="Calibri Light" size="15.0" />
+                     </font>
+                  </JFXButton>
                </children>
             </AnchorPane>
          </children></AnchorPane>

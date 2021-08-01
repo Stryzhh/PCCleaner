@@ -10,6 +10,7 @@
 -fx-text-fill: black;
 }
 .list-view:focused .list-cell:filled:focused:selected {
-    -fx-text-fill: steelblue;
+	-fx-text-fill: white;
+	-fx-background-color: steelblue;
 }
     
