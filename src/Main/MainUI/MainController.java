@@ -1,5 +1,6 @@
 package Main.MainUI;
 
+import Main.Applications.Application;
 import Main.Applications.Software;
 import Main.Elements.FileModel;
 import Main.Neutral;
@@ -56,7 +57,7 @@ public class MainController implements Initializable {
     @FXML private AnchorPane optAboutPane;
     @FXML private AnchorPane toolsUninstallPanel;
     @FXML private AnchorPane toolsStartupPanel;
-    @FXML private AnchorPane toolsUpdaterPanel;
+    @FXML private AnchorPane toolsCleanUpPanel;
     @FXML private AnchorPane toolsPluginsPanel;
     @FXML private AnchorPane toolsAnalyzerPanel;
     @FXML private AnchorPane toolsWiperPanel;
@@ -92,7 +93,7 @@ public class MainController implements Initializable {
     @FXML private JFXButton settingsAdvanced;
     @FXML private JFXButton settingsAbout;
     @FXML private JFXButton toolsUninstall;
-    @FXML private JFXButton toolsUpdater;
+    @FXML private JFXButton toolsCleanUp;
     @FXML private JFXButton toolsStartup;
     @FXML private JFXButton toolsPlugins;
     @FXML private JFXButton toolsWiper;
@@ -164,6 +165,15 @@ public class MainController implements Initializable {
     @FXML private ComboBox<Integer> comboWipes;
     @FXML private Label wiperStatus;
 
+    @FXML private ListView<File> cleanupDrives;
+    @FXML private JFXButton cleanupClean;
+
+    @FXML private TableView<Application> startupTable;
+    @FXML private TableColumn<Application, String> startupKey;
+    @FXML private TableColumn<Application, String> startupPath;
+    @FXML private JFXButton startupAdd;
+    @FXML private JFXButton startupSave;
+
     private final Desktop desktop = Desktop.getDesktop();
 
     @Override
@@ -194,6 +204,9 @@ public class MainController implements Initializable {
         uninstallLocation.setCellValueFactory(new PropertyValueFactory<>("Location"));
         uninstallDate.setCellValueFactory(new PropertyValueFactory<>("Date"));
         uninstallVersion.setCellValueFactory(new PropertyValueFactory<>("Version"));
+
+        startupKey.setCellValueFactory(new PropertyValueFactory<>("Name"));
+        startupPath.setCellValueFactory(new PropertyValueFactory<>("Path"));
 
         //loads date onto panels
         Clean.load();
@@ -250,7 +263,7 @@ public class MainController implements Initializable {
         //tools UI elements
         Tools.panel = toolsPanel;
         Tools.uninstall = toolsUninstall;
-        Tools.updater = toolsUpdater;
+        Tools.cleanup = toolsCleanUp;
         Tools.startup = toolsStartup;
         Tools.plugins = toolsPlugins;
         Tools.wiper = toolsWiper;
@@ -285,6 +298,13 @@ public class MainController implements Initializable {
         Tools.uninstallVersion = uninstallVersion;
         Tools.uninstallSave = uninstallSave;
         Tools.btnUninstall = btnUninstall;
+        Tools.cleanupDrives = cleanupDrives;
+        Tools.cleanupClean = cleanupClean;
+        Tools.startupTable = startupTable;
+        Tools.startupKey = startupKey;
+        Tools.startupPath = startupPath;
+        Tools.startupAdd = startupAdd;
+        Tools.startupSave = startupSave;
 
         //options UI elements
         Options.panel = settingsPanel;
@@ -344,8 +364,8 @@ public class MainController implements Initializable {
         toolsUninstallPanel.toFront();
     }
 
-    public void toolsUpdater() {
-        toolsUpdaterPanel.toFront();
+    public void toolsCleanUp() {
+        toolsCleanUpPanel.toFront();
     }
 
     public void toolsStartup() {

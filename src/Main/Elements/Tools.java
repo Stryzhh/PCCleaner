@@ -1,26 +1,38 @@
 package Main.Elements;
 
+import Main.Applications.Application;
 import Main.Applications.ListApps;
+import Main.Applications.MyEntry;
 import Main.Applications.Software;
+import Main.Applications.StartUpApps;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
+import com.sun.jna.platform.win32.Advapi32Util;
+import com.sun.jna.platform.win32.WinReg;
 import java.awt.*;
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileFilter;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
+import java.util.TreeMap;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
+import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
@@ -32,6 +44,9 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.FileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import org.apache.commons.io.FileExistsException;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 
@@ -39,7 +54,7 @@ public class Tools {
 
     public static AnchorPane panel;
     public static JFXButton uninstall;
-    public static JFXButton updater;
+    public static JFXButton cleanup;
     public static JFXButton startup;
     public static JFXButton plugins;
     public static JFXButton wiper;
@@ -91,10 +106,21 @@ public class Tools {
     public static JFXButton btnUninstall;
     public static JFXButton uninstallSave;
 
+    public static TableView<Application> startupTable;
+    public static TableColumn<Application, String> startupKey;
+    public static TableColumn<Application, String> startupPath;
+    public static JFXButton startupAdd;
+    public static JFXButton startupSave;
+
+    public static ListView<File> cleanupDrives;
+    public static JFXButton cleanupClean;
+
     public static void load() {
         uninstall();
         analyzer();
         wiper();
+        startup();
+        cleanup();
     }
 
     public static void uninstall() {
@@ -136,40 +162,92 @@ public class Tools {
                     new ProcessBuilder(item.getUninstall()).start();
                 }
             } catch (IOException e) {
-                //ignore
+                e.printStackTrace();
             }
         });
     }
 
-    private static void loadUninstall() {
-        uninstallTable.getItems().removeAll(uninstallTable.getItems());
-        Map<String, Software> inst = ListApps.getInstalledApps(false);
-        for (Map.Entry<String, Software> app : inst.entrySet()) {
-            uninstallTable.getItems().add(app.getValue());
+    public static void cleanup() {
+        File[] paths;
+        paths = File.listRoots();
+        for (File path : paths) {
+            cleanupDrives.getItems().add(path);
         }
-    }
 
-    private static void searchListener() {
-        FilteredList<Software> filteredData = new FilteredList<>(uninstallTable.getItems(), p -> true);
-        uninstallSearch.textProperty().addListener((observable, oldValue, newValue) -> filteredData.setPredicate(myObject -> {
-            if (newValue == null || newValue.isEmpty()) {
-                return true;
+        cleanupClean.setOnAction(e -> {
+            File drive = cleanupDrives.getSelectionModel().getSelectedItem();
+            if (drive != null) {
+                try {
+                    new ProcessBuilder(System.getenv("WINDIR") + "\\system32\\cleanmgr.exe", "/d " + drive).start();
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
             }
-            String lowerCaseFilter = newValue.toLowerCase();
-            return String.valueOf(myObject.getName()).toLowerCase().contains(lowerCaseFilter);
-        }));
-
-        SortedList<Software> sortedData = new SortedList<>(filteredData);
-        sortedData.comparatorProperty().bind(uninstallTable.comparatorProperty());
-        uninstallTable.setItems(sortedData);
-    }
-
-    public static void updater() {
-
+        });
     }
 
     public static void startup() {
+        loadStartup();
+        startupTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        startupTable.setOnMouseClicked(MouseEvent -> {
+            if (MouseEvent.getButton().equals(MouseButton.SECONDARY)) {
+                final ContextMenu contextMenu = new ContextMenu();
+                final AnchorPane pane = new AnchorPane();
+                MenuItem delete = new MenuItem("Remove application(s)");
 
+                startupTable.setContextMenu(contextMenu);
+                contextMenu.getItems().addAll(delete);
+                contextMenu.show(pane, MouseEvent.getScreenX(), MouseEvent.getScreenY());
+
+                delete.setOnAction(actionEvent -> {
+                    if (startupTable.getSelectionModel().getSelectedItems() != null) {
+                        for (Application item : startupTable.getSelectionModel().getSelectedItems()) {
+                            Advapi32Util.registryDeleteValue(item.getKey(), item.getDir(), item.getName());
+                            startupTable.getItems().remove(item);
+                        }
+                    }
+                });
+            }
+        });
+
+        startupAdd.setOnAction(e -> {
+            FileChooser fileChooser = new FileChooser();
+            File result = fileChooser.showOpenDialog(null);
+
+            if (result != null) {
+                if (result.getName().contains(".exe")) {
+                    String name = result.getName().replace(".exe", "");
+                    Advapi32Util.registrySetStringValue(WinReg.HKEY_CURRENT_USER, "Software\\Microsoft\\Windows\\CurrentVersion\\Run",
+                            name, result.getAbsolutePath());
+                    startupTable.getItems().clear();
+                    loadStartup();
+                }
+            }
+        });
+
+        startupSave.setOnAction(e -> {
+            try {
+                Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(
+                        System.getProperty("user.home") + "\\Documents\\listOfStartUpApps.txt"), StandardCharsets.UTF_8));
+                startupTable.getItems().forEach((o) -> {
+                    try {
+                        writer.write(o.getName() + " - @" + o.getPath() + "\n");
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+                });
+            } catch (FileNotFoundException ex) {
+                ex.printStackTrace();
+            }
+        });
+    }
+
+
+    private static void loadStartup() {
+        ArrayList<Application> startupApps = StartUpApps.getInstalledApps();
+        for (Application app : startupApps) {
+            startupTable.getItems().add(app);
+        }
     }
 
     public static void plugins() {
@@ -377,6 +455,29 @@ public class Tools {
                 break;
             }
         }
+    }
+
+    private static void loadUninstall() {
+        uninstallTable.getItems().removeAll(uninstallTable.getItems());
+        Map<String, Software> inst = ListApps.getInstalledApps(false);
+        for (Map.Entry<String, Software> app : inst.entrySet()) {
+            uninstallTable.getItems().add(app.getValue());
+        }
+    }
+
+    private static void searchListener() {
+        FilteredList<Software> filteredData = new FilteredList<>(uninstallTable.getItems(), p -> true);
+        uninstallSearch.textProperty().addListener((observable, oldValue, newValue) -> filteredData.setPredicate(myObject -> {
+            if (newValue == null || newValue.isEmpty()) {
+                return true;
+            }
+            String lowerCaseFilter = newValue.toLowerCase();
+            return String.valueOf(myObject.getName()).toLowerCase().contains(lowerCaseFilter);
+        }));
+
+        SortedList<Software> sortedData = new SortedList<>(filteredData);
+        sortedData.comparatorProperty().bind(uninstallTable.comparatorProperty());
+        uninstallTable.setItems(sortedData);
     }
 
     private static void saveFilesTXT() throws IOException {

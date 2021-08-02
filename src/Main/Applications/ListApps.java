@@ -23,7 +23,7 @@ public class ListApps {
         getUninstallKeyPrograms(list, WinReg.HKEY_LOCAL_MACHINE, "Software\\WoW6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall", includeUpdates);
         String[] subKeys = Advapi32Util.registryGetKeys(WinReg.HKEY_USERS);
 
-        for(String subKey: subKeys) {
+        for (String subKey : subKeys) {
             try {
                 getUninstallKeyPrograms(list, WinReg.HKEY_USERS, subKey + "\\Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall", includeUpdates);
             } catch (Exception e) {
@@ -36,7 +36,7 @@ public class ListApps {
     static void getUninstallKeyPrograms(SoftwareList list, WinReg.HKEY hkey, String rootKey, boolean includeUpdates) {
         String[] subKeys = Advapi32Util.registryGetKeys(hkey, rootKey);
 
-        for(String subKeyName: subKeys) {
+        for (String subKeyName : subKeys) {
             Map<String, Object> vals = Advapi32Util.registryGetValues(hkey, rootKey + "\\" + subKeyName);
 
             // Not a system component
@@ -48,11 +48,7 @@ public class ListApps {
                 String publisher = (String) vals.get("Publisher");
                 String uninstall = (String) vals.get("UninstallString");
 
-                // Get Installation Date/Time
-                // NOTE: Windows Installer et al will use the InstallDate property to set the installation date, but
-                // this is simpler, and for our purposes, probably accurate enough. Besides, InstallDate property is only
-                // granular enough to day, while this one goes all the way to milliseconds (though accuracy is questionable)
-                HKEYByReference subKey = Advapi32Util.registryGetKey(hkey,  rootKey + "\\" + subKeyName, WinNT.KEY_READ);
+                HKEYByReference subKey = Advapi32Util.registryGetKey(hkey, rootKey + "\\" + subKeyName, WinNT.KEY_READ);
                 InfoKey infoKey = Advapi32Util.registryQueryInfoKey(subKey.getValue(), 0);
                 LocalDateTime installDate = infoKey
                         .lpftLastWriteTime
@@ -67,20 +63,15 @@ public class ListApps {
 
                     Pattern windowsUpdateRegex = Pattern.compile("KB[0-9]{6}$");
                     Matcher m = windowsUpdateRegex.matcher(subKeyName);
-                    // Is program an update
-                    if (m.find() ||
-                            (vals.get("ParentKeyName")) != null && !vals.get("ParentKeyName").equals("") ||
-                            (releaseType != null &&
-                                    (releaseType.equals("Security Update") ||
-                                            releaseType.equals("Update Rollup") ||
-                                            releaseType.equals("Hotfix")))) {
 
+                    if (m.find() || (vals.get("ParentKeyName")) != null && !vals.get("ParentKeyName").equals("") ||
+                            (releaseType != null && (releaseType.equals("Security Update") ||
+                                    releaseType.equals("Update Rollup") || releaseType.equals("Hotfix")))) {
                         if (name != null && !name.equals("") && includeUpdates) {
                             list.put(software.getName(), software);
                         }
                     } else {
                         String uninstallValue = (String) vals.get("UninstallString");
-
                         if (uninstallValue != null && !uninstallValue.equals("") && name != null && !name.equals("")) {
                             list.put(software.getName(), software);
                         }
@@ -116,6 +107,7 @@ public class ListApps {
 
     /**
      * Perform windows-ness to translate key name to Guid for Windows Installer Apps
+     *
      * @param subKeyName key to translate
      * @return translated key
      */
@@ -130,7 +122,7 @@ public class ListApps {
         }
 
         for (int i = 3; i <= 4; i++) {
-            for (int j = 0; j < parts[i].length(); j+=2) {
+            for (int j = 0; j < parts[i].length(); j += 2) {
                 msiName.append(parts[i].charAt(j + 1));
                 msiName.append(parts[i].charAt(j));
             }
