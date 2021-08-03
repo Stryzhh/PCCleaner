@@ -1,6 +1,7 @@
 package Main.MainUI;
 
 import Main.Applications.Application;
+import Main.Applications.Extension;
 import Main.Applications.Software;
 import Main.Elements.FileModel;
 import Main.Neutral;
@@ -34,6 +35,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javax.usb.UsbException;
 import oshi.SystemInfo;
 
 public class MainController implements Initializable {
@@ -41,7 +43,8 @@ public class MainController implements Initializable {
     @FXML private AnchorPane window;
     @FXML private AnchorPane cleanPane;
     @FXML private AnchorPane customPane;
-    @FXML private AnchorPane customPanel;
+    @FXML private AnchorPane windowsPanel;
+    @FXML private AnchorPane applicationPanel;
     @FXML private AnchorPane registryPane;
     @FXML private AnchorPane registryPanel;
     @FXML private AnchorPane driverPane;
@@ -84,9 +87,7 @@ public class MainController implements Initializable {
     @FXML private JFXButton customClean;
     @FXML private JFXButton registryReview;
     @FXML private JFXButton registryScan;
-    @FXML private JFXButton driverSee;
-    @FXML private JFXButton driverScan;
-    @FXML private JFXButton driverUpdate;
+    @FXML private JFXButton driveOpen;
     @FXML private JFXButton settingsSettings;
     @FXML private JFXButton settingsInclude;
     @FXML private JFXButton settingsExclude;
@@ -102,14 +103,13 @@ public class MainController implements Initializable {
     @FXML private Label OS;
     @FXML private Label version;
     @FXML private Label specs;
-    @FXML private Label driversScanned;
     @FXML private Label website;
     @FXML private Label github;
     @FXML private Label repo;
     @FXML private Label analyzeStatus;
 
     @FXML private TableView<String> registryTable;
-    @FXML private ListView<JFXCheckBox> customList;
+    @FXML private ListView<String> customList;
     @FXML private ListView<String> specsList;
 
     @FXML private JFXCheckBox advancedProduceFileList;
@@ -174,6 +174,62 @@ public class MainController implements Initializable {
     @FXML private JFXButton startupAdd;
     @FXML private JFXButton startupSave;
 
+    @FXML private TableView<Extension> pluginTable;
+    @FXML private TableColumn<Extension, String> pluginProgram;
+    @FXML private TableColumn<Extension, String> pluginFile;
+    @FXML private TableColumn<Extension, String> pluginVersion;
+    @FXML private JFXButton pluginGoogleChrome;
+    @FXML private JFXButton pluginInternetExplorer;
+    @FXML private JFXButton pluginSave;
+    @FXML private Label pluginStatus;
+
+    @FXML private AnchorPane explorerPanel;
+    @FXML private ImageView explorerIcon;
+    @FXML private JFXButton selectExplorer;
+    @FXML private JFXCheckBox explorerTemp;
+    @FXML private JFXCheckBox explorerHistory;
+    @FXML private JFXCheckBox explorerCookies;
+
+    @FXML private AnchorPane edgePanel;
+    @FXML private ImageView edgeIcon;
+    @FXML private JFXButton selectEdge;
+    @FXML private JFXCheckBox edgeCache;
+    @FXML private JFXCheckBox edgeHistory;
+    @FXML private JFXCheckBox edgeCookies;
+    @FXML private JFXCheckBox edgeSession;
+
+    @FXML private AnchorPane systemPanel;
+    @FXML private ImageView systemIcon;
+    @FXML private JFXButton selectSystem;
+    @FXML private JFXCheckBox systemBin;
+    @FXML private JFXCheckBox systemTemp;
+    @FXML private JFXCheckBox systemClipboard;
+    @FXML private JFXCheckBox systemDump;
+    @FXML private JFXCheckBox systemLog;
+    @FXML private JFXCheckBox systemReport;
+    @FXML private JFXCheckBox systemStartMenu;
+    @FXML private JFXCheckBox systemDesktop;
+
+    @FXML private AnchorPane chromePanel;
+    @FXML private ImageView chromeIcon;
+    @FXML private JFXButton selectChrome;
+    @FXML private JFXCheckBox chromeCache;
+    @FXML private JFXCheckBox chromeHistory;
+    @FXML private JFXCheckBox chromeCookies;
+    @FXML private JFXCheckBox chromeSession;
+
+    @FXML private AnchorPane spotifyPanel;
+    @FXML private ImageView spotifyIcon;
+    @FXML private JFXButton selectSpotify;
+    @FXML private JFXCheckBox spotifyCache;
+    @FXML private JFXCheckBox spotifyMusic;
+    @FXML private JFXCheckBox spotifyOffline;
+
+    @FXML private AnchorPane steamPanel;
+    @FXML private ImageView steamIcon;
+    @FXML private JFXButton selectSteam;
+    @FXML private JFXCheckBox steamDump;
+
     private final Desktop desktop = Desktop.getDesktop();
 
     @Override
@@ -208,12 +264,16 @@ public class MainController implements Initializable {
         startupKey.setCellValueFactory(new PropertyValueFactory<>("Name"));
         startupPath.setCellValueFactory(new PropertyValueFactory<>("Path"));
 
+        pluginProgram.setCellValueFactory(new PropertyValueFactory<>("Program"));
+        pluginFile.setCellValueFactory(new PropertyValueFactory<>("File"));
+        pluginVersion.setCellValueFactory(new PropertyValueFactory<>("Version"));
+
         //loads date onto panels
+        Tools.load();
         Clean.load();
         Custom.load();
         Registry.load();
         Drivers.load();
-        Tools.load();
         Options.load();
         Specifications.load();
 
@@ -229,6 +289,12 @@ public class MainController implements Initializable {
         toolsIcon.setImage(new Image(new File("images\\tools.png").toURI().toString()));
         optionsIcon.setImage(new Image(new File("images\\settings.png").toURI().toString()));
         specificationsIcon.setImage(new Image(new File("images\\specifications.png").toURI().toString()));
+        explorerIcon.setImage(new Image(new File("images\\explorer.png").toURI().toString()));
+        edgeIcon.setImage(new Image(new File("images\\chromium.png").toURI().toString()));
+        systemIcon.setImage(new Image(new File("images\\windows.png").toURI().toString()));
+        chromeIcon.setImage(new Image(new File("images\\chrome.png").toURI().toString()));
+        spotifyIcon.setImage(new Image(new File("images\\spotify.png").toURI().toString()));
+        steamIcon.setImage(new Image(new File("images\\steam.png").toURI().toString()));
         minimizeIcon.setImage(new Image(new File("images\\minimize.png").toURI().toString()));
         maximiseIcon.setImage(new Image(new File("images\\maximise.png").toURI().toString()));
         closeIcon.setImage(new Image(new File("images\\close.png").toURI().toString()));
@@ -240,12 +306,48 @@ public class MainController implements Initializable {
         Clean.clean = quickClean;
 
         //custom UI elements
-        Custom.panel = customPanel;
+        Custom.windowsPanel = windowsPanel;
+        Custom.applicationPanel = applicationPanel;
         Custom.list = customList;
         Custom.windows = customWindows;
         Custom.applications = customApplications;
         Custom.analyze = customAnalyze;
         Custom.clean = customClean;
+        Custom.explorerPanel = explorerPanel;
+        Custom.selectExplorer = selectExplorer;
+        Custom.explorerTemp = explorerTemp;
+        Custom.explorerHistory = explorerHistory;
+        Custom.explorerCookies = explorerCookies;
+        Custom.edgePanel = edgePanel;
+        Custom.selectEdge = selectEdge;
+        Custom.edgeCache = edgeCache;
+        Custom.edgeHistory = edgeHistory;
+        Custom.edgeCookies = edgeCookies;
+        Custom.edgeSession = edgeSession;
+        Custom.systemPanel = systemPanel;
+        Custom.selectSystem = selectSystem;
+        Custom.systemBin = systemBin;
+        Custom.systemTemp = systemTemp;
+        Custom.systemClipboard = systemClipboard;
+        Custom.systemDump = systemDump;
+        Custom.systemLog = systemLog;
+        Custom.systemReport = systemReport;
+        Custom.systemStartMenu = systemStartMenu;
+        Custom.systemDesktop = systemDesktop;
+        Custom.chromePanel = chromePanel;
+        Custom.selectChrome = selectChrome;
+        Custom.chromeCache = chromeCache;
+        Custom.chromeHistory = chromeHistory;
+        Custom.chromeCookies = chromeCookies;
+        Custom.chromeSession = chromeSession;
+        Custom.spotifyPanel= spotifyPanel;
+        Custom.selectSpotify = selectSpotify;
+        Custom.spotifyCache = spotifyCache;
+        Custom.spotifyMusic = spotifyMusic;
+        Custom.spotifyOffline = spotifyOffline;
+        Custom.steamPanel = steamPanel;
+        Custom.selectSteam = selectSteam;
+        Custom.steamDump = steamDump;
 
         //registry UI elements
         Registry.panel = registryPanel;
@@ -254,11 +356,8 @@ public class MainController implements Initializable {
         Registry.scan = registryScan;
 
         //drivers UI elements
-        Drivers.scanned = driversScanned;
         Drivers.icon = driverSetup;
-        Drivers.scan = driverScan;
-        Drivers.see = driverSee;
-        Drivers.update = driverUpdate;
+        Drivers.open = driveOpen;
 
         //tools UI elements
         Tools.panel = toolsPanel;
@@ -305,6 +404,14 @@ public class MainController implements Initializable {
         Tools.startupPath = startupPath;
         Tools.startupAdd = startupAdd;
         Tools.startupSave = startupSave;
+        Tools.pluginTable = pluginTable;
+        Tools.pluginProgram = pluginProgram;
+        Tools.pluginFile = pluginFile;
+        Tools.pluginVersion = pluginVersion;
+        Tools.pluginGoogleChrome = pluginGoogleChrome;
+        Tools.pluginInternetExplorer = pluginInternetExplorer;
+        Tools.pluginSave = pluginSave;
+        Tools.pluginStatus = pluginStatus;
 
         //options UI elements
         Options.panel = settingsPanel;

@@ -1,8 +1,9 @@
 package Main.Elements;
 
 import Main.Applications.Application;
+import Main.Applications.Extension;
+import Main.Applications.Extensions;
 import Main.Applications.ListApps;
-import Main.Applications.MyEntry;
 import Main.Applications.Software;
 import Main.Applications.StartUpApps;
 import com.jfoenix.controls.JFXButton;
@@ -11,28 +12,26 @@ import com.sun.jna.platform.win32.Advapi32Util;
 import com.sun.jna.platform.win32.WinReg;
 import java.awt.*;
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileFilter;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.attribute.BasicFileAttributes;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.net.URI;
+import java.net.URL;
+import java.net.URLConnection;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
-import java.util.TreeMap;
+import java.util.Objects;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
-import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
@@ -45,8 +44,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
-import javax.swing.filechooser.FileNameExtensionFilter;
-import org.apache.commons.io.FileExistsException;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 
@@ -80,9 +77,10 @@ public class Tools {
     private static final String[] emailExtensions = {".eml", ".mbox", ".msg"};
     private static final String[] all = {"."};
     private static final ArrayList<Thread> threads = new ArrayList<>();
+    public static Label pluginStatus;
     private static boolean cancelled = false;
-    private static final ArrayList<FileModel> list = new ArrayList<>();
-    private static final ObservableList<FileModel> filesList = FXCollections.observableList(list);
+    private static final ArrayList<FileModel> filesArrayList = new ArrayList<>();
+    private static final ObservableList<FileModel> filesList = FXCollections.observableList(filesArrayList);
 
     public static TableView<FileModel> fileTable;
     public static TableColumn<FileModel, String> name;
@@ -112,12 +110,23 @@ public class Tools {
     public static JFXButton startupAdd;
     public static JFXButton startupSave;
 
+    public static TableView<Extension> pluginTable;
+    public static TableColumn<Extension, String> pluginProgram;
+    public static TableColumn<Extension, String> pluginFile;
+    public static TableColumn<Extension, String> pluginVersion;
+    public static JFXButton pluginGoogleChrome;
+    public static JFXButton pluginInternetExplorer;
+    public static JFXButton pluginSave;
+
     public static ListView<File> cleanupDrives;
     public static JFXButton cleanupClean;
+    public static boolean chrome = true;
+    public static ArrayList<Software> installedApplications;
 
     public static void load() {
         uninstall();
         analyzer();
+        plugins();
         wiper();
         startup();
         cleanup();
@@ -151,14 +160,19 @@ public class Tools {
         });
         uninstallSave.setOnAction(actionEvent -> {
             try {
-                saveApplicationsTXT();
-            } catch (IOException e) {
-                e.printStackTrace();
+                PrintWriter writer = new PrintWriter(System.getProperty("user.home") + "\\Documents\\PCCleaner-Installed.txt", "UTF-8");
+                for (Software soft : uninstallTable.getItems()) {
+                    writer.println(soft.getName() + " - @" + soft.getLocation());
+                }
+                writer.close();
+            } catch (FileNotFoundException | UnsupportedEncodingException fileNotFoundException) {
+                fileNotFoundException.printStackTrace();
             }
         });
         btnUninstall.setOnAction(actionEvent -> {
             try {
                 for (Software item : uninstallTable.getSelectionModel().getSelectedItems()) {
+                    installedApplications.remove(item);
                     new ProcessBuilder(item.getUninstall()).start();
                 }
             } catch (IOException e) {
@@ -227,21 +241,16 @@ public class Tools {
 
         startupSave.setOnAction(e -> {
             try {
-                Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(
-                        System.getProperty("user.home") + "\\Documents\\listOfStartUpApps.txt"), StandardCharsets.UTF_8));
-                startupTable.getItems().forEach((o) -> {
-                    try {
-                        writer.write(o.getName() + " - @" + o.getPath() + "\n");
-                    } catch (IOException ex) {
-                        ex.printStackTrace();
-                    }
-                });
-            } catch (FileNotFoundException ex) {
-                ex.printStackTrace();
+                PrintWriter writer = new PrintWriter(System.getProperty("user.home") + "\\Documents\\PCCleaner-StartUp.txt", "UTF-8");
+                for (Application app : startupTable.getItems()) {
+                    writer.println(app.getName() + " - @" + app.getPath());
+                }
+                writer.close();
+            } catch (FileNotFoundException | UnsupportedEncodingException fileNotFoundException) {
+                fileNotFoundException.printStackTrace();
             }
         });
     }
-
 
     private static void loadStartup() {
         ArrayList<Application> startupApps = StartUpApps.getInstalledApps();
@@ -251,7 +260,159 @@ public class Tools {
     }
 
     public static void plugins() {
+        new Thread(Tools::loadChrome).start();
 
+        pluginTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        pluginTable.setOnMouseClicked(MouseEvent -> {
+            if (MouseEvent.getButton().equals(MouseButton.SECONDARY)) {
+                if (pluginTable.getSelectionModel().getSelectedItems() != null) {
+                    ObservableList<Extension> selected = pluginTable.getSelectionModel().getSelectedItems();
+
+                    final ContextMenu contextMenu = new ContextMenu();
+                    final AnchorPane pane = new AnchorPane();
+                    MenuItem open = new MenuItem("Open extension on web");
+                    MenuItem delete = new MenuItem("Delete extension");
+                    MenuItem folder = new MenuItem("Open containing folder");
+
+                    if (!chrome) {
+                        open.setDisable(true);
+                        folder.setDisable(true);
+                    }
+                    pluginTable.setContextMenu(contextMenu);
+                    contextMenu.getItems().addAll(open, delete, folder);
+                    contextMenu.show(pane, MouseEvent.getScreenX(), MouseEvent.getScreenY());
+
+                    open.setOnAction(e -> {
+                        for (Extension ext : selected) {
+                            try {
+                                Desktop.getDesktop().browse(URI.create(ext.getURL()));
+                            } catch (IOException ioException) {
+                                ioException.printStackTrace();
+                            }
+                        }
+                    });
+                    delete.setOnAction(e -> {
+                        if (pluginTable.getSelectionModel().getSelectedItems() != null) {
+                            for (Extension item : pluginTable.getSelectionModel().getSelectedItems()) {
+                                if (chrome) {
+                                    try {
+                                        FileUtils.deleteDirectory(new File(item.getFile()));
+                                        pluginTable.getItems().remove(item);
+                                    } catch (IOException ioException) {
+                                        ioException.printStackTrace();
+                                    }
+                                } else {
+                                    try {
+                                        Advapi32Util.registryDeleteKey(WinReg.HKEY_LOCAL_MACHINE, item.getFile());
+                                        pluginTable.getItems().remove(item);
+                                    } catch (Exception ex) {
+                                        //ignore - important object
+                                    }
+                                }
+                            }
+                        }
+                    });
+                    folder.setOnAction(e -> {
+                        try {
+                            Desktop.getDesktop().open(new File(pluginTable.getSelectionModel().getSelectedItem().getFile()));
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                    });
+                }
+            }
+        });
+
+        pluginInternetExplorer.setOnAction(e -> new Thread(Tools::loadExplorer).start());
+        pluginGoogleChrome.setOnAction(e -> new Thread(Tools::loadChrome).start());
+        pluginSave.setOnAction(e -> {
+            try {
+                PrintWriter writer = new PrintWriter(System.getProperty("user.home") + "\\Documents\\PCCleaner-Plugins.txt", "UTF-8");
+                for (Extension ext : pluginTable.getItems()) {
+                    writer.println(ext.getProgram() + " - @" + ext.getFile());
+                }
+                writer.close();
+            } catch (FileNotFoundException | UnsupportedEncodingException fileNotFoundException) {
+                fileNotFoundException.printStackTrace();
+            }
+        });
+    }
+
+    private static void loadExplorer() {
+        Platform.runLater(() -> pluginStatus.setText("Loading..."));
+        chrome = false;
+        pluginInternetExplorer.setDisable(true);
+        pluginGoogleChrome.setDisable(true);
+
+        pluginTable.getItems().clear();
+        ArrayList<Extension> extensions = Extensions.getExtensions();
+        for (Extension ext : extensions) {
+            pluginTable.getItems().add(ext);
+        }
+
+        pluginGoogleChrome.setDisable(false);
+        Platform.runLater(() -> pluginStatus.setText("Loaded."));
+    }
+
+    private static void loadChrome() {
+        Platform.runLater(() -> pluginStatus.setText("Loading..."));
+        chrome = true;
+        pluginGoogleChrome.setDisable(true);
+        pluginInternetExplorer.setDisable(true);
+
+        pluginTable.getItems().clear();
+        ArrayList<Extension> extensions = getExtensions(System.getProperty("user.home") +
+                "\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Extensions");
+        for (Extension ext : extensions) {
+            pluginTable.getItems().add(ext);
+        }
+        pluginInternetExplorer.setDisable(false);
+        Platform.runLater(() -> pluginStatus.setText("Loaded."));
+    }
+
+    private static ArrayList<Extension> getExtensions(String path) {
+        ArrayList<Extension> pluginList = new ArrayList<>();
+        File[] folders = new File(path).listFiles();
+
+        if (folders != null) {
+            for (File folder : folders) {
+                if (folder.isDirectory()) {
+                    File[] files = folder.listFiles();
+                    String URL = "https://chrome.google.com/webstore/detail/" + folder.getName();
+                    String name = convertToName(URL);
+                    String file = folder.getAbsolutePath();
+
+                    String version;
+                    assert files != null;
+                    if (files.length > 0) {
+                        version = Objects.requireNonNull(folder.listFiles())[0].getName();
+                    } else {
+                        version = "Unknown";
+                    }
+                    pluginList.add(new Extension(name, file, version, URL));
+                }
+            }
+        }
+        return pluginList;
+    }
+
+    private static String convertToName(String page) {
+        try {
+            URL url = new URL(page);
+            URLConnection connection = url.openConnection();
+            InputStream input = connection.getInputStream();
+            BufferedReader br = new BufferedReader(new InputStreamReader(input));
+
+            String line = br.readLine();
+            if (line != null) {
+                String[] before = line.split("<title>");
+                String[] after = before[1].split("- Chrome Web Store");
+                return after[0];
+            }
+        } catch (Exception ex) {
+            return "Unknown";
+        }
+        return "Unknown";
     }
 
     public static void wiper() {
@@ -320,9 +481,13 @@ public class Tools {
 
                 save.setOnAction(actionEvent -> {
                     try {
-                        saveFilesTXT();
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                        PrintWriter writer = new PrintWriter(System.getProperty("user.home") + "\\Documents\\PCCleaner-Files.txt", "UTF-8");
+                        for (FileModel file : fileTable.getItems()) {
+                            writer.println(file.getName() + " - @" + file.getPath());
+                        }
+                        writer.close();
+                    } catch (FileNotFoundException | UnsupportedEncodingException fileNotFoundException) {
+                        fileNotFoundException.printStackTrace();
                     }
                 });
                 delete.setOnAction(actionEvent -> deleteFiles(fileTable.getSelectionModel().getSelectedItems()));
@@ -339,7 +504,7 @@ public class Tools {
         btnAnalyze.setOnAction(e -> {
             cancelled = false;
             filesList.clear();
-            list.clear();
+            filesArrayList.clear();
             fileTable.getItems().clear();
             threads.clear();
             fileExtensions.clear();
@@ -418,8 +583,8 @@ public class Tools {
     }
 
     public static boolean verifyThreads(ArrayList<Thread> threads) {
-        for (int i = 0; i < threads.size(); i++) {
-            if (threads.get(i).isAlive())
+        for (Thread thread : threads) {
+            if (thread.isAlive())
                 return true;
         }
         return false;
@@ -451,7 +616,7 @@ public class Tools {
     private static void isTheSearchedFile(File file) {
         for (String ext : fileExtensions) {
             if (file.getName().contains(ext)) {
-                list.add(new FileModel(file.getName(), file.getAbsolutePath(), "." + FilenameUtils.getExtension(file.getName())));
+                filesArrayList.add(new FileModel(file.getName(), file.getAbsolutePath(), "." + FilenameUtils.getExtension(file.getName())));
                 break;
             }
         }
@@ -459,9 +624,20 @@ public class Tools {
 
     private static void loadUninstall() {
         uninstallTable.getItems().removeAll(uninstallTable.getItems());
-        Map<String, Software> inst = ListApps.getInstalledApps(false);
-        for (Map.Entry<String, Software> app : inst.entrySet()) {
+        Map<String, Software> installed = ListApps.getInstalledApps(false);
+        for (Map.Entry<String, Software> app : installed.entrySet()) {
             uninstallTable.getItems().add(app.getValue());
+            switch (app.getValue().getName()) {
+                case "Google Chrome":
+                    Custom.chrome = true;
+                    break;
+                case "Spotify":
+                    Custom.spotify = true;
+                    break;
+                case "Steam":
+                    Custom.steam = true;
+                    break;
+            }
         }
     }
 
@@ -479,33 +655,6 @@ public class Tools {
         sortedData.comparatorProperty().bind(uninstallTable.comparatorProperty());
         uninstallTable.setItems(sortedData);
     }
-
-    private static void saveFilesTXT() throws IOException {
-        try (Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(
-                System.getProperty("user.home") + "\\Documents\\listOfFiles.txt"), StandardCharsets.UTF_8))) {
-            fileTable.getItems().forEach((o) -> {
-                try {
-                    writer.write(o.getPath() + "\n");
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            });
-        }
-    }
-
-    private static void saveApplicationsTXT() throws IOException {
-        try (Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(
-                System.getProperty("user.home") + "\\Documents\\listOfApps.txt"), StandardCharsets.UTF_8))) {
-            uninstallTable.getItems().forEach((o) -> {
-                try {
-                    writer.write(o.getName() + " - " + o.getLocation() + "\n");
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            });
-        }
-    }
-
 
     private static void deleteFiles(ObservableList<FileModel> selectedItems) {
         for (FileModel item : selectedItems) {

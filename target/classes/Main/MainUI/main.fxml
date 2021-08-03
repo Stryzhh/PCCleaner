@@ -140,35 +140,6 @@
             </JFXButton>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="customPane" layoutX="107.0" layoutY="91.0" prefHeight="567.0" prefWidth="893.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="42.0" AnchorPane.leftAnchor="107.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="91.0">
-         <children>
-            <ListView fx:id="customList" layoutX="221.0" layoutY="44.0" prefHeight="465.0" prefWidth="660.0" stylesheets="@list.css" AnchorPane.bottomAnchor="58.0" AnchorPane.leftAnchor="221.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="44.0" />
-            <AnchorPane fx:id="customPanel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="567.0" prefWidth="210.0" style="-fx-background-color: #eeecec; -fx-border-color: #dadada;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <children>
-                  <JFXButton fx:id="customWindows" alignment="CENTER" prefHeight="44.0" prefWidth="105.0" style="-fx-border-color: #dadada; -fx-border-width: 1 1 1 0;" text="Windows" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="-1.0">
-                     <font>
-                        <Font name="Calibri Light" size="15.0" />
-                     </font>
-                  </JFXButton>
-                  <JFXButton fx:id="customApplications" alignment="CENTER" layoutX="105.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="44.0" prefWidth="105.0" style="-fx-border-color: #dadada; -fx-border-width: 1 1 1 0;" text="Applications" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="-1.0">
-                     <font>
-                        <Font name="Calibri Light" size="15.0" />
-                     </font>
-                  </JFXButton>
-               </children>
-            </AnchorPane>
-            <JFXButton fx:id="customAnalyze" layoutX="222.0" layoutY="519.0" prefHeight="37.0" prefWidth="96.0" style="-fx-background-color: #6eace0;" text="Analyze" textFill="WHITE" AnchorPane.bottomAnchor="11.0" AnchorPane.leftAnchor="222.0">
-               <font>
-                  <Font name="Calibri Light" size="15.0" />
-               </font>
-            </JFXButton>
-            <JFXButton fx:id="customClean" layoutX="786.0" layoutY="519.0" prefHeight="37.0" prefWidth="96.0" style="-fx-background-color: #6eace0;" text="Clean" textFill="WHITE" AnchorPane.bottomAnchor="11.0" AnchorPane.rightAnchor="10.0">
-               <font>
-                  <Font name="Calibri Light" size="15.0" />
-               </font>
-            </JFXButton>
-         </children>
-      </AnchorPane>
       <AnchorPane fx:id="registryPane" layoutX="107.0" layoutY="91.0" prefHeight="567.0" prefWidth="893.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="42.0" AnchorPane.leftAnchor="107.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="91.0">
          <children>
             <AnchorPane fx:id="registryPanel" prefHeight="567.0" prefWidth="211.0" style="-fx-background-color: #eeecec; -fx-border-color: #dadada;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
@@ -188,39 +159,6 @@
             <JFXButton fx:id="registryReview" layoutX="757.0" layoutY="521.0" prefHeight="37.0" prefWidth="125.0" style="-fx-background-color: #6eace0;" text="Review" textFill="WHITE" AnchorPane.bottomAnchor="9.0" AnchorPane.rightAnchor="10.0">
                <font>
                   <Font name="Calibri Light" size="15.0" />
-               </font>
-            </JFXButton>
-         </children></AnchorPane>
-      <AnchorPane fx:id="driverPane" layoutX="107.0" layoutY="91.0" prefHeight="567.0" prefWidth="893.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="42.0" AnchorPane.leftAnchor="107.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="91.0">
-         <children>
-            <ImageView fx:id="driverSetup" fitHeight="257.0" fitWidth="358.0" layoutX="276.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../images/setup1.png" />
-               </image>
-            </ImageView>
-            <JFXButton fx:id="driverUpdate" layoutX="456.0" layoutY="359.0" prefHeight="44.0" prefWidth="170.0" style="-fx-background-color: #6eace0;" text="Update drivers" textFill="WHITE">
-               <font>
-                  <Font name="Calibri Light" size="16.0" />
-               </font>
-            </JFXButton>
-            <Label layoutX="266.0" layoutY="293.0" text="You have Drivers to update">
-               <font>
-                  <Font name="Calibri Bold" size="32.0" />
-               </font>
-            </Label>
-            <Label fx:id="driversScanned" layoutX="354.0" layoutY="434.0" text="Your last scan was 0 hours ago" textFill="#aba4a4">
-               <font>
-                  <Font name="Calibri" size="15.0" />
-               </font>
-            </Label>
-            <JFXButton fx:id="driverSee" layoutX="266.0" layoutY="359.0" prefHeight="44.0" prefWidth="170.0" style="-fx-background-color: #6eace0;" text="See drivers" textFill="WHITE">
-               <font>
-                  <Font name="Calibri Light" size="16.0" />
-               </font>
-            </JFXButton>
-            <JFXButton fx:id="driverScan" layoutX="405.0" layoutY="452.0" style="-fx-text-fill: #6eace0;" text="Scan again" textFill="#3282f2" underline="true">
-               <font>
-                  <Font name="System Bold" size="13.0" />
                </font>
             </JFXButton>
          </children></AnchorPane>
@@ -472,49 +410,6 @@
                   </JFXButton>
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="toolsPluginsPanel" layoutX="148.0" prefHeight="567.0" prefWidth="745.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="148.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <children>
-                  <AnchorPane layoutX="-1.0" prefHeight="37.0" prefWidth="746.0" style="-fx-border-color: #dadada;" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <children>
-                        <Label layoutX="14.0" layoutY="10.0" text="Plugins that run when your browser starts" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="10.0" />
-                     </children>
-                  </AnchorPane>
-                  <TableView fx:id="registryTable1111" layoutX="14.0" layoutY="81.0" prefHeight="472.0" prefWidth="600.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="131.0" AnchorPane.topAnchor="81.0">
-                     <columns>
-                        <TableColumn text="Enabled" />
-                        <TableColumn text="Key" />
-                        <TableColumn prefWidth="180.0" text="Program" />
-                        <TableColumn text="Profile" />
-                        <TableColumn prefWidth="180.0" text="File" />
-                     </columns>
-                  </TableView>
-                  <JFXButton fx:id="registryScan11211" layoutX="621.0" layoutY="45.0" prefHeight="37.0" prefWidth="117.0" style="-fx-background-color: grey;" text="Enable" textFill="WHITE" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="45.0">
-                     <font>
-                        <Font name="Calibri Light" size="15.0" />
-                     </font>
-                  </JFXButton>
-                  <JFXButton fx:id="registryScan111112" layoutX="621.0" layoutY="89.0" prefHeight="37.0" prefWidth="117.0" style="-fx-background-color: grey;" text="Disable" textFill="WHITE" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="90.0">
-                     <font>
-                        <Font name="Calibri Light" size="15.0" />
-                     </font>
-                  </JFXButton>
-                  <JFXButton fx:id="registryScan1111111" layoutX="621.0" layoutY="133.0" prefHeight="37.0" prefWidth="117.0" style="-fx-background-color: #6eace0;" text="Save to text file" textFill="WHITE" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="135.0">
-                     <font>
-                        <Font name="Calibri Light" size="15.0" />
-                     </font>
-                  </JFXButton>
-                  <JFXButton fx:id="toolsUninstall1" alignment="CENTER" layoutX="14.0" layoutY="45.0" prefHeight="37.0" prefWidth="300.0" style="-fx-border-color: #dadada;" text="Google Chrome">
-                     <font>
-                        <Font name="Calibri Light" size="15.0" />
-                     </font>
-                  </JFXButton>
-                  <JFXButton fx:id="toolsUninstall11" alignment="CENTER" layoutX="313.0" layoutY="45.0" prefHeight="37.0" prefWidth="301.0" style="-fx-border-color: #dadada;" text="Internet Explorer">
-                     <font>
-                        <Font name="Calibri Light" size="15.0" />
-                     </font>
-                  </JFXButton>
-               </children>
-            </AnchorPane>
             <AnchorPane fx:id="toolsAnalyzerPanel" layoutX="148.0" prefHeight="567.0" prefWidth="745.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="148.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
                   <AnchorPane layoutX="-1.0" prefHeight="37.0" prefWidth="746.0" style="-fx-border-color: #dadada;" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -653,6 +548,252 @@
                   </JFXButton>
                </children>
             </AnchorPane>
+            <AnchorPane fx:id="toolsPluginsPanel" layoutX="148.0" prefHeight="567.0" prefWidth="745.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="148.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <AnchorPane layoutX="-1.0" prefHeight="37.0" prefWidth="746.0" style="-fx-border-color: #dadada;" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <Label layoutX="14.0" layoutY="10.0" text="Plugins that run when your browser starts" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="10.0" />
+                     </children>
+                  </AnchorPane>
+                  <TableView fx:id="pluginTable" layoutX="14.0" layoutY="81.0" prefHeight="435.0" prefWidth="717.0" AnchorPane.bottomAnchor="51.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="81.0">
+                     <columns>
+                        <TableColumn fx:id="pluginProgram" prefWidth="220.0" text="Program" />
+                        <TableColumn fx:id="pluginFile" prefWidth="401.0" text="File" />
+                        <TableColumn fx:id="pluginVersion" minWidth="0.0" prefWidth="76.0" text="Version" />
+                     </columns>
+                  </TableView>
+                  <JFXButton fx:id="pluginSave" layoutX="614.0" layoutY="523.0" prefHeight="37.0" prefWidth="117.0" style="-fx-background-color: #6eace0;" text="Save to text file" textFill="WHITE" AnchorPane.bottomAnchor="7.0" AnchorPane.rightAnchor="14.0">
+                     <font>
+                        <Font name="Calibri Light" size="15.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="pluginGoogleChrome" alignment="CENTER" layoutX="14.0" layoutY="45.0" prefHeight="37.0" prefWidth="359.0" style="-fx-border-color: #dadada;" text="Google Chrome">
+                     <font>
+                        <Font name="Calibri Light" size="15.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="pluginInternetExplorer" alignment="CENTER" layoutX="372.0" layoutY="45.0" prefHeight="37.0" prefWidth="359.0" style="-fx-border-color: #dadada;" text="Internet Explorer">
+                     <font>
+                        <Font name="Calibri Light" size="15.0" />
+                     </font>
+                  </JFXButton>
+                  <Label fx:id="pluginStatus" layoutX="20.0" layoutY="523.0" text="Loading..." textFill="#19aceb" AnchorPane.bottomAnchor="27.0" AnchorPane.leftAnchor="20.0" />
+               </children>
+            </AnchorPane>
          </children></AnchorPane>
+      <AnchorPane fx:id="driverPane" layoutX="107.0" layoutY="91.0" prefHeight="567.0" prefWidth="893.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="42.0" AnchorPane.leftAnchor="107.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="91.0">
+         <children>
+            <ImageView fx:id="driverSetup" fitHeight="257.0" fitWidth="358.0" layoutX="276.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../images/setup1.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="266.0" layoutY="293.0" text="You have Drivers to update">
+               <font>
+                  <Font name="Calibri Bold" size="32.0" />
+               </font>
+            </Label>
+            <JFXButton fx:id="driveOpen" layoutX="353.0" layoutY="390.0" prefHeight="52.0" prefWidth="188.0" style="-fx-background-color: #6eace0;" text="Open Driver Manager" textFill="WHITE">
+               <font>
+                  <Font name="Calibri Light" size="16.0" />
+               </font>
+            </JFXButton>
+         </children></AnchorPane>
+      <AnchorPane fx:id="customPane" layoutX="107.0" layoutY="91.0" prefHeight="567.0" prefWidth="893.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="42.0" AnchorPane.leftAnchor="107.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="91.0">
+         <children>
+            <ListView fx:id="customList" layoutX="221.0" layoutY="44.0" prefHeight="465.0" prefWidth="660.0" stylesheets="@list.css" AnchorPane.bottomAnchor="58.0" AnchorPane.leftAnchor="221.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="44.0" />
+            <AnchorPane fx:id="windowsPanel" layoutY="43.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="524.0" prefWidth="210.0" style="-fx-background-color: #eeecec; -fx-border-color: #dadada;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="43.0">
+               <children>
+                  <AnchorPane fx:id="explorerPanel" layoutX="16.0" layoutY="18.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="155.0" prefWidth="178.0" style="-fx-background-color: white; -fx-border-color: #dadada;">
+                     <children>
+                        <Label layoutX="46.0" layoutY="9.0" text="Internet Explorer">
+                           <font>
+                              <Font name="System Bold Italic" size="12.0" />
+                           </font>
+                        </Label>
+                        <JFXButton fx:id="selectExplorer" layoutX="6.0" layoutY="4.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="37.0" style="-fx-graphic: url('@../../../images/email.png'); -fx-background-image: url('@../../../images/email.png');">
+                           <graphic>
+                              <ImageView fx:id="explorerIcon" fitHeight="25.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../images/explorer.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </JFXButton>
+                        <JFXCheckBox fx:id="explorerTemp" checkedColor="#6ac968" layoutX="25.0" layoutY="39.0" prefHeight="18.0" prefWidth="84.0" text="Temp Files" />
+                        <JFXCheckBox fx:id="explorerHistory" checkedColor="#6ac968" layoutX="25.0" layoutY="66.0" prefHeight="18.0" prefWidth="84.0" text="History" />
+                        <JFXCheckBox fx:id="explorerCookies" checkedColor="#6ac968" layoutX="25.0" layoutY="91.0" prefHeight="18.0" prefWidth="84.0" text="Cookies" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="edgePanel" layoutX="16.0" layoutY="185.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="155.0" prefWidth="178.0" style="-fx-background-color: white; -fx-border-color: #dadada;">
+                     <children>
+                        <Label layoutX="46.0" layoutY="9.0" text="Edge Chromium">
+                           <font>
+                              <Font name="System Bold Italic" size="12.0" />
+                           </font>
+                        </Label>
+                        <JFXButton fx:id="selectEdge" layoutX="6.0" layoutY="4.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="37.0" style="-fx-graphic: url('@../../../images/email.png'); -fx-background-image: url('@../../../images/email.png');">
+                           <graphic>
+                              <ImageView fx:id="edgeIcon" fitHeight="25.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../images/chromium.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </JFXButton>
+                        <JFXCheckBox fx:id="edgeCache" checkedColor="#6ac968" layoutX="25.0" layoutY="39.0" prefHeight="18.0" prefWidth="84.0" text="Cache" />
+                        <JFXCheckBox fx:id="edgeHistory" checkedColor="#6ac968" layoutX="25.0" layoutY="66.0" prefHeight="18.0" prefWidth="84.0" text="History" />
+                        <JFXCheckBox fx:id="edgeCookies" checkedColor="#6ac968" layoutX="25.0" layoutY="91.0" prefHeight="18.0" prefWidth="84.0" text="Cookies" />
+                        <JFXCheckBox fx:id="edgeSession" checkedColor="#6ac968" layoutX="25.0" layoutY="116.0" prefHeight="18.0" prefWidth="84.0" text="Session" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="systemPanel" layoutX="16.0" layoutY="352.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="155.0" prefWidth="178.0" style="-fx-background-color: white; -fx-border-color: #dadada;">
+                     <children>
+                        <Label layoutX="46.0" layoutY="9.0" text="System">
+                           <font>
+                              <Font name="System Bold Italic" size="12.0" />
+                           </font>
+                        </Label>
+                        <JFXButton fx:id="selectSystem" layoutX="6.0" layoutY="4.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="37.0" style="-fx-graphic: url('@../../../images/email.png'); -fx-background-image: url('@../../../images/email.png');">
+                           <graphic>
+                              <ImageView fx:id="systemIcon" fitHeight="25.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../images/windows.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </JFXButton>
+                        <JFXCheckBox fx:id="systemBin" checkedColor="#6ac968" layoutX="6.0" layoutY="39.0" prefHeight="18.0" prefWidth="84.0" text="Empty Bin">
+                           <font>
+                              <Font size="10.0" />
+                           </font>
+                        </JFXCheckBox>
+                        <JFXCheckBox fx:id="systemTemp" checkedColor="#6ac968" layoutX="6.0" layoutY="67.0" prefHeight="18.0" prefWidth="84.0" text="Temp Files">
+                           <font>
+                              <Font size="10.0" />
+                           </font>
+                        </JFXCheckBox>
+                        <JFXCheckBox fx:id="systemClipboard" checkedColor="#6ac968" layoutX="6.0" layoutY="95.0" prefHeight="18.0" prefWidth="84.0" text="Clipboard">
+                           <font>
+                              <Font size="10.0" />
+                           </font>
+                        </JFXCheckBox>
+                        <JFXCheckBox fx:id="systemDump" checkedColor="#6ac968" layoutX="6.0" layoutY="123.0" prefHeight="18.0" prefWidth="84.0" text="Dump">
+                           <font>
+                              <Font size="10.0" />
+                           </font>
+                        </JFXCheckBox>
+                        <JFXCheckBox fx:id="systemLog" checkedColor="#6ac968" layoutX="92.0" layoutY="39.0" prefHeight="18.0" prefWidth="84.0" text="Log Files">
+                           <font>
+                              <Font size="10.0" />
+                           </font>
+                        </JFXCheckBox>
+                        <JFXCheckBox fx:id="systemReport" checkedColor="#6ac968" layoutX="92.0" layoutY="67.0" prefHeight="18.0" prefWidth="84.0" text="Reports">
+                           <font>
+                              <Font size="10.0" />
+                           </font>
+                        </JFXCheckBox>
+                        <JFXCheckBox fx:id="systemStartMenu" checkedColor="#6ac968" layoutX="92.0" layoutY="95.0" prefHeight="18.0" prefWidth="84.0" text="Start Menu">
+                           <font>
+                              <Font size="10.0" />
+                           </font>
+                        </JFXCheckBox>
+                        <JFXCheckBox fx:id="systemDesktop" checkedColor="#6ac968" layoutX="92.0" layoutY="123.0" prefHeight="18.0" prefWidth="84.0" text="Desktop SCs">
+                           <font>
+                              <Font size="10.0" />
+                           </font>
+                        </JFXCheckBox>
+                     </children>
+                  </AnchorPane>
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="applicationPanel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="524.0" prefWidth="210.0" style="-fx-background-color: white; -fx-border-color: #dadada;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="43.0">
+               <children>
+                  <AnchorPane fx:id="chromePanel" layoutX="16.0" layoutY="18.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="155.0" prefWidth="178.0" style="-fx-background-color: white; -fx-border-color: #dadada;">
+                     <children>
+                        <Label layoutX="46.0" layoutY="9.0" text="Google Chrome">
+                           <font>
+                              <Font name="System Bold Italic" size="12.0" />
+                           </font>
+                        </Label>
+                        <JFXButton fx:id="selectChrome" layoutX="6.0" layoutY="4.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="37.0" style="-fx-graphic: url('@../../../images/email.png'); -fx-background-image: url('@../../../images/email.png');">
+                           <graphic>
+                              <ImageView fx:id="chromeIcon" fitHeight="25.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../images/chrome.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </JFXButton>
+                        <JFXCheckBox fx:id="chromeCache" checkedColor="#6ac968" layoutX="25.0" layoutY="39.0" prefHeight="18.0" prefWidth="84.0" text="Cache" />
+                        <JFXCheckBox fx:id="chromeHistory" checkedColor="#6ac968" layoutX="25.0" layoutY="66.0" prefHeight="18.0" prefWidth="84.0" text="History" />
+                        <JFXCheckBox fx:id="chromeCookies" checkedColor="#6ac968" layoutX="25.0" layoutY="91.0" prefHeight="18.0" prefWidth="84.0" text="Cookies" />
+                        <JFXCheckBox fx:id="chromeSession" checkedColor="#6ac968" layoutX="25.0" layoutY="116.0" prefHeight="18.0" prefWidth="84.0" text="Session" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="spotifyPanel" layoutX="16.0" layoutY="185.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="155.0" prefWidth="178.0" style="-fx-background-color: white; -fx-border-color: #dadada;">
+                     <children>
+                        <Label layoutX="46.0" layoutY="9.0" text="Spotify">
+                           <font>
+                              <Font name="System Bold Italic" size="12.0" />
+                           </font>
+                        </Label>
+                        <JFXButton fx:id="selectSpotify" layoutX="6.0" layoutY="4.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="37.0" style="-fx-graphic: url('@../../../images/email.png'); -fx-background-image: url('@../../../images/email.png');">
+                           <graphic>
+                              <ImageView fx:id="spotifyIcon" fitHeight="25.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../images/spotify.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </JFXButton>
+                        <JFXCheckBox fx:id="spotifyCache" checkedColor="#6ac968" layoutX="25.0" layoutY="39.0" prefHeight="18.0" prefWidth="84.0" text="Data Cache" />
+                        <JFXCheckBox fx:id="spotifyMusic" checkedColor="#6ac968" layoutX="25.0" layoutY="66.0" prefHeight="18.0" prefWidth="84.0" text="Music Cache" />
+                        <JFXCheckBox fx:id="spotifyOffline" checkedColor="#6ac968" layoutX="25.0" layoutY="91.0" prefHeight="18.0" prefWidth="84.0" text="Offline Songs" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="steamPanel" layoutX="16.0" layoutY="352.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="155.0" prefWidth="178.0" style="-fx-background-color: white; -fx-border-color: #dadada;">
+                     <children>
+                        <Label layoutX="46.0" layoutY="9.0" text="Steam">
+                           <font>
+                              <Font name="System Bold Italic" size="12.0" />
+                           </font>
+                        </Label>
+                        <JFXButton fx:id="selectSteam" layoutX="6.0" layoutY="4.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="37.0" style="-fx-graphic: url('@../../../images/email.png'); -fx-background-image: url('@../../../images/email.png');">
+                           <graphic>
+                              <ImageView fx:id="steamIcon" fitHeight="25.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../images/steam.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </JFXButton>
+                        <JFXCheckBox fx:id="steamDump" checkedColor="#6ac968" layoutX="25.0" layoutY="39.0" prefHeight="18.0" prefWidth="84.0" text="Dump Files" />
+                     </children>
+                  </AnchorPane>
+               </children>
+            </AnchorPane>
+            <JFXButton fx:id="customAnalyze" layoutX="222.0" layoutY="519.0" prefHeight="37.0" prefWidth="96.0" style="-fx-background-color: #6eace0;" text="Analyze" textFill="WHITE" AnchorPane.bottomAnchor="11.0" AnchorPane.leftAnchor="222.0">
+               <font>
+                  <Font name="Calibri Light" size="15.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="customClean" layoutX="786.0" layoutY="519.0" prefHeight="37.0" prefWidth="96.0" style="-fx-background-color: #6eace0;" text="Clean" textFill="WHITE" AnchorPane.bottomAnchor="11.0" AnchorPane.rightAnchor="10.0">
+               <font>
+                  <Font name="Calibri Light" size="15.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="customWindows" alignment="CENTER" prefHeight="44.0" prefWidth="105.0" style="-fx-border-color: #dadada; -fx-border-width: 1 1 1 0;" text="Windows" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <font>
+                  <Font name="Calibri Light" size="15.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="customApplications" alignment="CENTER" layoutX="105.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="44.0" prefWidth="105.0" style="-fx-border-color: #dadada; -fx-border-width: 1 1 1 0;" text="Applications">
+               <font>
+                  <Font name="Calibri Light" size="15.0" />
+               </font>
+            </JFXButton>
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>
