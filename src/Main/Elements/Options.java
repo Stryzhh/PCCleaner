@@ -59,7 +59,7 @@ public class Options extends Component {
     public static JFXCheckBox closeCustom;
     public static JFXCheckBox shutdownCustom;
     public static JFXButton restoreAdvanced;
-    private static Config config;
+    public static Config config;
 
     public static void load() {
         aboutPane.toFront();

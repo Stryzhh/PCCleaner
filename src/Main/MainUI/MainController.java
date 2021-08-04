@@ -9,7 +9,6 @@ import Main.Elements.Clean;
 import Main.Elements.Custom;
 import Main.Elements.Drivers;
 import Main.Elements.Options;
-import Main.Elements.Registry;
 import Main.Elements.Specifications;
 import Main.Elements.Tools;
 import com.jfoenix.controls.JFXButton;
@@ -35,7 +34,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javax.usb.UsbException;
 import oshi.SystemInfo;
 
 public class MainController implements Initializable {
@@ -45,8 +43,6 @@ public class MainController implements Initializable {
     @FXML private AnchorPane customPane;
     @FXML private AnchorPane windowsPanel;
     @FXML private AnchorPane applicationPanel;
-    @FXML private AnchorPane registryPane;
-    @FXML private AnchorPane registryPanel;
     @FXML private AnchorPane driverPane;
     @FXML private AnchorPane toolsPane;
     @FXML private AnchorPane toolsPanel;
@@ -73,7 +69,7 @@ public class MainController implements Initializable {
     @FXML private ImageView quickIcon;
     @FXML private ImageView quickSetup;
     @FXML private ImageView customIcon;
-    @FXML private ImageView registryIcon;
+    @FXML private ImageView exitIcon;
     @FXML private ImageView driverIcon;
     @FXML private ImageView driverSetup;
     @FXML private ImageView toolsIcon;
@@ -85,8 +81,6 @@ public class MainController implements Initializable {
     @FXML private JFXButton customApplications;
     @FXML private JFXButton customAnalyze;
     @FXML private JFXButton customClean;
-    @FXML private JFXButton registryReview;
-    @FXML private JFXButton registryScan;
     @FXML private JFXButton driveOpen;
     @FXML private JFXButton settingsSettings;
     @FXML private JFXButton settingsInclude;
@@ -108,7 +102,6 @@ public class MainController implements Initializable {
     @FXML private Label repo;
     @FXML private Label analyzeStatus;
 
-    @FXML private TableView<String> registryTable;
     @FXML private ListView<String> customList;
     @FXML private ListView<String> specsList;
 
@@ -272,7 +265,6 @@ public class MainController implements Initializable {
         Tools.load();
         Clean.load();
         Custom.load();
-        Registry.load();
         Drivers.load();
         Options.load();
         Specifications.load();
@@ -284,7 +276,7 @@ public class MainController implements Initializable {
         logo.setImage(new Image(new File("images\\PCCleaner.png").toURI().toString()));
         quickIcon.setImage(new Image(new File("images\\quick.png").toURI().toString()));
         customIcon.setImage(new Image(new File("images\\custom.png").toURI().toString()));
-        registryIcon.setImage(new Image(new File("images\\registry.png").toURI().toString()));
+        exitIcon.setImage(new Image(new File("images\\exit.png").toURI().toString()));
         driverIcon.setImage(new Image(new File("images\\drivers.png").toURI().toString()));
         toolsIcon.setImage(new Image(new File("images\\tools.png").toURI().toString()));
         optionsIcon.setImage(new Image(new File("images\\settings.png").toURI().toString()));
@@ -348,12 +340,6 @@ public class MainController implements Initializable {
         Custom.steamPanel = steamPanel;
         Custom.selectSteam = selectSteam;
         Custom.steamDump = steamDump;
-
-        //registry UI elements
-        Registry.panel = registryPanel;
-        Registry.table = registryTable;
-        Registry.review = registryReview;
-        Registry.scan = registryScan;
 
         //drivers UI elements
         Drivers.icon = driverSetup;
@@ -453,10 +439,6 @@ public class MainController implements Initializable {
 
     public void custom() {
         customPane.toFront();
-    }
-
-    public void registry() {
-        registryPane.toFront();
     }
 
     public void drivers() {

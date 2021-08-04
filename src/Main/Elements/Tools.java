@@ -160,7 +160,7 @@ public class Tools {
         });
         uninstallSave.setOnAction(actionEvent -> {
             try {
-                PrintWriter writer = new PrintWriter(System.getProperty("user.home") + "\\Documents\\PCCleaner-Installed.txt", "UTF-8");
+                PrintWriter writer = new PrintWriter(System.getProperty("user.home") + "\\Documents\\Installed.txt", "UTF-8");
                 for (Software soft : uninstallTable.getItems()) {
                     writer.println(soft.getName() + " - @" + soft.getLocation());
                 }
@@ -241,7 +241,7 @@ public class Tools {
 
         startupSave.setOnAction(e -> {
             try {
-                PrintWriter writer = new PrintWriter(System.getProperty("user.home") + "\\Documents\\PCCleaner-StartUp.txt", "UTF-8");
+                PrintWriter writer = new PrintWriter(System.getProperty("user.home") + "\\Documents\\StartUp.txt", "UTF-8");
                 for (Application app : startupTable.getItems()) {
                     writer.println(app.getName() + " - @" + app.getPath());
                 }
@@ -327,7 +327,7 @@ public class Tools {
         pluginGoogleChrome.setOnAction(e -> new Thread(Tools::loadChrome).start());
         pluginSave.setOnAction(e -> {
             try {
-                PrintWriter writer = new PrintWriter(System.getProperty("user.home") + "\\Documents\\PCCleaner-Plugins.txt", "UTF-8");
+                PrintWriter writer = new PrintWriter(System.getProperty("user.home") + "\\Documents\\Plugins.txt", "UTF-8");
                 for (Extension ext : pluginTable.getItems()) {
                     writer.println(ext.getProgram() + " - @" + ext.getFile());
                 }
@@ -481,7 +481,7 @@ public class Tools {
 
                 save.setOnAction(actionEvent -> {
                     try {
-                        PrintWriter writer = new PrintWriter(System.getProperty("user.home") + "\\Documents\\PCCleaner-Files.txt", "UTF-8");
+                        PrintWriter writer = new PrintWriter(System.getProperty("user.home") + "\\Documents\\Files.txt", "UTF-8");
                         for (FileModel file : fileTable.getItems()) {
                             writer.println(file.getName() + " - @" + file.getPath());
                         }

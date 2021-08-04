@@ -1,4 +1,17 @@
 {
-  "includeItems": [],
+  "includeItems": [
+    {
+      "path": "C:\\Users\\gmaun\\Documents\\Files.txt"
+    },
+    {
+      "path": "C:\\Users\\gmaun\\Documents\\Installed.txt"
+    },
+    {
+      "path": "C:\\Users\\gmaun\\Documents\\Plugins.txt"
+    },
+    {
+      "path": "C:\\Users\\gmaun\\Documents\\StartUp.txt"
+    }
+  ],
   "excludeItems": []
 }

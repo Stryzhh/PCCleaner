@@ -20,7 +20,9 @@ public class Config {
         this.excludeItems = excludeItems;
     }
 
-    public ArrayList<File> getExcludeItems() {
+    public java.util.ArrayList<File> getExcludeItems() {
         return excludeItems;
     }
+
+
 }

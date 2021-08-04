@@ -78,29 +78,29 @@
                   <Image url="@../../../images/custom.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="registryIcon" fitHeight="44.0" fitWidth="37.0" layoutX="37.0" layoutY="177.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../images/registry.png" />
-               </image>
-            </ImageView>
-            <ImageView fx:id="driverIcon" fitHeight="44.0" fitWidth="44.0" layoutX="33.0" layoutY="254.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="driverIcon" fitHeight="44.0" fitWidth="44.0" layoutX="32.0" layoutY="173.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../images/drivers.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="toolsIcon" fitHeight="44.0" fitWidth="37.0" layoutX="38.0" layoutY="341.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="toolsIcon" fitHeight="44.0" fitWidth="37.0" layoutX="38.0" layoutY="260.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../images/tools.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="optionsIcon" fitHeight="44.0" fitWidth="37.0" layoutX="37.0" layoutY="425.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="optionsIcon" fitHeight="44.0" fitWidth="37.0" layoutX="37.0" layoutY="344.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../images/settings.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="specificationsIcon" fitHeight="44.0" fitWidth="44.0" layoutX="32.0" layoutY="502.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="specificationsIcon" fitHeight="44.0" fitWidth="44.0" layoutX="32.0" layoutY="421.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../images/specifications.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="exitIcon" fitHeight="44.0" fitWidth="44.0" layoutX="31.0" layoutY="498.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../images/exit.png" />
                </image>
             </ImageView>
             <JFXButton alignment="CENTER" onAction="#clean" prefHeight="82.0" prefWidth="107.0" style="-fx-border-color: grey; -fx-border-width: 1 0 1 0;" text="&#10;&#10;&#10;Quick Clean&#10;" textFill="WHITE">
@@ -113,83 +113,38 @@
                   <Font size="10.0" />
                </font>
             </JFXButton>
-            <JFXButton alignment="CENTER" layoutY="162.0" onAction="#registry" prefHeight="82.0" prefWidth="107.0" style="-fx-border-width: 1 0 1 0; -fx-border-color: grey;" text="&#10;&#10;&#10;Registry&#10;" textFill="WHITE">
+            <JFXButton alignment="CENTER" layoutY="162.0" onAction="#drivers" prefHeight="82.0" prefWidth="107.0" style="-fx-border-width: 1 0 1 0; -fx-border-color: grey;" text="&#10;&#10;&#10;Driver Updater" textFill="WHITE">
                <font>
                   <Font size="10.0" />
                </font>
             </JFXButton>
-            <JFXButton alignment="CENTER" layoutX="1.0" layoutY="243.0" onAction="#drivers" prefHeight="82.0" prefWidth="107.0" style="-fx-border-width: 1 0 1 0; -fx-border-color: grey;" text="&#10;&#10;&#10;Driver Updater" textFill="WHITE">
+            <JFXButton alignment="CENTER" layoutY="243.0" onAction="#tools" prefHeight="82.0" prefWidth="107.0" style="-fx-border-width: 1 0 1 0; -fx-border-color: grey;" text="&#10;&#10;&#10;Tools&#10;" textFill="WHITE">
                <font>
                   <Font size="10.0" />
                </font>
             </JFXButton>
-            <JFXButton alignment="CENTER" layoutY="324.0" onAction="#tools" prefHeight="82.0" prefWidth="107.0" style="-fx-border-width: 1 0 1 0; -fx-border-color: grey;" text="&#10;&#10;&#10;Tools&#10;" textFill="WHITE">
+            <JFXButton alignment="CENTER" layoutY="324.0" onAction="#options" prefHeight="82.0" prefWidth="107.0" style="-fx-border-width: 1 0 1 0; -fx-border-color: grey;" text="&#10;&#10;&#10;Options&#10;" textFill="WHITE">
                <font>
                   <Font size="10.0" />
                </font>
             </JFXButton>
-            <JFXButton alignment="CENTER" layoutY="405.0" onAction="#options" prefHeight="82.0" prefWidth="107.0" style="-fx-border-width: 1 0 1 0; -fx-border-color: grey;" text="&#10;&#10;&#10;Options&#10;" textFill="WHITE">
+            <JFXButton alignment="CENTER" layoutY="405.0" onAction="#specifications" prefHeight="82.0" prefWidth="107.0" style="-fx-border-width: 1 0 1 0; -fx-border-color: grey;" text="&#10;&#10;&#10;Full Specifications&#10;" textFill="WHITE">
                <font>
                   <Font size="10.0" />
                </font>
             </JFXButton>
-            <JFXButton alignment="CENTER" layoutY="486.0" onAction="#specifications" prefHeight="82.0" prefWidth="107.0" style="-fx-border-width: 1 0 1 0; -fx-border-color: grey;" text="&#10;&#10;&#10;Full Specifications&#10;" textFill="WHITE">
+            <JFXButton alignment="CENTER" layoutY="487.0" onAction="#exit" prefHeight="82.0" prefWidth="107.0" style="-fx-border-width: 1 0 1 0; -fx-border-color: grey;" text="&#10;&#10;&#10;Exit Application&#10;" textFill="WHITE">
                <font>
                   <Font size="10.0" />
                </font>
             </JFXButton>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="registryPane" layoutX="107.0" layoutY="91.0" prefHeight="567.0" prefWidth="893.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="42.0" AnchorPane.leftAnchor="107.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="91.0">
-         <children>
-            <AnchorPane fx:id="registryPanel" prefHeight="567.0" prefWidth="211.0" style="-fx-background-color: #eeecec; -fx-border-color: #dadada;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
-            <TableView fx:id="registryTable" layoutX="222.0" layoutY="49.0" prefHeight="465.0" prefWidth="660.0" AnchorPane.bottomAnchor="53.0" AnchorPane.leftAnchor="222.0" AnchorPane.rightAnchor="11.0" AnchorPane.topAnchor="49.0">
-              <columns>
-                <TableColumn prefWidth="60.0" text="Selected" />
-                <TableColumn prefWidth="200.0" text="Problem" />
-                  <TableColumn minWidth="0.0" prefWidth="200.0" text="Data" />
-                  <TableColumn prefWidth="200.0" text="Registry Key" />
-              </columns>
-            </TableView>
-            <JFXButton fx:id="registryScan" layoutX="222.0" layoutY="521.0" prefHeight="37.0" prefWidth="96.0" style="-fx-background-color: #6eace0;" text="Scan" textFill="WHITE" AnchorPane.bottomAnchor="9.0" AnchorPane.leftAnchor="222.0">
-               <font>
-                  <Font name="Calibri Light" size="15.0" />
-               </font>
-            </JFXButton>
-            <JFXButton fx:id="registryReview" layoutX="757.0" layoutY="521.0" prefHeight="37.0" prefWidth="125.0" style="-fx-background-color: #6eace0;" text="Review" textFill="WHITE" AnchorPane.bottomAnchor="9.0" AnchorPane.rightAnchor="10.0">
-               <font>
-                  <Font name="Calibri Light" size="15.0" />
-               </font>
-            </JFXButton>
-         </children></AnchorPane>
       <AnchorPane fx:id="specificationsPane" layoutX="107.0" layoutY="91.0" prefHeight="567.0" prefWidth="893.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="42.0" AnchorPane.leftAnchor="107.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="91.0">
          <children>
             <ListView fx:id="specsList" layoutX="173.0" layoutY="14.0" prefHeight="540.0" prefWidth="547.0" stylesheets="@list.css" AnchorPane.bottomAnchor="13.0" AnchorPane.leftAnchor="173.0" AnchorPane.rightAnchor="173.0" AnchorPane.topAnchor="14.0" />
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="cleanPane" layoutX="107.0" layoutY="91.0" prefHeight="567.0" prefWidth="893.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="42.0" AnchorPane.leftAnchor="107.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="91.0">
-         <children>
-            <ImageView fx:id="quickSetup" fitHeight="291.0" fitWidth="332.0" layoutX="281.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../images/setup.png" />
-               </image>
-            </ImageView>
-            <JFXButton fx:id="quickClean" layoutX="370.0" layoutY="428.0" prefHeight="52.0" style="-fx-background-color: #6eace0;" text="Perform Quick Clean" textFill="WHITE">
-               <font>
-                  <Font name="Calibri Light" size="16.0" />
-               </font>
-            </JFXButton>
-            <Label layoutX="305.0" layoutY="330.0" prefHeight="40.0" prefWidth="284.0" text="Clean Your Computer">
-               <font>
-                  <Font name="Calibri Bold" size="32.0" />
-               </font>
-            </Label>
-            <Label layoutX="266.0" layoutY="380.0" prefHeight="22.0" prefWidth="362.0" text="Remove all unwanted junk from your machine" textFill="#aba4a4">
-               <font>
-                  <Font name="Calibri" size="19.0" />
-               </font>
-            </Label>
-         </children></AnchorPane>
       <AnchorPane fx:id="settingsPane" layoutX="107.0" layoutY="91.0" prefHeight="567.0" prefWidth="893.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="42.0" AnchorPane.leftAnchor="107.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="91.0">
          <children>
             <AnchorPane fx:id="settingsPanel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="567.0" prefWidth="148.0" style="-fx-background-color: #eeecec; -fx-border-color: #dadada;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -602,7 +557,7 @@
       <AnchorPane fx:id="customPane" layoutX="107.0" layoutY="91.0" prefHeight="567.0" prefWidth="893.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="42.0" AnchorPane.leftAnchor="107.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="91.0">
          <children>
             <ListView fx:id="customList" layoutX="221.0" layoutY="44.0" prefHeight="465.0" prefWidth="660.0" stylesheets="@list.css" AnchorPane.bottomAnchor="58.0" AnchorPane.leftAnchor="221.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="44.0" />
-            <AnchorPane fx:id="windowsPanel" layoutY="43.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="524.0" prefWidth="210.0" style="-fx-background-color: #eeecec; -fx-border-color: #dadada;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="43.0">
+            <AnchorPane fx:id="windowsPanel" layoutY="43.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="524.0" prefWidth="210.0" style="-fx-background-color: white; -fx-border-color: #dadada;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="43.0">
                <children>
                   <AnchorPane fx:id="explorerPanel" layoutX="16.0" layoutY="18.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="155.0" prefWidth="178.0" style="-fx-background-color: white; -fx-border-color: #dadada;">
                      <children>
@@ -793,7 +748,31 @@
                   <Font name="Calibri Light" size="15.0" />
                </font>
             </JFXButton>
+            <Label fx:id="version1" layoutX="223.0" layoutY="21.0" text="Files removed/to be removed" />
          </children>
       </AnchorPane>
+      <AnchorPane fx:id="cleanPane" layoutX="107.0" layoutY="91.0" prefHeight="567.0" prefWidth="893.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="42.0" AnchorPane.leftAnchor="107.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="91.0">
+         <children>
+            <ImageView fx:id="quickSetup" fitHeight="291.0" fitWidth="332.0" layoutX="281.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../images/setup.png" />
+               </image>
+            </ImageView>
+            <JFXButton fx:id="quickClean" layoutX="370.0" layoutY="428.0" prefHeight="52.0" style="-fx-background-color: #6eace0;" text="Perform Quick Clean" textFill="WHITE">
+               <font>
+                  <Font name="Calibri Light" size="16.0" />
+               </font>
+            </JFXButton>
+            <Label layoutX="305.0" layoutY="330.0" prefHeight="40.0" prefWidth="284.0" text="Clean Your Computer">
+               <font>
+                  <Font name="Calibri Bold" size="32.0" />
+               </font>
+            </Label>
+            <Label layoutX="266.0" layoutY="380.0" prefHeight="22.0" prefWidth="362.0" text="Remove all unwanted junk from your machine" textFill="#aba4a4">
+               <font>
+                  <Font name="Calibri" size="19.0" />
+               </font>
+            </Label>
+         </children></AnchorPane>
    </children>
 </AnchorPane>

@@ -124,6 +124,7 @@ public class Custom {
             ST = !ST;
             steamDump.setSelected(ST);
         });
+
         analyze.setOnAction(e -> analyzeFiles());
         clean.setOnAction(e -> {
             try {
@@ -202,13 +203,14 @@ public class Custom {
     private static void recursiveDelete(File f) {
         File[] files = f.listFiles();
 
-        assert files != null;
-        for (File file : files) {
-            if (file.isDirectory()) {
-                recursiveDelete(file);
-            } else {
-                if (f.delete()) {
-                    Platform.runLater(() -> list.getItems().add("deleted: " + f.getAbsolutePath()));
+        if (files != null) {
+            for (File file : files) {
+                if (file.isDirectory()) {
+                    recursiveDelete(file);
+                } else {
+                    if (f.delete()) {
+                        Platform.runLater(() -> list.getItems().add("deleted: " + f.getAbsolutePath()));
+                    }
                 }
             }
         }
