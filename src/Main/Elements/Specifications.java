@@ -1,7 +1,7 @@
 package Main.Elements;
 
 
-import Main.Neutral;
+import Main.Default.Functions;
 import java.io.File;
 import javafx.application.Platform;
 import javafx.scene.control.ListView;
@@ -23,7 +23,7 @@ public class Specifications {
             list.getItems().add("------ GPU INFO ------");
             for (int i = 0; i < info.getHardware().getGraphicsCards().size(); i++) {
                 list.getItems().add("GPU " + (i + 1) + " : " + hardware.getGraphicsCards().get(i).getName());
-                list.getItems().add("VRAM: " + Neutral.gigabyte(hardware.getGraphicsCards().get(i).getVRam() * 2) + " GB");
+                list.getItems().add("VRAM: " + Functions.gigabyte(hardware.getGraphicsCards().get(i).getVRam() * 2) + " GB");
                 list.getItems().add("Vendor: " + hardware.getGraphicsCards().get(i).getVendor());
                 list.getItems().add("Version: " + hardware.getGraphicsCards().get(i).getVersionInfo());
                 list.getItems().add("Device ID: " + hardware.getGraphicsCards().get(i).getDeviceId());
@@ -45,8 +45,8 @@ public class Specifications {
             list.getItems().add("Hardware UUID: " + hardware.getComputerSystem().getHardwareUUID());
 
             list.getItems().add("\n------ RAM INFO ------");
-            list.getItems().add("Total Size: " + Neutral.gigabyte(hardware.getMemory().getTotal()) + " GB");
-            list.getItems().add("Available: " + Neutral.gigabyte(hardware.getMemory().getAvailable()) + " GB");
+            list.getItems().add("Total Size: " + Functions.gigabyte(hardware.getMemory().getTotal()) + " GB");
+            list.getItems().add("Available: " + Functions.gigabyte(hardware.getMemory().getAvailable()) + " GB");
             list.getItems().add("Page Size: " + hardware.getMemory().getPageSize() + " KB");
 
             list.getItems().add("\n------ STORAGE INFO ------");
@@ -54,9 +54,9 @@ public class Specifications {
             for (int i = 0; i < roots.length; i++) {
                 list.getItems().add("Drive " + (i + 1) + " :");
                 list.getItems().add("File system root: " + roots[i].getAbsolutePath());
-                list.getItems().add("Total space: " + Neutral.gigabyte(roots[i].getTotalSpace()) + " GB");
-                list.getItems().add("Free space: " + Neutral.gigabyte(roots[i].getFreeSpace()) + " GB");
-                list.getItems().add("Usable space: " + Neutral.gigabyte(roots[i].getUsableSpace()) + " GB");
+                list.getItems().add("Total space: " + Functions.gigabyte(roots[i].getTotalSpace()) + " GB");
+                list.getItems().add("Free space: " + Functions.gigabyte(roots[i].getFreeSpace()) + " GB");
+                list.getItems().add("Usable space: " + Functions.gigabyte(roots[i].getUsableSpace()) + " GB");
             }
 
             list.getItems().add("\n------ POWER INFO ------");

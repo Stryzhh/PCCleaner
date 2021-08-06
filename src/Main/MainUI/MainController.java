@@ -1,10 +1,10 @@
 package Main.MainUI;
 
-import Main.Applications.Application;
-import Main.Applications.Extension;
-import Main.Applications.Software;
-import Main.Elements.FileModel;
-import Main.Neutral;
+import Main.Objects.Application;
+import Main.Objects.Extension;
+import Main.Objects.Software;
+import Main.Objects.File;
+import Main.Default.Functions;
 import Main.Elements.Clean;
 import Main.Elements.Custom;
 import Main.Elements.Drivers;
@@ -14,7 +14,6 @@ import Main.Elements.Tools;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
 import java.awt.*;
-import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -122,24 +121,24 @@ public class MainController implements Initializable {
     @FXML private JFXCheckBox analyzeEmail;
     @FXML private JFXCheckBox analyzeCompressed;
     @FXML private JFXCheckBox analyzeEverything;
-    @FXML private ListView<File> analyzeDrives;
+    @FXML private ListView<java.io.File> analyzeDrives;
     @FXML private JFXButton btnAnalyze;
     @FXML private JFXButton btnCancel;
 
-    @FXML private ListView<File> includeList;
+    @FXML private ListView<java.io.File> includeList;
     @FXML private JFXButton includeAddFile;
     @FXML private JFXButton includeAddFolder;
     @FXML private JFXButton includeRemove;
 
-    @FXML private ListView<File> excludeList;
+    @FXML private ListView<java.io.File> excludeList;
     @FXML private JFXButton excludeAddFile;
     @FXML private JFXButton excludeAddFolder;
     @FXML private JFXButton excludeRemove;
 
-    @FXML private TableView<FileModel> fileTable;
-    @FXML private TableColumn<FileModel, String> analyzeName;
-    @FXML private TableColumn<FileModel, String> analyzePath;
-    @FXML private TableColumn<FileModel, String> analyzeType;
+    @FXML private TableView<File> fileTable;
+    @FXML private TableColumn<File, String> analyzeName;
+    @FXML private TableColumn<File, String> analyzePath;
+    @FXML private TableColumn<File, String> analyzeType;
 
     @FXML private TextField uninstallSearch;
     @FXML private TableView<Software> uninstallTable;
@@ -152,13 +151,13 @@ public class MainController implements Initializable {
     @FXML private JFXButton uninstallSave;
 
     @FXML private ListView<String> wiperDeleted;
-    @FXML private ListView<File> wiperDrives;
+    @FXML private ListView<java.io.File> wiperDrives;
     @FXML private JFXButton wipeDrive;
     @FXML private JFXButton cancelWipe;
     @FXML private ComboBox<Integer> comboWipes;
     @FXML private Label wiperStatus;
 
-    @FXML private ListView<File> cleanupDrives;
+    @FXML private ListView<java.io.File> cleanupDrives;
     @FXML private JFXButton cleanupClean;
 
     @FXML private TableView<Application> startupTable;
@@ -228,6 +227,7 @@ public class MainController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         cleanPane.toFront();
+        toolsUninstallPanel.toFront();
         setUIElements();
         comboWipes.getItems().add(1);
         comboWipes.getItems().add(2);
@@ -242,7 +242,7 @@ public class MainController implements Initializable {
         version.setText("v1.0.0");
         OS.setText(String.valueOf(info.getOperatingSystem()));
         specs.setText(gpus + info.getHardware().getProcessor().getProcessorIdentifier().getName() + ", " +
-                Neutral.gigabyte(info.getHardware().getMemory().getTotal()) + " (GB) RAM");
+                Functions.gigabyte(info.getHardware().getMemory().getTotal()) + " (GB) RAM");
 
         analyzeName.setCellValueFactory(new PropertyValueFactory<>("Name"));
         analyzePath.setCellValueFactory(new PropertyValueFactory<>("Path"));
@@ -270,26 +270,26 @@ public class MainController implements Initializable {
         Specifications.load();
 
         //setting images
-        quickSetup.setImage(new Image(new File("images\\setup.png").toURI().toString()));
-        driverSetup.setImage(new Image(new File("images\\setup1.png").toURI().toString()));
-        minimizedLogo.setImage(new Image(new File("images\\PCCleaner.png").toURI().toString()));
-        logo.setImage(new Image(new File("images\\PCCleaner.png").toURI().toString()));
-        quickIcon.setImage(new Image(new File("images\\quick.png").toURI().toString()));
-        customIcon.setImage(new Image(new File("images\\custom.png").toURI().toString()));
-        exitIcon.setImage(new Image(new File("images\\exit.png").toURI().toString()));
-        driverIcon.setImage(new Image(new File("images\\drivers.png").toURI().toString()));
-        toolsIcon.setImage(new Image(new File("images\\tools.png").toURI().toString()));
-        optionsIcon.setImage(new Image(new File("images\\settings.png").toURI().toString()));
-        specificationsIcon.setImage(new Image(new File("images\\specifications.png").toURI().toString()));
-        explorerIcon.setImage(new Image(new File("images\\explorer.png").toURI().toString()));
-        edgeIcon.setImage(new Image(new File("images\\chromium.png").toURI().toString()));
-        systemIcon.setImage(new Image(new File("images\\windows.png").toURI().toString()));
-        chromeIcon.setImage(new Image(new File("images\\chrome.png").toURI().toString()));
-        spotifyIcon.setImage(new Image(new File("images\\spotify.png").toURI().toString()));
-        steamIcon.setImage(new Image(new File("images\\steam.png").toURI().toString()));
-        minimizeIcon.setImage(new Image(new File("images\\minimize.png").toURI().toString()));
-        maximiseIcon.setImage(new Image(new File("images\\maximise.png").toURI().toString()));
-        closeIcon.setImage(new Image(new File("images\\close.png").toURI().toString()));
+        quickSetup.setImage(new Image(new java.io.File("images\\setup.png").toURI().toString()));
+        driverSetup.setImage(new Image(new java.io.File("images\\setup1.png").toURI().toString()));
+        minimizedLogo.setImage(new Image(new java.io.File("images\\PCCleaner.png").toURI().toString()));
+        logo.setImage(new Image(new java.io.File("images\\PCCleaner.png").toURI().toString()));
+        quickIcon.setImage(new Image(new java.io.File("images\\quick.png").toURI().toString()));
+        customIcon.setImage(new Image(new java.io.File("images\\custom.png").toURI().toString()));
+        exitIcon.setImage(new Image(new java.io.File("images\\exit.png").toURI().toString()));
+        driverIcon.setImage(new Image(new java.io.File("images\\drivers.png").toURI().toString()));
+        toolsIcon.setImage(new Image(new java.io.File("images\\tools.png").toURI().toString()));
+        optionsIcon.setImage(new Image(new java.io.File("images\\settings.png").toURI().toString()));
+        specificationsIcon.setImage(new Image(new java.io.File("images\\specifications.png").toURI().toString()));
+        explorerIcon.setImage(new Image(new java.io.File("images\\explorer.png").toURI().toString()));
+        edgeIcon.setImage(new Image(new java.io.File("images\\chromium.png").toURI().toString()));
+        systemIcon.setImage(new Image(new java.io.File("images\\windows.png").toURI().toString()));
+        chromeIcon.setImage(new Image(new java.io.File("images\\chrome.png").toURI().toString()));
+        spotifyIcon.setImage(new Image(new java.io.File("images\\spotify.png").toURI().toString()));
+        steamIcon.setImage(new Image(new java.io.File("images\\steam.png").toURI().toString()));
+        minimizeIcon.setImage(new Image(new java.io.File("images\\minimize.png").toURI().toString()));
+        maximiseIcon.setImage(new Image(new java.io.File("images\\maximise.png").toURI().toString()));
+        closeIcon.setImage(new Image(new java.io.File("images\\close.png").toURI().toString()));
     }
 
     private void setUIElements() {
@@ -520,11 +520,15 @@ public class MainController implements Initializable {
     }
 
     public void minimize() {
-        Neutral.minimize(window);
+        Functions.minimize(window);
     }
 
     public void maximise() {
-        Neutral.maximise(window);
+        Functions.maximise(window);
+    }
+
+    public void minimizeToTray() {
+        Functions.stage.hide();
     }
 
     public void exit() {

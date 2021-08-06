@@ -1,5 +1,6 @@
 package Main.Elements;
 
+import Main.Default.Functions;
 import com.jfoenix.controls.JFXButton;
 import java.awt.*;
 import java.io.File;
@@ -16,7 +17,12 @@ public class Drivers {
             try {
                 Desktop.getDesktop().open(new File(System.getenv("WINDIR") + "\\system32\\devmgmt.msc"));
             } catch (IOException io) {
-                io.printStackTrace();
+                Functions.error = "Couldn't load driver manager";
+                try {
+                    Functions.openWindow("Main/Error/error.fxml", "Error");
+                } catch (IOException exception) {
+                    //ignore
+                }
             }
         });
     }

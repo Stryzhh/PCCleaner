@@ -1,4 +1,4 @@
 {
-  "startup": true,
-  "recycle": true
+  "startup": false,
+  "recycle": false
 }

@@ -1,8 +1,8 @@
 {
-  "produce": false,
+  "produce": true,
   "hide": false,
   "closeQuick": false,
-  "shutdownQuick": true,
+  "shutdownQuick": false,
   "closeCustom": false,
-  "shutdownCustom": true
+  "shutdownCustom": false
 }

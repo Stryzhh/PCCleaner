@@ -3,12 +3,15 @@ package Main.Elements;
 import Main.Configuration.AdvancedSettings;
 import Main.Configuration.BasicSettings;
 import Main.Configuration.Config;
+import Main.Default.Functions;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
 import java.awt.*;
+import java.io.DataOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -19,6 +22,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
+import net.jimmc.jshortcut.JShellLink;
 
 public class Options extends Component {
 
@@ -59,7 +63,10 @@ public class Options extends Component {
     public static JFXCheckBox closeCustom;
     public static JFXCheckBox shutdownCustom;
     public static JFXButton restoreAdvanced;
+
     public static Config config;
+    public static BasicSettings basicSettings;
+    public static AdvancedSettings advancedSettings;
 
     public static void load() {
         aboutPane.toFront();
@@ -76,17 +83,38 @@ public class Options extends Component {
         File file = new File("config/settings.json");
         try {
             Reader reader = new FileReader(file);
-            BasicSettings settings = gson.fromJson(reader, BasicSettings.class);
+            basicSettings = gson.fromJson(reader, BasicSettings.class);
 
-            startup.setSelected(settings.isStartup());
-            recycle.setSelected(settings.isRecycle());
+            startup.setSelected(basicSettings.isStartup());
+            recycle.setSelected(basicSettings.isRecycle());
             reader.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            Functions.error = "Couldn't basic load settings";
+            try {
+                Functions.openWindow("Main/Error/error.fxml", "Error");
+            } catch (IOException exception) {
+                //ignore
+            }
         }
 
-        startup.selectedProperty().addListener((ObservableValue<? extends Boolean> ov, Boolean old_val, Boolean new_val) -> amendBasicSettings());
-        recycle.selectedProperty().addListener((ObservableValue<? extends Boolean> ov, Boolean old_val, Boolean new_val) -> amendBasicSettings());
+        startup.selectedProperty().addListener((ObservableValue<? extends Boolean> ov, Boolean old_val, Boolean new_val) -> {
+            basicSettings.setStartup(startup.isSelected());
+            amendBasicSettings();
+            try {
+                setStartup(startup.isSelected());
+            } catch (IOException e) {
+                Functions.error = "Couldn't create/delete startup shortcut";
+                try {
+                    Functions.openWindow("Main/Error/error.fxml", "Error");
+                } catch (IOException exception) {
+                    //ignore
+                }
+            }
+        });
+        recycle.selectedProperty().addListener((ObservableValue<? extends Boolean> ov, Boolean old_val, Boolean new_val) -> {
+            basicSettings.setRecycle(recycle.isSelected());
+            amendBasicSettings();
+        });
     }
 
     public static void include() {
@@ -108,7 +136,12 @@ public class Options extends Component {
                 config = loadSettings();
                 loadLists();
             } catch (IOException ioException) {
-                ioException.printStackTrace();
+                Functions.error = "Couldn't update changes";
+                try {
+                    Functions.openWindow("Main/Error/error.fxml", "Error");
+                } catch (IOException exception) {
+                    //ignore
+                }
             }
         }));
         includeAddFolder.setOnAction(e -> {
@@ -127,7 +160,12 @@ public class Options extends Component {
                 config = loadSettings();
                 loadLists();
             } catch (IOException ioException) {
-                ioException.printStackTrace();
+                Functions.error = "Couldn't update changes";
+                try {
+                    Functions.openWindow("Main/Error/error.fxml", "Error");
+                } catch (IOException exception) {
+                    //ignore
+                }
             }
         });
         includeRemove.setOnAction(e -> {
@@ -139,7 +177,12 @@ public class Options extends Component {
             try {
                 updateJSON();
             } catch (IOException ioException) {
-                ioException.printStackTrace();
+                Functions.error = "Couldn't update changes";
+                try {
+                    Functions.openWindow("Main/Error/error.fxml", "Error");
+                } catch (IOException exception) {
+                    //ignore
+                }
             }
         });
     }
@@ -163,7 +206,12 @@ public class Options extends Component {
                 config = loadSettings();
                 loadLists();
             } catch (IOException ioException) {
-                ioException.printStackTrace();
+                Functions.error = "Couldn't update changes";
+                try {
+                    Functions.openWindow("Main/Error/error.fxml", "Error");
+                } catch (IOException exception) {
+                    //ignore
+                }
             }
         });
         excludeAddFolder.setOnAction(e -> {
@@ -182,7 +230,12 @@ public class Options extends Component {
                 config = loadSettings();
                 loadLists();
             } catch (IOException ioException) {
-                ioException.printStackTrace();
+                Functions.error = "Couldn't update changes";
+                try {
+                    Functions.openWindow("Main/Error/error.fxml", "Error");
+                } catch (IOException exception) {
+                    //ignore
+                }
             }
         });
         excludeRemove.setOnAction(e -> {
@@ -194,14 +247,50 @@ public class Options extends Component {
             try {
                 updateJSON();
             } catch (IOException ioException) {
-                ioException.printStackTrace();
+                Functions.error = "Couldn't update changes";
+                try {
+                    Functions.openWindow("Main/Error/error.fxml", "Error");
+                } catch (IOException exception) {
+                    //ignore
+                }
             }
         });
     }
 
+    private static void setStartup(boolean selected) throws IOException {
+        File folder = new File(System.getProperty("user.home") + "/AppData/Roaming/Microsoft/Windows/Start Menu/Programs/Startup");
+        File batch = new File("PCCleaner.bat");
+
+        if (selected) {
+            FileOutputStream output = new FileOutputStream(batch);
+            DataOutputStream input = new DataOutputStream(output);
+            input.writeBytes("PCCleaner.exe");
+            input.close();
+            output.close();
+
+            JShellLink link = new JShellLink();
+            String filePath = JShellLink.getDirectory("") + batch.getAbsolutePath();
+            link.setFolder(folder.getAbsolutePath());
+            link.setName(batch.getName());
+            link.setPath(filePath);
+            link.save();
+        } else {
+            File startupFile = new File(System.getProperty("user.home") +
+                    "/AppData/Roaming/Microsoft/Windows/Start Menu/Programs/Startup/PCCleaner.bat.lnk");
+            if (!startupFile.delete() || !batch.delete()) {
+                Functions.error = "Couldn't delete startup file";
+                try {
+                    Functions.openWindow("Main/Error/error.fxml", "Error");
+                } catch (IOException exception) {
+                    //ignore
+                }
+            }
+        }
+    }
+
     public static void advanced() {
         restoreAdvanced.setOnAction(e -> {
-            produceList.setSelected(false);
+            produceList.setSelected(true);
             hideWarnings.setSelected(false);
             closeQuick.setSelected(false);
             shutdownQuick.setSelected(false);
@@ -214,25 +303,48 @@ public class Options extends Component {
         File file = new File("config/advanced.json");
         try {
             Reader reader = new FileReader(file);
-            AdvancedSettings settings = gson.fromJson(reader, AdvancedSettings.class);
+            advancedSettings = gson.fromJson(reader, AdvancedSettings.class);
 
-            produceList.setSelected(settings.isProduce());
-            hideWarnings.setSelected(settings.isHide());
-            closeQuick.setSelected(settings.isCloseQuick());
-            shutdownQuick.setSelected(settings.isShutdownQuick());
-            closeCustom.setSelected(settings.isCloseCustom());
-            shutdownCustom.setSelected(settings.isShutdownCustom());
+            produceList.setSelected(advancedSettings.isProduce());
+            hideWarnings.setSelected(advancedSettings.isHide());
+            closeQuick.setSelected(advancedSettings.isCloseQuick());
+            shutdownQuick.setSelected(advancedSettings.isShutdownQuick());
+            closeCustom.setSelected(advancedSettings.isCloseCustom());
+            shutdownCustom.setSelected(advancedSettings.isShutdownCustom());
             reader.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            Functions.error = "Couldn't load advanced settings";
+            try {
+                Functions.openWindow("Main/Error/error.fxml", "Error");
+            } catch (IOException exception) {
+                //ignore
+            }
         }
 
-        produceList.selectedProperty().addListener((ObservableValue<? extends Boolean> ov, Boolean old_val, Boolean new_val) -> amendAdvancedSettings());
-        hideWarnings.selectedProperty().addListener((ObservableValue<? extends Boolean> ov, Boolean old_val, Boolean new_val) -> amendAdvancedSettings());
-        closeQuick.selectedProperty().addListener((ObservableValue<? extends Boolean> ov, Boolean old_val, Boolean new_val) -> amendAdvancedSettings());
-        shutdownQuick.selectedProperty().addListener((ObservableValue<? extends Boolean> ov, Boolean old_val, Boolean new_val) -> amendAdvancedSettings());
-        closeCustom.selectedProperty().addListener((ObservableValue<? extends Boolean> ov, Boolean old_val, Boolean new_val) -> amendAdvancedSettings());
-        shutdownCustom.selectedProperty().addListener((ObservableValue<? extends Boolean> ov, Boolean old_val, Boolean new_val) -> amendAdvancedSettings());
+        produceList.selectedProperty().addListener((ObservableValue<? extends Boolean> ov, Boolean old_val, Boolean new_val) -> {
+            advancedSettings.setProduce(produceList.isSelected());
+            amendAdvancedSettings();
+        });
+        hideWarnings.selectedProperty().addListener((ObservableValue<? extends Boolean> ov, Boolean old_val, Boolean new_val) -> {
+            advancedSettings.setHide(hideWarnings.isSelected());
+            amendAdvancedSettings();
+        });
+        closeQuick.selectedProperty().addListener((ObservableValue<? extends Boolean> ov, Boolean old_val, Boolean new_val) -> {
+            advancedSettings.setCloseQuick(closeQuick.isSelected());
+            amendAdvancedSettings();
+        });
+        shutdownQuick.selectedProperty().addListener((ObservableValue<? extends Boolean> ov, Boolean old_val, Boolean new_val) -> {
+            advancedSettings.setShutdownQuick(shutdownQuick.isSelected());
+            amendAdvancedSettings();
+        });
+        closeCustom.selectedProperty().addListener((ObservableValue<? extends Boolean> ov, Boolean old_val, Boolean new_val) -> {
+            advancedSettings.setCloseCustom(closeCustom.isSelected());
+            amendAdvancedSettings();
+        });
+        shutdownCustom.selectedProperty().addListener((ObservableValue<? extends Boolean> ov, Boolean old_val, Boolean new_val) -> {
+            advancedSettings.setShutdownCustom(shutdownCustom.isSelected());
+            amendAdvancedSettings();
+        });
     }
 
     private static void updateJSON() throws IOException {
@@ -247,7 +359,7 @@ public class Options extends Component {
         try {
             return new Gson().fromJson(new FileReader(new File("config/files.json")), Config.class);
         } catch (Exception ex) {
-            ex.printStackTrace();
+            //ignore
         }
         return null;
     }
@@ -267,10 +379,10 @@ public class Options extends Component {
         try {
             FileWriter writer = new FileWriter("config/settings.json");
             Gson g = new GsonBuilder().setPrettyPrinting().create();
-            writer.write(g.toJson(new BasicSettings(startup.isSelected(), recycle.isSelected())));
+            writer.write(g.toJson(basicSettings));
             writer.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            //ignore
         }
     }
 
@@ -278,11 +390,10 @@ public class Options extends Component {
         try {
             FileWriter writer = new FileWriter("config/advanced.json");
             Gson g = new GsonBuilder().setPrettyPrinting().create();
-            writer.write(g.toJson(new AdvancedSettings(produceList.isSelected(), hideWarnings.isSelected(), closeQuick.isSelected(),
-                    shutdownQuick.isSelected(), closeCustom.isSelected(), shutdownCustom.isSelected())));
+            writer.write(g.toJson(advancedSettings));
             writer.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            //ignore
         }
     }
 

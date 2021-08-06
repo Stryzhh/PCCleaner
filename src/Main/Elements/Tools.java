@@ -1,18 +1,18 @@
 package Main.Elements;
 
-import Main.Applications.Application;
-import Main.Applications.Extension;
-import Main.Applications.Extensions;
-import Main.Applications.ListApps;
-import Main.Applications.Software;
-import Main.Applications.StartUpApps;
+import Main.Default.Functions;
+import Main.Objects.Extension;
+import Main.System.Extensions;
+import Main.System.Applications;
+import Main.Objects.Software;
+import Main.System.StartUp;
+import Main.Objects.File;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
 import com.sun.jna.platform.win32.Advapi32Util;
 import com.sun.jna.platform.win32.WinReg;
 import java.awt.*;
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -32,6 +32,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
@@ -64,7 +66,7 @@ public class Tools {
     public static JFXCheckBox analyzeEmail;
     public static JFXCheckBox analyzeCompressed;
     public static JFXCheckBox analyzeEverything;
-    public static ListView<File> analyzeDrives;
+    public static ListView<java.io.File> analyzeDrives;
     public static JFXButton btnAnalyze;
     public static Label analyzeStatus;
 
@@ -79,16 +81,16 @@ public class Tools {
     private static final ArrayList<Thread> threads = new ArrayList<>();
     public static Label pluginStatus;
     private static boolean cancelled = false;
-    private static final ArrayList<FileModel> filesArrayList = new ArrayList<>();
-    private static final ObservableList<FileModel> filesList = FXCollections.observableList(filesArrayList);
+    private static final ArrayList<File> filesArrayList = new ArrayList<>();
+    private static final ObservableList<File> filesList = FXCollections.observableList(filesArrayList);
 
-    public static TableView<FileModel> fileTable;
-    public static TableColumn<FileModel, String> name;
-    public static TableColumn<FileModel, String> path;
-    public static TableColumn<FileModel, String> type;
+    public static TableView<File> fileTable;
+    public static TableColumn<File, String> name;
+    public static TableColumn<File, String> path;
+    public static TableColumn<File, String> type;
     public static JFXButton btnCancel;
     public static ListView<String> wiperDeleted;
-    public static ListView<File> wiperDrives;
+    public static ListView<java.io.File> wiperDrives;
     public static JFXButton wipeDrive;
     public static JFXButton cancelWipe;
     public static ComboBox<Integer> comboWipes;
@@ -104,9 +106,9 @@ public class Tools {
     public static JFXButton btnUninstall;
     public static JFXButton uninstallSave;
 
-    public static TableView<Application> startupTable;
-    public static TableColumn<Application, String> startupKey;
-    public static TableColumn<Application, String> startupPath;
+    public static TableView<Main.Objects.Application> startupTable;
+    public static TableColumn<Main.Objects.Application, String> startupKey;
+    public static TableColumn<Main.Objects.Application, String> startupPath;
     public static JFXButton startupAdd;
     public static JFXButton startupSave;
 
@@ -118,10 +120,9 @@ public class Tools {
     public static JFXButton pluginInternetExplorer;
     public static JFXButton pluginSave;
 
-    public static ListView<File> cleanupDrives;
+    public static ListView<java.io.File> cleanupDrives;
     public static JFXButton cleanupClean;
     public static boolean chrome = true;
-    public static ArrayList<Software> installedApplications;
 
     public static void load() {
         uninstall();
@@ -153,48 +154,83 @@ public class Tools {
                     try {
                         openContainingFolder(uninstallTable.getSelectionModel().getSelectedItem().getLocation());
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        Functions.error = "Couldn't open folder";
+                        try {
+                            Functions.openWindow("Main/Error/error.fxml", "Error");
+                        } catch (IOException ioException) {
+                            e.printStackTrace();
+                        }
                     }
                 });
             }
         });
         uninstallSave.setOnAction(actionEvent -> {
-            try {
-                PrintWriter writer = new PrintWriter(System.getProperty("user.home") + "\\Documents\\Installed.txt", "UTF-8");
-                for (Software soft : uninstallTable.getItems()) {
-                    writer.println(soft.getName() + " - @" + soft.getLocation());
+            if (Options.advancedSettings.isProduce()) {
+                try {
+                    PrintWriter writer = new PrintWriter(System.getProperty("user.home") + "\\Documents\\Installed.txt", "UTF-8");
+                    for (Software soft : uninstallTable.getItems()) {
+                        writer.println(soft.getName() + " - @" + soft.getLocation());
+                    }
+                    writer.close();
+                } catch (FileNotFoundException | UnsupportedEncodingException fileNotFoundException) {
+                    Functions.error = "Couldn't write to file";
+                    try {
+                        Functions.openWindow("Main/Error/error.fxml", "Error");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
-                writer.close();
-            } catch (FileNotFoundException | UnsupportedEncodingException fileNotFoundException) {
-                fileNotFoundException.printStackTrace();
             }
         });
         btnUninstall.setOnAction(actionEvent -> {
-            try {
-                for (Software item : uninstallTable.getSelectionModel().getSelectedItems()) {
-                    installedApplications.remove(item);
-                    new ProcessBuilder(item.getUninstall()).start();
+            if (!Options.advancedSettings.isHide()) {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure?", ButtonType.YES, ButtonType.NO);
+                alert.showAndWait();
+
+                if (alert.getResult() == ButtonType.YES) {
+                    try {
+                        for (Software item : uninstallTable.getSelectionModel().getSelectedItems()) {
+                            new ProcessBuilder(item.getUninstall()).start();
+                        }
+                    } catch (IOException e) {
+                        Functions.error = "Couldn't uninstall program - need administrator privileges";
+                        try {
+                            Functions.openWindow("Main/Error/error.fxml", "Error");
+                        } catch (IOException exception) {
+                            //ignore
+                        }
+                    }
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
             }
         });
     }
 
     public static void cleanup() {
-        File[] paths;
-        paths = File.listRoots();
-        for (File path : paths) {
+        java.io.File[] paths;
+        paths = java.io.File.listRoots();
+        for (java.io.File path : paths) {
             cleanupDrives.getItems().add(path);
         }
 
         cleanupClean.setOnAction(e -> {
-            File drive = cleanupDrives.getSelectionModel().getSelectedItem();
-            if (drive != null) {
-                try {
-                    new ProcessBuilder(System.getenv("WINDIR") + "\\system32\\cleanmgr.exe", "/d " + drive).start();
-                } catch (IOException ioException) {
-                    ioException.printStackTrace();
+            if (!Options.advancedSettings.isHide()) {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure?", ButtonType.YES, ButtonType.NO);
+                alert.showAndWait();
+
+                if (alert.getResult() == ButtonType.YES) {
+                    java.io.File drive = cleanupDrives.getSelectionModel().getSelectedItem();
+                    if (drive != null) {
+                        try {
+                            new ProcessBuilder(System.getenv("WINDIR") + "\\system32\\cleanmgr.exe", "/d " + drive).start();
+                        } catch (IOException ioException) {
+                            Functions.error = "Couldn't run disk clean-up";
+                            try {
+                                Functions.openWindow("Main/Error/error.fxml", "Error");
+                            } catch (IOException exception) {
+                                //ignore
+                            }
+                        }
+                    }
                 }
             }
         });
@@ -214,10 +250,17 @@ public class Tools {
                 contextMenu.show(pane, MouseEvent.getScreenX(), MouseEvent.getScreenY());
 
                 delete.setOnAction(actionEvent -> {
-                    if (startupTable.getSelectionModel().getSelectedItems() != null) {
-                        for (Application item : startupTable.getSelectionModel().getSelectedItems()) {
-                            Advapi32Util.registryDeleteValue(item.getKey(), item.getDir(), item.getName());
-                            startupTable.getItems().remove(item);
+                    if (!Options.advancedSettings.isHide()) {
+                        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure?", ButtonType.YES, ButtonType.NO);
+                        alert.showAndWait();
+
+                        if (alert.getResult() == ButtonType.YES) {
+                            if (startupTable.getSelectionModel().getSelectedItems() != null) {
+                                for (Main.Objects.Application item : startupTable.getSelectionModel().getSelectedItems()) {
+                                    Advapi32Util.registryDeleteValue(item.getKey(), item.getDir(), item.getName());
+                                    startupTable.getItems().remove(item);
+                                }
+                            }
                         }
                     }
                 });
@@ -226,7 +269,7 @@ public class Tools {
 
         startupAdd.setOnAction(e -> {
             FileChooser fileChooser = new FileChooser();
-            File result = fileChooser.showOpenDialog(null);
+            java.io.File result = fileChooser.showOpenDialog(null);
 
             if (result != null) {
                 if (result.getName().contains(".exe")) {
@@ -240,21 +283,28 @@ public class Tools {
         });
 
         startupSave.setOnAction(e -> {
-            try {
-                PrintWriter writer = new PrintWriter(System.getProperty("user.home") + "\\Documents\\StartUp.txt", "UTF-8");
-                for (Application app : startupTable.getItems()) {
-                    writer.println(app.getName() + " - @" + app.getPath());
+            if (Options.advancedSettings.isProduce()) {
+                try {
+                    PrintWriter writer = new PrintWriter(System.getProperty("user.home") + "\\Documents\\StartUp.txt", "UTF-8");
+                    for (Main.Objects.Application app : startupTable.getItems()) {
+                        writer.println(app.getName() + " - @" + app.getPath());
+                    }
+                    writer.close();
+                } catch (FileNotFoundException | UnsupportedEncodingException fileNotFoundException) {
+                    Functions.error = "Couldn't write to file";
+                    try {
+                        Functions.openWindow("Main/Error/error.fxml", "Error");
+                    } catch (IOException exception) {
+                        //ignore
+                    }
                 }
-                writer.close();
-            } catch (FileNotFoundException | UnsupportedEncodingException fileNotFoundException) {
-                fileNotFoundException.printStackTrace();
             }
         });
     }
 
     private static void loadStartup() {
-        ArrayList<Application> startupApps = StartUpApps.getInstalledApps();
-        for (Application app : startupApps) {
+        ArrayList<Main.Objects.Application> startupApps = StartUp.getInstalledApps();
+        for (Main.Objects.Application app : startupApps) {
             startupTable.getItems().add(app);
         }
     }
@@ -287,26 +337,48 @@ public class Tools {
                             try {
                                 Desktop.getDesktop().browse(URI.create(ext.getURL()));
                             } catch (IOException ioException) {
-                                ioException.printStackTrace();
+                                Functions.error = "Can't open extension";
+                                try {
+                                    Functions.openWindow("Main/Error/error.fxml", "Error");
+                                } catch (IOException exception) {
+                                    //ignore
+                                }
                             }
                         }
                     });
                     delete.setOnAction(e -> {
-                        if (pluginTable.getSelectionModel().getSelectedItems() != null) {
-                            for (Extension item : pluginTable.getSelectionModel().getSelectedItems()) {
-                                if (chrome) {
-                                    try {
-                                        FileUtils.deleteDirectory(new File(item.getFile()));
-                                        pluginTable.getItems().remove(item);
-                                    } catch (IOException ioException) {
-                                        ioException.printStackTrace();
-                                    }
-                                } else {
-                                    try {
-                                        Advapi32Util.registryDeleteKey(WinReg.HKEY_LOCAL_MACHINE, item.getFile());
-                                        pluginTable.getItems().remove(item);
-                                    } catch (Exception ex) {
-                                        //ignore - important object
+                        if (!Options.advancedSettings.isHide()) {
+                            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure?", ButtonType.YES, ButtonType.NO);
+                            alert.showAndWait();
+
+                            if (alert.getResult() == ButtonType.YES) {
+                                if (pluginTable.getSelectionModel().getSelectedItems() != null) {
+                                    for (Extension item : pluginTable.getSelectionModel().getSelectedItems()) {
+                                        if (chrome) {
+                                            try {
+                                                FileUtils.deleteDirectory(new java.io.File(item.getFile()));
+                                                pluginTable.getItems().remove(item);
+                                            } catch (IOException ioException) {
+                                                Functions.error = "Can't delete extension";
+                                                try {
+                                                    Functions.openWindow("Main/Error/error.fxml", "Error");
+                                                } catch (IOException exception) {
+                                                    //ignore
+                                                }
+                                            }
+                                        } else {
+                                            try {
+                                                Advapi32Util.registryDeleteKey(WinReg.HKEY_LOCAL_MACHINE, item.getFile());
+                                                pluginTable.getItems().remove(item);
+                                            } catch (Exception ex) {
+                                                Functions.error = "Couldn't delete key - important key";
+                                                try {
+                                                    Functions.openWindow("Main/Error/error.fxml", "Error");
+                                                } catch (IOException exc) {
+                                                    //ignore
+                                                }
+                                            }
+                                        }
                                     }
                                 }
                             }
@@ -314,9 +386,14 @@ public class Tools {
                     });
                     folder.setOnAction(e -> {
                         try {
-                            Desktop.getDesktop().open(new File(pluginTable.getSelectionModel().getSelectedItem().getFile()));
+                            Desktop.getDesktop().open(new java.io.File(pluginTable.getSelectionModel().getSelectedItem().getFile()));
                         } catch (IOException ioException) {
-                            ioException.printStackTrace();
+                            Functions.error = "Couldn't open file";
+                            try {
+                                Functions.openWindow("Main/Error/error.fxml", "Error");
+                            } catch (IOException ex) {
+                                //ignore
+                            }
                         }
                     });
                 }
@@ -326,14 +403,21 @@ public class Tools {
         pluginInternetExplorer.setOnAction(e -> new Thread(Tools::loadExplorer).start());
         pluginGoogleChrome.setOnAction(e -> new Thread(Tools::loadChrome).start());
         pluginSave.setOnAction(e -> {
-            try {
-                PrintWriter writer = new PrintWriter(System.getProperty("user.home") + "\\Documents\\Plugins.txt", "UTF-8");
-                for (Extension ext : pluginTable.getItems()) {
-                    writer.println(ext.getProgram() + " - @" + ext.getFile());
+            if (Options.advancedSettings.isProduce()) {
+                try {
+                    PrintWriter writer = new PrintWriter(System.getProperty("user.home") + "\\Documents\\Plugins.txt", "UTF-8");
+                    for (Extension ext : pluginTable.getItems()) {
+                        writer.println(ext.getProgram() + " - @" + ext.getFile());
+                    }
+                    writer.close();
+                } catch (FileNotFoundException | UnsupportedEncodingException fileNotFoundException) {
+                    Functions.error = "Couldn't write to file";
+                    try {
+                        Functions.openWindow("Main/Error/error.fxml", "Error");
+                    } catch (IOException ioException) {
+                        //ignore
+                    }
                 }
-                writer.close();
-            } catch (FileNotFoundException | UnsupportedEncodingException fileNotFoundException) {
-                fileNotFoundException.printStackTrace();
             }
         });
     }
@@ -372,12 +456,12 @@ public class Tools {
 
     private static ArrayList<Extension> getExtensions(String path) {
         ArrayList<Extension> pluginList = new ArrayList<>();
-        File[] folders = new File(path).listFiles();
+        java.io.File[] folders = new java.io.File(path).listFiles();
 
         if (folders != null) {
-            for (File folder : folders) {
+            for (java.io.File folder : folders) {
                 if (folder.isDirectory()) {
-                    File[] files = folder.listFiles();
+                    java.io.File[] files = folder.listFiles();
                     String URL = "https://chrome.google.com/webstore/detail/" + folder.getName();
                     String name = convertToName(URL);
                     String file = folder.getAbsolutePath();
@@ -410,48 +494,70 @@ public class Tools {
                 return after[0];
             }
         } catch (Exception ex) {
+            Functions.error = "Couldn't get title";
+            try {
+                Functions.openWindow("Main/Error/error.fxml", "Error");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             return "Unknown";
         }
         return "Unknown";
     }
 
     public static void wiper() {
-        File[] paths;
-        paths = File.listRoots();
-        for (File path : paths) {
+        java.io.File[] paths;
+        paths = java.io.File.listRoots();
+        for (java.io.File path : paths) {
             wiperDrives.getItems().add(path);
         }
 
         wipeDrive.setOnAction(e -> {
-            cancelled = false;
-            wiperDeleted.getItems().clear();
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure?", ButtonType.YES, ButtonType.NO);
+            alert.showAndWait();
 
-            int count = 1;
-            if (comboWipes.getSelectionModel().getSelectedItem() != null) {
-                count = comboWipes.getSelectionModel().getSelectedItem();
-            }
+            if (alert.getResult() == ButtonType.YES) {
+                Alert confirm = new Alert(Alert.AlertType.CONFIRMATION, "Are you 100% sure you want to fully wipe this drive?", ButtonType.YES, ButtonType.NO);
+                confirm.showAndWait();
 
-            File drive = wiperDrives.getSelectionModel().getSelectedItem();
-            File[] files = drive.listFiles();
-            int c = 0;
-            if (files != null) {
-                while (!cancelled && count != c) {
-                    for (File file : files) {
-                        new Thread(() -> {
-                            if (file.isDirectory()) {
-                                try {
-                                    FileUtils.deleteDirectory(file);
-                                    Platform.runLater(() -> wiperDeleted.getItems().add("deleted: " + file));
-                                } catch (IOException ioException) {
-                                    Platform.runLater(() -> wiperStatus.setText("Status: some important files can't be deleted"));
-                                }
-                            } else if (file.delete()) {
-                                Platform.runLater(() -> wiperDeleted.getItems().add("deleted: " + file));
-                            }
-                        }).start();
+                if (confirm.getResult() == ButtonType.YES) {
+                    cancelled = false;
+                    wiperDeleted.getItems().clear();
+
+                    int count = 1;
+                    if (comboWipes.getSelectionModel().getSelectedItem() != null) {
+                        count = comboWipes.getSelectionModel().getSelectedItem();
                     }
-                    Platform.runLater(() -> wiperStatus.setText("Status: deleted all files off drive"));
-                    c++;
+
+                    java.io.File drive = wiperDrives.getSelectionModel().getSelectedItem();
+                    java.io.File[] files = drive.listFiles();
+                    int c = 0;
+                    if (files != null) {
+                        while (!cancelled && count != c) {
+                            for (java.io.File file : files) {
+                                new Thread(() -> {
+                                    if (file.isDirectory()) {
+                                        try {
+                                            FileUtils.deleteDirectory(file);
+                                            Platform.runLater(() -> wiperDeleted.getItems().add("deleted: " + file));
+                                        } catch (IOException ioException) {
+                                            Functions.error = "Status: some important files can't be deleted";
+                                            try {
+                                                Functions.openWindow("Main/Error/error.fxml", "Error");
+                                            } catch (IOException exception) {
+                                                exception.printStackTrace();
+                                            }
+                                            Platform.runLater(() -> wiperStatus.setText("Status: some important files can't be deleted"));
+                                        }
+                                    } else if (file.delete()) {
+                                        Platform.runLater(() -> wiperDeleted.getItems().add("deleted: " + file));
+                                    }
+                                }).start();
+                            }
+                            Platform.runLater(() -> wiperStatus.setText("Status: deleted all files off drive"));
+                            c++;
+                        }
+                    }
                 }
             }
         });
@@ -460,9 +566,9 @@ public class Tools {
     }
 
     public static void analyzer() {
-        File[] paths;
-        paths = File.listRoots();
-        for (File path : paths) {
+        java.io.File[] paths;
+        paths = java.io.File.listRoots();
+        for (java.io.File path : paths) {
             analyzeDrives.getItems().add(path);
         }
 
@@ -480,22 +586,43 @@ public class Tools {
                 contextMenu.show(pane, MouseEvent.getScreenX(), MouseEvent.getScreenY());
 
                 save.setOnAction(actionEvent -> {
-                    try {
-                        PrintWriter writer = new PrintWriter(System.getProperty("user.home") + "\\Documents\\Files.txt", "UTF-8");
-                        for (FileModel file : fileTable.getItems()) {
-                            writer.println(file.getName() + " - @" + file.getPath());
+                    if (Options.advancedSettings.isProduce()) {
+                        try {
+                            PrintWriter writer = new PrintWriter(System.getProperty("user.home") + "\\Documents\\Files.txt", "UTF-8");
+                            for (File file : fileTable.getItems()) {
+                                writer.println(file.getName() + " - @" + file.getPath());
+                            }
+                            writer.close();
+                        } catch (FileNotFoundException | UnsupportedEncodingException fileNotFoundException) {
+                            Functions.error = "Couldn't write to file";
+                            try {
+                                Functions.openWindow("Main/Error/error.fxml", "Error");
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
                         }
-                        writer.close();
-                    } catch (FileNotFoundException | UnsupportedEncodingException fileNotFoundException) {
-                        fileNotFoundException.printStackTrace();
                     }
                 });
-                delete.setOnAction(actionEvent -> deleteFiles(fileTable.getSelectionModel().getSelectedItems()));
+                delete.setOnAction(actionEvent -> {
+                    if (!Options.advancedSettings.isHide()) {
+                        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure?", ButtonType.YES, ButtonType.NO);
+                        alert.showAndWait();
+
+                        if (alert.getResult() == ButtonType.YES) {
+                            deleteFiles(fileTable.getSelectionModel().getSelectedItems());
+                        }
+                    }
+                });
                 open.setOnAction(actionEvent -> {
                     try {
                         openContainingFolder(fileTable.getSelectionModel().getSelectedItem().getPath());
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        Functions.error = "Couldn't open folder";
+                        try {
+                            Functions.openWindow("Main/Error/error.fxml", "Error");
+                        } catch (IOException ioException) {
+                            //ignore
+                        }
                     }
                 });
             }
@@ -510,7 +637,7 @@ public class Tools {
             fileExtensions.clear();
 
             if (analyzeDrives.getSelectionModel().getSelectedItem() != null) {
-                File drive = analyzeDrives.getSelectionModel().getSelectedItem();
+                java.io.File drive = analyzeDrives.getSelectionModel().getSelectedItem();
 
                 if (analyzePictures.isSelected()) {
                     fileExtensions.addAll(Arrays.asList(imageExtensions));
@@ -535,21 +662,21 @@ public class Tools {
                 }
 
                 if (fileExtensions.size() != 0) {
-                    File[] files = drive.listFiles();
+                    java.io.File[] files = drive.listFiles();
 
                     if (files != null) {
-                        for (File file : files) {
+                        for (java.io.File file : files) {
                             if (java.lang.Thread.activeCount() < 256) {
                                 Thread thread = new Thread(() -> {
                                     if (file.isDirectory()) {
-                                        File[] filesInFolder = file.listFiles();
+                                        java.io.File[] filesInFolder = file.listFiles();
 
                                         if (filesInFolder != null) {
-                                            for (File innerFile : filesInFolder) {
+                                            for (java.io.File innerFile : filesInFolder) {
                                                 if (innerFile.isFile()) {
                                                     isTheSearchedFile(innerFile);
                                                 } else if (innerFile.isDirectory()) {
-                                                    File[] list = innerFile.listFiles();
+                                                    java.io.File[] list = innerFile.listFiles();
                                                     if (list != null) {
                                                         search(list);
                                                     }
@@ -590,17 +717,17 @@ public class Tools {
         return false;
     }
 
-    private static void search(File[] files) {
-        for (File file : files) {
+    private static void search(java.io.File[] files) {
+        for (java.io.File file : files) {
             if (file.isDirectory()) {
-                File[] filesInFolder = file.listFiles();
+                java.io.File[] filesInFolder = file.listFiles();
 
                 if (filesInFolder != null) {
-                    for (File innerFiles : filesInFolder) {
+                    for (java.io.File innerFiles : filesInFolder) {
                         if (innerFiles.isFile()) {
                             isTheSearchedFile(innerFiles);
                         } else if (innerFiles.isDirectory()) {
-                            File[] list = innerFiles.listFiles();
+                            java.io.File[] list = innerFiles.listFiles();
                             if (list != null) {
                                 search(list);
                             }
@@ -613,10 +740,10 @@ public class Tools {
         }
     }
 
-    private static void isTheSearchedFile(File file) {
+    private static void isTheSearchedFile(java.io.File file) {
         for (String ext : fileExtensions) {
             if (file.getName().contains(ext)) {
-                filesArrayList.add(new FileModel(file.getName(), file.getAbsolutePath(), "." + FilenameUtils.getExtension(file.getName())));
+                filesArrayList.add(new File(file.getName(), file.getAbsolutePath(), "." + FilenameUtils.getExtension(file.getName())));
                 break;
             }
         }
@@ -624,7 +751,7 @@ public class Tools {
 
     private static void loadUninstall() {
         uninstallTable.getItems().removeAll(uninstallTable.getItems());
-        Map<String, Software> installed = ListApps.getInstalledApps(false);
+        Map<String, Software> installed = Applications.getInstalledApps(false);
         for (Map.Entry<String, Software> app : installed.entrySet()) {
             uninstallTable.getItems().add(app.getValue());
             switch (app.getValue().getName()) {
@@ -656,9 +783,9 @@ public class Tools {
         uninstallTable.setItems(sortedData);
     }
 
-    private static void deleteFiles(ObservableList<FileModel> selectedItems) {
-        for (FileModel item : selectedItems) {
-            File file = new File(item.getPath());
+    private static void deleteFiles(ObservableList<File> selectedItems) {
+        for (File item : selectedItems) {
+            java.io.File file = new java.io.File(item.getPath());
             if (file.delete()) {
                 fileTable.getItems().remove(item);
             }
@@ -666,8 +793,8 @@ public class Tools {
     }
 
     private static void openContainingFolder(String path) throws IOException {
-        File file = new File(path);
-        Desktop.getDesktop().open(new File(file.getParent()));
+        java.io.File file = new java.io.File(path);
+        Desktop.getDesktop().open(new java.io.File(file.getParent()));
     }
 
 }

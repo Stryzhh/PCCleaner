@@ -31,7 +31,7 @@
       <JFXButton layoutX="878.0" layoutY="667.0" style="-fx-text-fill: #b9b9b9;" text="Check for updates" underline="true" AnchorPane.bottomAnchor="8.0" AnchorPane.rightAnchor="10.0" />
       <AnchorPane prefHeight="30.0" prefWidth="1000.0" style="-fx-background-color: white;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <JFXButton layoutX="966.0" layoutY="5.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#exit" prefHeight="20.0" prefWidth="30.0" style="-fx-graphic: url('@../../../images/email.png'); -fx-background-image: url('@../../../images/email.png');" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+            <JFXButton layoutX="966.0" layoutY="5.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#minimizeToTray" prefHeight="20.0" prefWidth="30.0" style="-fx-graphic: url('@../../../images/email.png'); -fx-background-image: url('@../../../images/email.png');" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
                <graphic>
                   <ImageView fx:id="closeIcon" fitHeight="14.0" fitWidth="14.0" pickOnBounds="true" preserveRatio="true">
                      <image>

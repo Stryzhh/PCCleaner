@@ -1,6 +1,7 @@
 package Main.Elements;
 
 import Main.Configuration.Junk;
+import Main.Default.Functions;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
 import java.awt.*;
@@ -13,6 +14,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
 import javafx.application.Platform;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.AnchorPane;
 import org.apache.commons.io.FileUtils;
@@ -126,18 +129,22 @@ public class Custom {
         });
 
         analyze.setOnAction(e -> analyzeFiles());
-        clean.setOnAction(e -> {
-            try {
-                cleanFiles();
-            } catch (IOException ioException) {
-                ioException.printStackTrace();
+        clean.setOnAction(e ->
+        {
+            if (!Options.advancedSettings.isHide()) {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure?", ButtonType.YES, ButtonType.NO);
+                alert.showAndWait();
+
+                if (alert.getResult() == ButtonType.YES) {
+                    cleanFiles();
+                }
             }
         });
         windows.setOnAction(e -> windowsPanel.toFront());
         applications.setOnAction(e -> applicationPanel.toFront());
     }
 
-    private static void cleanFiles() throws IOException {
+    private static void cleanFiles() {
         list.getItems().clear();
 
         if (systemClipboard.isSelected()) {
@@ -154,10 +161,17 @@ public class Custom {
                         folder = file;
                     }
                 }
-                assert folder != null;
-                FileUtils.deleteDirectory(folder);
+
+                if (folder != null) {
+                    FileUtils.deleteDirectory(folder);
+                }
             } catch (Exception ex) {
-                //ex.printStackTrace();
+                Functions.error = "Couldn't empty recycling bin";
+                try {
+                    Functions.openWindow("Main/Error/error.fxml", "Error");
+                } catch (IOException exception) {
+                    //ignore
+                }
             }
         }
 
@@ -177,7 +191,12 @@ public class Custom {
                 }
                 input.close();
             } catch (Exception exception) {
-                //ignore
+                Functions.error = "Couldn't get task list";
+                try {
+                    Functions.openWindow("Main/Error/error.fxml", "Error");
+                } catch (IOException e) {
+                    //ignore
+                }
             }
         }
 
@@ -197,6 +216,12 @@ public class Custom {
                     }
                 }
             }
+        }
+
+        if (Options.advancedSettings.isShutdownCustom()) {
+            System.exit(0);
+        } else if (Options.advancedSettings.isCloseCustom()) {
+            Functions.stage.hide();
         }
     }
 
@@ -227,7 +252,12 @@ public class Custom {
                 }
             }
         } catch (Exception ex) {
-            //ex.printStackTrace();
+            Functions.error = "couldn't get/delete file";
+            try {
+                Functions.openWindow("Main/Error/error.fxml", "Error");
+            } catch (IOException exception) {
+                //ignore
+            }
         }
     }
 

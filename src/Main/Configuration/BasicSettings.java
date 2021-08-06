@@ -2,8 +2,8 @@ package Main.Configuration;
 
 public class BasicSettings {
 
-    private final boolean startup;
-    private final boolean recycle;
+    private boolean startup;
+    private boolean recycle;
 
     public BasicSettings(boolean startup, boolean recycle) {
         super();
@@ -11,8 +11,16 @@ public class BasicSettings {
         this.recycle = recycle;
     }
 
+    public void setStartup(boolean value) {
+        startup = value;
+    }
+
     public boolean isStartup() {
         return startup;
+    }
+
+    public void setRecycle(boolean value) {
+        recycle = value;
     }
 
     public boolean isRecycle() {
