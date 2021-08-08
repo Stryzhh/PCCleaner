@@ -131,13 +131,11 @@ public class Custom {
         analyze.setOnAction(e -> analyzeFiles());
         clean.setOnAction(e ->
         {
-            if (!Options.advancedSettings.isHide()) {
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure?", ButtonType.YES, ButtonType.NO);
-                alert.showAndWait();
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure?", ButtonType.YES, ButtonType.NO);
+            alert.showAndWait();
 
-                if (alert.getResult() == ButtonType.YES) {
-                    cleanFiles();
-                }
+            if (alert.getResult() == ButtonType.YES) {
+                cleanFiles();
             }
         });
         windows.setOnAction(e -> windowsPanel.toFront());

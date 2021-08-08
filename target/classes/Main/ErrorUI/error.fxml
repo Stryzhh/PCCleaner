@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="window" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            onMouseEntered="#drag" prefHeight="170.0" prefWidth="380.0" xmlns="http://javafx.com/javafx/16"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="Main.ErrorUI.ErrorController">
+   <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0"
+               prefWidth="380.0" style="-fx-background-color: #545252;">
+      <Label layoutX="10.0" layoutY="6.0" prefHeight="18.0" prefWidth="76.0" text="Critical error" textFill="WHITE">
+         <font>
+            <Font name="Calibri" size="14.0"/>
+         </font>
+      </Label>
+      <JFXButton layoutX="348.0" layoutY="5.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+                 minWidth="-Infinity" onAction="#close" prefHeight="20.0" prefWidth="30.0"
+                 style="-fx-graphic: url('@../../../images/email.png'); -fx-background-image: url('@../../../images/email.png');">
+         <graphic>
+            <ImageView fx:id="closeIcon" fitHeight="14.0" fitWidth="14.0" pickOnBounds="true" preserveRatio="true">
+               <Image url="@../../../images/close-white.png"/>
+            </ImageView>
+         </graphic>
+      </JFXButton>
+   </AnchorPane>
+   <TextArea fx:id="message" layoutX="14.0" layoutY="39.0" prefHeight="121.0" prefWidth="355.0"/>
+</AnchorPane>

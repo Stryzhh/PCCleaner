@@ -182,22 +182,20 @@ public class Tools {
             }
         });
         btnUninstall.setOnAction(actionEvent -> {
-            if (!Options.advancedSettings.isHide()) {
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure?", ButtonType.YES, ButtonType.NO);
-                alert.showAndWait();
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure?", ButtonType.YES, ButtonType.NO);
+            alert.showAndWait();
 
-                if (alert.getResult() == ButtonType.YES) {
+            if (alert.getResult() == ButtonType.YES) {
+                try {
+                    for (Software item : uninstallTable.getSelectionModel().getSelectedItems()) {
+                        new ProcessBuilder(item.getUninstall()).start();
+                    }
+                } catch (IOException e) {
+                    Functions.error = "Couldn't uninstall program - need administrator privileges";
                     try {
-                        for (Software item : uninstallTable.getSelectionModel().getSelectedItems()) {
-                            new ProcessBuilder(item.getUninstall()).start();
-                        }
-                    } catch (IOException e) {
-                        Functions.error = "Couldn't uninstall program - need administrator privileges";
-                        try {
-                            Functions.openWindow("Main/ErrorUI/error.fxml", "Error");
-                        } catch (IOException exception) {
-                            //ignore
-                        }
+                        Functions.openWindow("Main/ErrorUI/error.fxml", "Error");
+                    } catch (IOException exception) {
+                        //ignore
                     }
                 }
             }
@@ -212,22 +210,20 @@ public class Tools {
         }
 
         cleanupClean.setOnAction(e -> {
-            if (!Options.advancedSettings.isHide()) {
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure?", ButtonType.YES, ButtonType.NO);
-                alert.showAndWait();
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure?", ButtonType.YES, ButtonType.NO);
+            alert.showAndWait();
 
-                if (alert.getResult() == ButtonType.YES) {
-                    java.io.File drive = cleanupDrives.getSelectionModel().getSelectedItem();
-                    if (drive != null) {
+            if (alert.getResult() == ButtonType.YES) {
+                java.io.File drive = cleanupDrives.getSelectionModel().getSelectedItem();
+                if (drive != null) {
+                    try {
+                        new ProcessBuilder(System.getenv("WINDIR") + "\\system32\\cleanmgr.exe", "/d " + drive).start();
+                    } catch (IOException ioException) {
+                        Functions.error = "Couldn't run disk clean-up";
                         try {
-                            new ProcessBuilder(System.getenv("WINDIR") + "\\system32\\cleanmgr.exe", "/d " + drive).start();
-                        } catch (IOException ioException) {
-                            Functions.error = "Couldn't run disk clean-up";
-                            try {
-                                Functions.openWindow("Main/ErrorUI/error.fxml", "Error");
-                            } catch (IOException exception) {
-                                //ignore
-                            }
+                            Functions.openWindow("Main/ErrorUI/error.fxml", "Error");
+                        } catch (IOException exception) {
+                            //ignore
                         }
                     }
                 }
@@ -249,16 +245,14 @@ public class Tools {
                 contextMenu.show(pane, MouseEvent.getScreenX(), MouseEvent.getScreenY());
 
                 delete.setOnAction(actionEvent -> {
-                    if (!Options.advancedSettings.isHide()) {
-                        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure?", ButtonType.YES, ButtonType.NO);
-                        alert.showAndWait();
+                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure?", ButtonType.YES, ButtonType.NO);
+                    alert.showAndWait();
 
-                        if (alert.getResult() == ButtonType.YES) {
-                            if (startupTable.getSelectionModel().getSelectedItems() != null) {
-                                for (Main.Objects.Application item : startupTable.getSelectionModel().getSelectedItems()) {
-                                    Advapi32Util.registryDeleteValue(item.getKey(), item.getDir(), item.getName());
-                                    startupTable.getItems().remove(item);
-                                }
+                    if (alert.getResult() == ButtonType.YES) {
+                        if (startupTable.getSelectionModel().getSelectedItems() != null) {
+                            for (Main.Objects.Application item : startupTable.getSelectionModel().getSelectedItems()) {
+                                Advapi32Util.registryDeleteValue(item.getKey(), item.getDir(), item.getName());
+                                startupTable.getItems().remove(item);
                             }
                         }
                     }
@@ -346,36 +340,34 @@ public class Tools {
                         }
                     });
                     delete.setOnAction(e -> {
-                        if (!Options.advancedSettings.isHide()) {
-                            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure?", ButtonType.YES, ButtonType.NO);
-                            alert.showAndWait();
+                        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure?", ButtonType.YES, ButtonType.NO);
+                        alert.showAndWait();
 
-                            if (alert.getResult() == ButtonType.YES) {
-                                if (pluginTable.getSelectionModel().getSelectedItems() != null) {
-                                    for (Extension item : pluginTable.getSelectionModel().getSelectedItems()) {
-                                        if (chrome) {
+                        if (alert.getResult() == ButtonType.YES) {
+                            if (pluginTable.getSelectionModel().getSelectedItems() != null) {
+                                for (Extension item : pluginTable.getSelectionModel().getSelectedItems()) {
+                                    if (chrome) {
+                                        try {
+                                            FileUtils.deleteDirectory(new java.io.File(item.getFile()));
+                                            pluginTable.getItems().remove(item);
+                                        } catch (IOException ioException) {
+                                            Functions.error = "Can't delete extension";
                                             try {
-                                                FileUtils.deleteDirectory(new java.io.File(item.getFile()));
-                                                pluginTable.getItems().remove(item);
-                                            } catch (IOException ioException) {
-                                                Functions.error = "Can't delete extension";
-                                                try {
-                                                    Functions.openWindow("Main/ErrorUI/error.fxml", "Error");
-                                                } catch (IOException exception) {
-                                                    //ignore
-                                                }
+                                                Functions.openWindow("Main/ErrorUI/error.fxml", "Error");
+                                            } catch (IOException exception) {
+                                                //ignore
                                             }
-                                        } else {
+                                        }
+                                    } else {
+                                        try {
+                                            Advapi32Util.registryDeleteKey(WinReg.HKEY_LOCAL_MACHINE, item.getFile());
+                                            pluginTable.getItems().remove(item);
+                                        } catch (Exception ex) {
+                                            Functions.error = "Couldn't delete key - important key";
                                             try {
-                                                Advapi32Util.registryDeleteKey(WinReg.HKEY_LOCAL_MACHINE, item.getFile());
-                                                pluginTable.getItems().remove(item);
-                                            } catch (Exception ex) {
-                                                Functions.error = "Couldn't delete key - important key";
-                                                try {
-                                                    Functions.openWindow("Main/ErrorUI/error.fxml", "Error");
-                                                } catch (IOException exc) {
-                                                    //ignore
-                                                }
+                                                Functions.openWindow("Main/ErrorUI/error.fxml", "Error");
+                                            } catch (IOException exc) {
+                                                //ignore
                                             }
                                         }
                                     }
@@ -603,13 +595,11 @@ public class Tools {
                     }
                 });
                 delete.setOnAction(actionEvent -> {
-                    if (!Options.advancedSettings.isHide()) {
-                        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure?", ButtonType.YES, ButtonType.NO);
-                        alert.showAndWait();
+                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure?", ButtonType.YES, ButtonType.NO);
+                    alert.showAndWait();
 
-                        if (alert.getResult() == ButtonType.YES) {
-                            deleteFiles(fileTable.getSelectionModel().getSelectedItems());
-                        }
+                    if (alert.getResult() == ButtonType.YES) {
+                        deleteFiles(fileTable.getSelectionModel().getSelectedItems());
                     }
                 });
                 open.setOnAction(actionEvent -> {
