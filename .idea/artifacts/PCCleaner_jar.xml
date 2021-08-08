@@ -2,9 +2,6 @@
   <artifact type="jar" name="PCCleaner:jar">
     <output-path>$PROJECT_DIR$/out/artifacts/PCCleaner_jar</output-path>
     <root id="archive" name="PCCleaner.jar">
-      <element id="directory" name="META-INF">
-        <element id="file-copy" path="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" />
-      </element>
       <element id="module-output" name="PCCleaner" />
       <element id="extracted-dir" path="$PROJECT_DIR$/lib/javax.usb.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/lib/jna-5.8.0.jar" path-in-jar="/" />

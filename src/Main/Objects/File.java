@@ -22,16 +22,8 @@ public class File {
         return name.get();
     }
 
-    public void setPath(String path) {
-        this.path.set(path);
-    }
-
     public String getPath() {
         return path.get();
-    }
-
-    public void setType(String type) {
-        this.type.set(type);
     }
 
     public String getType() {

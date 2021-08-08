@@ -5,19 +5,11 @@ import java.util.ArrayList;
 
 public class Config {
 
-    private ArrayList<File> includeItems = new ArrayList<>();
-    private ArrayList<File> excludeItems = new ArrayList<>();
-
-    public void setIncludeItems(ArrayList<File> includeItems) {
-        this.includeItems = includeItems;
-    }
+    private final ArrayList<File> includeItems = new ArrayList<>();
+    private final ArrayList<File> excludeItems = new ArrayList<>();
 
     public ArrayList<File> getIncludeItems() {
         return includeItems;
-    }
-
-    public void setExcludeItems(ArrayList<File> excludeItems) {
-        this.excludeItems = excludeItems;
     }
 
     public java.util.ArrayList<File> getExcludeItems() {

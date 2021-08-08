@@ -16,10 +16,10 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="PCCleaner" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="oshi-core" target="1.8" />
       <module name="PCCleaner" target="8" />
     </bytecodeTargetLevel>
   </component>

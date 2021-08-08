@@ -63,10 +63,6 @@ public class Software {
         return keys;
     }
 
-    public void setKey(String key) {
-        this.key.set(key);
-    }
-
     public String getKey() {
         return key.get();
     }
@@ -79,10 +75,6 @@ public class Software {
         return name.get();
     }
 
-    public void setPublisher(String path) {
-        this.publisher.set(path);
-    }
-
     public String getPublisher() {
         return publisher.get();
     }
@@ -93,10 +85,6 @@ public class Software {
 
     public String getLocation() {
         return location.get();
-    }
-
-    public void setDate(LocalDateTime date) {
-        this.date.set(getDateString(date));
     }
 
     public String getDate() {
@@ -117,10 +105,6 @@ public class Software {
 
     public String getIcon() {
         return icon.get();
-    }
-
-    public void setUninstall(String uninstall) {
-        this.uninstall.set(uninstall);
     }
 
     public String getUninstall() {
