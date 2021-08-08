@@ -14,7 +14,7 @@ public class Functions {
     public static String error;
 
     public static double gigabyte(long value) {
-        return (double) Math.round((double) value / (1073741824) * 1) / 1;
+        return (double) Math.round((double) value / (1073741824) * 1);
     }
 
     public static void openWindow(String fxml, String title) throws IOException {
