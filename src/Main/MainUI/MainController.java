@@ -15,6 +15,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
 import java.awt.*;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -59,7 +60,6 @@ public class MainController implements Initializable {
     @FXML private AnchorPane toolsPluginsPanel;
     @FXML private AnchorPane toolsAnalyzerPanel;
     @FXML private AnchorPane toolsWiperPanel;
-
     @FXML private ImageView minimizedLogo;
     @FXML private ImageView logo;
     @FXML private ImageView minimizeIcon;
@@ -74,7 +74,6 @@ public class MainController implements Initializable {
     @FXML private ImageView toolsIcon;
     @FXML private ImageView optionsIcon;
     @FXML private ImageView specificationsIcon;
-
     @FXML private JFXButton quickClean;
     @FXML private JFXButton customWindows;
     @FXML private JFXButton customApplications;
@@ -92,7 +91,6 @@ public class MainController implements Initializable {
     @FXML private JFXButton toolsPlugins;
     @FXML private JFXButton toolsWiper;
     @FXML private JFXButton toolsAnalyzer;
-
     @FXML private Label OS;
     @FXML private Label version;
     @FXML private Label specs;
@@ -100,10 +98,8 @@ public class MainController implements Initializable {
     @FXML private Label github;
     @FXML private Label repo;
     @FXML private Label analyzeStatus;
-
     @FXML private ListView<String> customList;
     @FXML private ListView<String> specsList;
-
     @FXML private JFXCheckBox advancedProduceFileList;
     @FXML private JFXCheckBox advancedHideWarning;
     @FXML private JFXCheckBox advancedCloseQuick;
@@ -113,7 +109,6 @@ public class MainController implements Initializable {
     @FXML private JFXButton advancedRestore;
     @FXML private JFXCheckBox basicStartup;
     @FXML private JFXCheckBox basicRecycle;
-
     @FXML private JFXCheckBox analyzePictures;
     @FXML private JFXCheckBox analyzeMusic;
     @FXML private JFXCheckBox analyzeDocuments;
@@ -124,22 +119,18 @@ public class MainController implements Initializable {
     @FXML private ListView<java.io.File> analyzeDrives;
     @FXML private JFXButton btnAnalyze;
     @FXML private JFXButton btnCancel;
-
     @FXML private ListView<java.io.File> includeList;
     @FXML private JFXButton includeAddFile;
     @FXML private JFXButton includeAddFolder;
     @FXML private JFXButton includeRemove;
-
     @FXML private ListView<java.io.File> excludeList;
     @FXML private JFXButton excludeAddFile;
     @FXML private JFXButton excludeAddFolder;
     @FXML private JFXButton excludeRemove;
-
     @FXML private TableView<File> fileTable;
     @FXML private TableColumn<File, String> analyzeName;
     @FXML private TableColumn<File, String> analyzePath;
     @FXML private TableColumn<File, String> analyzeType;
-
     @FXML private TextField uninstallSearch;
     @FXML private TableView<Software> uninstallTable;
     @FXML private TableColumn<Software, String> uninstallName;
@@ -149,23 +140,19 @@ public class MainController implements Initializable {
     @FXML private TableColumn<Software, String> uninstallVersion;
     @FXML private JFXButton btnUninstall;
     @FXML private JFXButton uninstallSave;
-
     @FXML private ListView<String> wiperDeleted;
     @FXML private ListView<java.io.File> wiperDrives;
     @FXML private JFXButton wipeDrive;
     @FXML private JFXButton cancelWipe;
     @FXML private ComboBox<Integer> comboWipes;
     @FXML private Label wiperStatus;
-
     @FXML private ListView<java.io.File> cleanupDrives;
     @FXML private JFXButton cleanupClean;
-
     @FXML private TableView<Application> startupTable;
     @FXML private TableColumn<Application, String> startupKey;
     @FXML private TableColumn<Application, String> startupPath;
     @FXML private JFXButton startupAdd;
     @FXML private JFXButton startupSave;
-
     @FXML private TableView<Extension> pluginTable;
     @FXML private TableColumn<Extension, String> pluginProgram;
     @FXML private TableColumn<Extension, String> pluginFile;
@@ -174,14 +161,12 @@ public class MainController implements Initializable {
     @FXML private JFXButton pluginInternetExplorer;
     @FXML private JFXButton pluginSave;
     @FXML private Label pluginStatus;
-
     @FXML private AnchorPane explorerPanel;
     @FXML private ImageView explorerIcon;
     @FXML private JFXButton selectExplorer;
     @FXML private JFXCheckBox explorerTemp;
     @FXML private JFXCheckBox explorerHistory;
     @FXML private JFXCheckBox explorerCookies;
-
     @FXML private AnchorPane edgePanel;
     @FXML private ImageView edgeIcon;
     @FXML private JFXButton selectEdge;
@@ -189,7 +174,6 @@ public class MainController implements Initializable {
     @FXML private JFXCheckBox edgeHistory;
     @FXML private JFXCheckBox edgeCookies;
     @FXML private JFXCheckBox edgeSession;
-
     @FXML private AnchorPane systemPanel;
     @FXML private ImageView systemIcon;
     @FXML private JFXButton selectSystem;
@@ -201,7 +185,6 @@ public class MainController implements Initializable {
     @FXML private JFXCheckBox systemReport;
     @FXML private JFXCheckBox systemStartMenu;
     @FXML private JFXCheckBox systemDesktop;
-
     @FXML private AnchorPane chromePanel;
     @FXML private ImageView chromeIcon;
     @FXML private JFXButton selectChrome;
@@ -209,14 +192,12 @@ public class MainController implements Initializable {
     @FXML private JFXCheckBox chromeHistory;
     @FXML private JFXCheckBox chromeCookies;
     @FXML private JFXCheckBox chromeSession;
-
     @FXML private AnchorPane spotifyPanel;
     @FXML private ImageView spotifyIcon;
     @FXML private JFXButton selectSpotify;
     @FXML private JFXCheckBox spotifyCache;
     @FXML private JFXCheckBox spotifyMusic;
     @FXML private JFXCheckBox spotifyOffline;
-
     @FXML private AnchorPane steamPanel;
     @FXML private ImageView steamIcon;
     @FXML private JFXButton selectSteam;
@@ -511,6 +492,25 @@ public class MainController implements Initializable {
 
     public void openRepo() throws URISyntaxException, IOException {
         desktop.browse(new URI("https://github.com/Stryzhh/PCCleaner"));
+    }
+
+    public void saveToTXT() {
+        if (Options.advancedSettings.isProduce()) {
+            try {
+                PrintWriter writer = new PrintWriter(System.getProperty("user.home") + "\\Documents\\ComputerSpecs.txt");
+                for (String spec : specsList.getItems()) {
+                    writer.println(spec);
+                }
+                writer.close();
+            } catch (IOException fileNotFoundException) {
+                Functions.error = "Couldn't write to file";
+                try {
+                    Functions.openWindow("Main/ErrorUI/error.fxml", "Error");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     public void handIcon() {

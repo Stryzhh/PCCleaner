@@ -34,13 +34,10 @@ public class Main extends Application {
         Image trayImage = image.getScaledInstance(tray.getTrayIconSize().width,
                 tray.getTrayIconSize().height, java.awt.Image.SCALE_SMOOTH);
         TrayIcon trayIcon = new TrayIcon(trayImage, "PCCleaner", popupMenu);
-
         MenuItem open = new MenuItem("Open PCCleaner");
         MenuItem exit = new MenuItem("Close PCCleaner");
 
-        open.addActionListener(e -> {
-            Platform.runLater(window::show);
-        });
+        open.addActionListener(e -> Platform.runLater(window::show));
         exit.addActionListener(e -> {
             tray.remove(trayIcon);
             System.exit(0);
@@ -54,6 +51,7 @@ public class Main extends Application {
         window.setScene(new Scene(startWindow, 1000, 700));
         window.setMinWidth(1000);
         window.setMinHeight(700);
+
         ResizeHelper.addResizeListener(window);
         window.getIcons().add(new javafx.scene.image.Image("PCCleaner.png"));
         window.show();

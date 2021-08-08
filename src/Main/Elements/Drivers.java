@@ -19,7 +19,7 @@ public class Drivers {
             } catch (IOException io) {
                 Functions.error = "Couldn't load driver manager";
                 try {
-                    Functions.openWindow("Main/Error/error.fxml", "Error");
+                    Functions.openWindow("Main/ErrorUI/error.fxml", "Error");
                 } catch (IOException exception) {
                     //ignore
                 }

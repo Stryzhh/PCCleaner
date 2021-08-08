@@ -8,7 +8,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -74,15 +73,15 @@ public class Clean {
                         Collections.reverse(deleted);
                         if (Options.advancedSettings.isProduce()) {
                             try {
-                                PrintWriter writer = new PrintWriter(System.getProperty("user.home") + "\\Documents\\Clean.txt", "UTF-8");
+                                PrintWriter writer = new PrintWriter(System.getProperty("user.home") + "\\Documents\\Clean.txt");
                                 for (String line : deleted) {
                                     writer.println(line);
                                 }
                                 writer.close();
-                            } catch (FileNotFoundException | UnsupportedEncodingException fileNotFoundException) {
+                            } catch (FileNotFoundException fileNotFoundException) {
                                 Functions.error = "Couldn't write to file";
                                 try {
-                                    Functions.openWindow("Main/Error/error.fxml", "Error");
+                                    Functions.openWindow("Main/ErrorUI/error.fxml", "Error");
                                 } catch (IOException exception) {
                                     //ignore
                                 }
@@ -109,7 +108,7 @@ public class Clean {
                         } catch (Exception ex) {
                             Functions.error = "Couldn't delete items";
                             try {
-                                Functions.openWindow("Main/Error/error.fxml", "Error");
+                                Functions.openWindow("Main/ErrorUI/error.fxml", "Error");
                             } catch (IOException exception) {
                                 //ignore
                             }

@@ -18,7 +18,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URL;
 import java.net.URLConnection;
@@ -156,7 +155,7 @@ public class Tools {
                     } catch (IOException e) {
                         Functions.error = "Couldn't open folder";
                         try {
-                            Functions.openWindow("Main/Error/error.fxml", "Error");
+                            Functions.openWindow("Main/ErrorUI/error.fxml", "Error");
                         } catch (IOException ioException) {
                             e.printStackTrace();
                         }
@@ -167,15 +166,15 @@ public class Tools {
         uninstallSave.setOnAction(actionEvent -> {
             if (Options.advancedSettings.isProduce()) {
                 try {
-                    PrintWriter writer = new PrintWriter(System.getProperty("user.home") + "\\Documents\\Installed.txt", "UTF-8");
+                    PrintWriter writer = new PrintWriter(System.getProperty("user.home") + "\\Documents\\Installed.txt");
                     for (Software soft : uninstallTable.getItems()) {
                         writer.println(soft.getName() + " - @" + soft.getLocation());
                     }
                     writer.close();
-                } catch (FileNotFoundException | UnsupportedEncodingException fileNotFoundException) {
+                } catch (IOException fileNotFoundException) {
                     Functions.error = "Couldn't write to file";
                     try {
-                        Functions.openWindow("Main/Error/error.fxml", "Error");
+                        Functions.openWindow("Main/ErrorUI/error.fxml", "Error");
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -195,7 +194,7 @@ public class Tools {
                     } catch (IOException e) {
                         Functions.error = "Couldn't uninstall program - need administrator privileges";
                         try {
-                            Functions.openWindow("Main/Error/error.fxml", "Error");
+                            Functions.openWindow("Main/ErrorUI/error.fxml", "Error");
                         } catch (IOException exception) {
                             //ignore
                         }
@@ -225,7 +224,7 @@ public class Tools {
                         } catch (IOException ioException) {
                             Functions.error = "Couldn't run disk clean-up";
                             try {
-                                Functions.openWindow("Main/Error/error.fxml", "Error");
+                                Functions.openWindow("Main/ErrorUI/error.fxml", "Error");
                             } catch (IOException exception) {
                                 //ignore
                             }
@@ -285,15 +284,15 @@ public class Tools {
         startupSave.setOnAction(e -> {
             if (Options.advancedSettings.isProduce()) {
                 try {
-                    PrintWriter writer = new PrintWriter(System.getProperty("user.home") + "\\Documents\\StartUp.txt", "UTF-8");
+                    PrintWriter writer = new PrintWriter(System.getProperty("user.home") + "\\Documents\\StartUp.txt");
                     for (Main.Objects.Application app : startupTable.getItems()) {
                         writer.println(app.getName() + " - @" + app.getPath());
                     }
                     writer.close();
-                } catch (FileNotFoundException | UnsupportedEncodingException fileNotFoundException) {
+                } catch (FileNotFoundException fileNotFoundException) {
                     Functions.error = "Couldn't write to file";
                     try {
-                        Functions.openWindow("Main/Error/error.fxml", "Error");
+                        Functions.openWindow("Main/ErrorUI/error.fxml", "Error");
                     } catch (IOException exception) {
                         //ignore
                     }
@@ -339,7 +338,7 @@ public class Tools {
                             } catch (IOException ioException) {
                                 Functions.error = "Can't open extension";
                                 try {
-                                    Functions.openWindow("Main/Error/error.fxml", "Error");
+                                    Functions.openWindow("Main/ErrorUI/error.fxml", "Error");
                                 } catch (IOException exception) {
                                     //ignore
                                 }
@@ -361,7 +360,7 @@ public class Tools {
                                             } catch (IOException ioException) {
                                                 Functions.error = "Can't delete extension";
                                                 try {
-                                                    Functions.openWindow("Main/Error/error.fxml", "Error");
+                                                    Functions.openWindow("Main/ErrorUI/error.fxml", "Error");
                                                 } catch (IOException exception) {
                                                     //ignore
                                                 }
@@ -373,7 +372,7 @@ public class Tools {
                                             } catch (Exception ex) {
                                                 Functions.error = "Couldn't delete key - important key";
                                                 try {
-                                                    Functions.openWindow("Main/Error/error.fxml", "Error");
+                                                    Functions.openWindow("Main/ErrorUI/error.fxml", "Error");
                                                 } catch (IOException exc) {
                                                     //ignore
                                                 }
@@ -390,7 +389,7 @@ public class Tools {
                         } catch (IOException ioException) {
                             Functions.error = "Couldn't open file";
                             try {
-                                Functions.openWindow("Main/Error/error.fxml", "Error");
+                                Functions.openWindow("Main/ErrorUI/error.fxml", "Error");
                             } catch (IOException ex) {
                                 //ignore
                             }
@@ -405,15 +404,15 @@ public class Tools {
         pluginSave.setOnAction(e -> {
             if (Options.advancedSettings.isProduce()) {
                 try {
-                    PrintWriter writer = new PrintWriter(System.getProperty("user.home") + "\\Documents\\Plugins.txt", "UTF-8");
+                    PrintWriter writer = new PrintWriter(System.getProperty("user.home") + "\\Documents\\Plugins.txt");
                     for (Extension ext : pluginTable.getItems()) {
                         writer.println(ext.getProgram() + " - @" + ext.getFile());
                     }
                     writer.close();
-                } catch (FileNotFoundException | UnsupportedEncodingException fileNotFoundException) {
+                } catch (FileNotFoundException fileNotFoundException) {
                     Functions.error = "Couldn't write to file";
                     try {
-                        Functions.openWindow("Main/Error/error.fxml", "Error");
+                        Functions.openWindow("Main/ErrorUI/error.fxml", "Error");
                     } catch (IOException ioException) {
                         //ignore
                     }
@@ -496,7 +495,7 @@ public class Tools {
         } catch (Exception ex) {
             Functions.error = "Couldn't get title";
             try {
-                Functions.openWindow("Main/Error/error.fxml", "Error");
+                Functions.openWindow("Main/ErrorUI/error.fxml", "Error");
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -543,7 +542,7 @@ public class Tools {
                                         } catch (IOException ioException) {
                                             Functions.error = "Status: some important files can't be deleted";
                                             try {
-                                                Functions.openWindow("Main/Error/error.fxml", "Error");
+                                                Functions.openWindow("Main/ErrorUI/error.fxml", "Error");
                                             } catch (IOException exception) {
                                                 exception.printStackTrace();
                                             }
@@ -588,15 +587,15 @@ public class Tools {
                 save.setOnAction(actionEvent -> {
                     if (Options.advancedSettings.isProduce()) {
                         try {
-                            PrintWriter writer = new PrintWriter(System.getProperty("user.home") + "\\Documents\\Files.txt", "UTF-8");
+                            PrintWriter writer = new PrintWriter(System.getProperty("user.home") + "\\Documents\\Files.txt");
                             for (File file : fileTable.getItems()) {
                                 writer.println(file.getName() + " - @" + file.getPath());
                             }
                             writer.close();
-                        } catch (FileNotFoundException | UnsupportedEncodingException fileNotFoundException) {
+                        } catch (FileNotFoundException fileNotFoundException) {
                             Functions.error = "Couldn't write to file";
                             try {
-                                Functions.openWindow("Main/Error/error.fxml", "Error");
+                                Functions.openWindow("Main/ErrorUI/error.fxml", "Error");
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
@@ -619,7 +618,7 @@ public class Tools {
                     } catch (IOException e) {
                         Functions.error = "Couldn't open folder";
                         try {
-                            Functions.openWindow("Main/Error/error.fxml", "Error");
+                            Functions.openWindow("Main/ErrorUI/error.fxml", "Error");
                         } catch (IOException ioException) {
                             //ignore
                         }

@@ -91,7 +91,7 @@ public class Options extends Component {
         } catch (IOException e) {
             Functions.error = "Couldn't basic load settings";
             try {
-                Functions.openWindow("Main/Error/error.fxml", "Error");
+                Functions.openWindow("Main/ErrorUI/error.fxml", "Error");
             } catch (IOException exception) {
                 //ignore
             }
@@ -105,7 +105,7 @@ public class Options extends Component {
             } catch (IOException e) {
                 Functions.error = "Couldn't create/delete startup shortcut";
                 try {
-                    Functions.openWindow("Main/Error/error.fxml", "Error");
+                    Functions.openWindow("Main/ErrorUI/error.fxml", "Error");
                 } catch (IOException exception) {
                     //ignore
                 }
@@ -138,7 +138,7 @@ public class Options extends Component {
             } catch (IOException ioException) {
                 Functions.error = "Couldn't update changes";
                 try {
-                    Functions.openWindow("Main/Error/error.fxml", "Error");
+                    Functions.openWindow("Main/ErrorUI/error.fxml", "Error");
                 } catch (IOException exception) {
                     //ignore
                 }
@@ -162,7 +162,7 @@ public class Options extends Component {
             } catch (IOException ioException) {
                 Functions.error = "Couldn't update changes";
                 try {
-                    Functions.openWindow("Main/Error/error.fxml", "Error");
+                    Functions.openWindow("Main/ErrorUI/error.fxml", "Error");
                 } catch (IOException exception) {
                     //ignore
                 }
@@ -179,7 +179,7 @@ public class Options extends Component {
             } catch (IOException ioException) {
                 Functions.error = "Couldn't update changes";
                 try {
-                    Functions.openWindow("Main/Error/error.fxml", "Error");
+                    Functions.openWindow("Main/ErrorUI/error.fxml", "Error");
                 } catch (IOException exception) {
                     //ignore
                 }
@@ -208,7 +208,7 @@ public class Options extends Component {
             } catch (IOException ioException) {
                 Functions.error = "Couldn't update changes";
                 try {
-                    Functions.openWindow("Main/Error/error.fxml", "Error");
+                    Functions.openWindow("Main/ErrorUI/error.fxml", "Error");
                 } catch (IOException exception) {
                     //ignore
                 }
@@ -232,7 +232,7 @@ public class Options extends Component {
             } catch (IOException ioException) {
                 Functions.error = "Couldn't update changes";
                 try {
-                    Functions.openWindow("Main/Error/error.fxml", "Error");
+                    Functions.openWindow("Main/ErrorUI/error.fxml", "Error");
                 } catch (IOException exception) {
                     //ignore
                 }
@@ -249,7 +249,7 @@ public class Options extends Component {
             } catch (IOException ioException) {
                 Functions.error = "Couldn't update changes";
                 try {
-                    Functions.openWindow("Main/Error/error.fxml", "Error");
+                    Functions.openWindow("Main/ErrorUI/error.fxml", "Error");
                 } catch (IOException exception) {
                     //ignore
                 }
@@ -280,7 +280,7 @@ public class Options extends Component {
             if (!startupFile.delete() || !batch.delete()) {
                 Functions.error = "Couldn't delete startup file";
                 try {
-                    Functions.openWindow("Main/Error/error.fxml", "Error");
+                    Functions.openWindow("Main/ErrorUI/error.fxml", "Error");
                 } catch (IOException exception) {
                     //ignore
                 }
@@ -315,7 +315,7 @@ public class Options extends Component {
         } catch (IOException e) {
             Functions.error = "Couldn't load advanced settings";
             try {
-                Functions.openWindow("Main/Error/error.fxml", "Error");
+                Functions.openWindow("Main/ErrorUI/error.fxml", "Error");
             } catch (IOException exception) {
                 //ignore
             }
@@ -357,7 +357,7 @@ public class Options extends Component {
 
     private static Config loadSettings() {
         try {
-            return new Gson().fromJson(new FileReader(new File("config/files.json")), Config.class);
+            return new Gson().fromJson(new FileReader("config/files.json"), Config.class);
         } catch (Exception ex) {
             //ignore
         }

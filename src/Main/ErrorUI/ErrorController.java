@@ -1,4 +1,4 @@
-package Main.Error;
+package Main.ErrorUI;
 
 import Main.Default.Functions;
 import java.net.URL;

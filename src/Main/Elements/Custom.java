@@ -168,7 +168,7 @@ public class Custom {
             } catch (Exception ex) {
                 Functions.error = "Couldn't empty recycling bin";
                 try {
-                    Functions.openWindow("Main/Error/error.fxml", "Error");
+                    Functions.openWindow("Main/ErrorUI/error.fxml", "Error");
                 } catch (IOException exception) {
                     //ignore
                 }
@@ -193,7 +193,7 @@ public class Custom {
             } catch (Exception exception) {
                 Functions.error = "Couldn't get task list";
                 try {
-                    Functions.openWindow("Main/Error/error.fxml", "Error");
+                    Functions.openWindow("Main/ErrorUI/error.fxml", "Error");
                 } catch (IOException e) {
                     //ignore
                 }
@@ -254,7 +254,7 @@ public class Custom {
         } catch (Exception ex) {
             Functions.error = "couldn't get/delete file";
             try {
-                Functions.openWindow("Main/Error/error.fxml", "Error");
+                Functions.openWindow("Main/ErrorUI/error.fxml", "Error");
             } catch (IOException exception) {
                 //ignore
             }
