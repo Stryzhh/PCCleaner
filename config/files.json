@@ -1,12 +1,4 @@
 {
-  "includeItems": [
-    {
-      "path": "C:\\Users\\gmaun\\Downloads\\HelloWithDependencies.zip"
-    }
-  ],
-  "excludeItems": [
-    {
-      "path": "C:\\Users\\gmaun\\Documents\\config.png"
-    }
-  ]
+  "includeItems": [],
+  "excludeItems": []
 }
