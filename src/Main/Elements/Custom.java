@@ -8,8 +8,10 @@ import java.awt.*;
 import java.awt.datatransfer.StringSelection;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
@@ -212,6 +214,23 @@ public class Custom {
                             Platform.runLater(() -> list.getItems().add("deleted: " + f.getAbsolutePath()));
                         }
                     }
+                }
+            }
+        }
+
+        if (Options.advancedSettings.isProduce()) {
+            try {
+                PrintWriter writer = new PrintWriter(System.getProperty("user.home") + "\\Documents\\CustomClean.txt");
+                for (String line : list.getItems()) {
+                    writer.println(line);
+                }
+                writer.close();
+            } catch (FileNotFoundException fileNotFoundException) {
+                Functions.error = "Couldn't write to file";
+                try {
+                    Functions.openWindow("Main/ErrorUI/error.fxml", "Error");
+                } catch (IOException exception) {
+                    //ignore
                 }
             }
         }

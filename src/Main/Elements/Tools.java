@@ -164,20 +164,18 @@ public class Tools {
             }
         });
         uninstallSave.setOnAction(actionEvent -> {
-            if (Options.advancedSettings.isProduce()) {
+            try {
+                PrintWriter writer = new PrintWriter(System.getProperty("user.home") + "\\Documents\\Installed.txt");
+                for (Software soft : uninstallTable.getItems()) {
+                    writer.println(soft.getName() + " - @" + soft.getLocation());
+                }
+                writer.close();
+            } catch (IOException fileNotFoundException) {
+                Functions.error = "Couldn't write to file";
                 try {
-                    PrintWriter writer = new PrintWriter(System.getProperty("user.home") + "\\Documents\\Installed.txt");
-                    for (Software soft : uninstallTable.getItems()) {
-                        writer.println(soft.getName() + " - @" + soft.getLocation());
-                    }
-                    writer.close();
-                } catch (IOException fileNotFoundException) {
-                    Functions.error = "Couldn't write to file";
-                    try {
-                        Functions.openWindow("Main/ErrorUI/error.fxml", "Error");
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    Functions.openWindow("Main/ErrorUI/error.fxml", "Error");
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             }
         });
@@ -276,20 +274,18 @@ public class Tools {
         });
 
         startupSave.setOnAction(e -> {
-            if (Options.advancedSettings.isProduce()) {
+            try {
+                PrintWriter writer = new PrintWriter(System.getProperty("user.home") + "\\Documents\\StartUp.txt");
+                for (Main.Objects.Application app : startupTable.getItems()) {
+                    writer.println(app.getName() + " - @" + app.getPath());
+                }
+                writer.close();
+            } catch (FileNotFoundException fileNotFoundException) {
+                Functions.error = "Couldn't write to file";
                 try {
-                    PrintWriter writer = new PrintWriter(System.getProperty("user.home") + "\\Documents\\StartUp.txt");
-                    for (Main.Objects.Application app : startupTable.getItems()) {
-                        writer.println(app.getName() + " - @" + app.getPath());
-                    }
-                    writer.close();
-                } catch (FileNotFoundException fileNotFoundException) {
-                    Functions.error = "Couldn't write to file";
-                    try {
-                        Functions.openWindow("Main/ErrorUI/error.fxml", "Error");
-                    } catch (IOException exception) {
-                        //ignore
-                    }
+                    Functions.openWindow("Main/ErrorUI/error.fxml", "Error");
+                } catch (IOException exception) {
+                    //ignore
                 }
             }
         });
@@ -299,6 +295,22 @@ public class Tools {
         ArrayList<Main.Objects.Application> startupApps = StartUp.getInstalledApps();
         for (Main.Objects.Application app : startupApps) {
             startupTable.getItems().add(app);
+        }
+        if (Options.advancedSettings.isProduce()) {
+            try {
+                PrintWriter writer = new PrintWriter(System.getProperty("user.home") + "\\Documents\\StartUp.txt");
+                for (Main.Objects.Application app : startupTable.getItems()) {
+                    writer.println(app.getName() + " - @" + app.getPath());
+                }
+                writer.close();
+            } catch (FileNotFoundException fileNotFoundException) {
+                Functions.error = "Couldn't write to file";
+                try {
+                    Functions.openWindow("Main/ErrorUI/error.fxml", "Error");
+                } catch (IOException exception) {
+                    //ignore
+                }
+            }
         }
     }
 
@@ -394,20 +406,24 @@ public class Tools {
         pluginInternetExplorer.setOnAction(e -> new Thread(Tools::loadExplorer).start());
         pluginGoogleChrome.setOnAction(e -> new Thread(Tools::loadChrome).start());
         pluginSave.setOnAction(e -> {
-            if (Options.advancedSettings.isProduce()) {
+            String item;
+            if (pluginGoogleChrome.isDisable()) {
+                item = "Chrome";
+            } else {
+                item = "Explorer";
+            }
+            try {
+                PrintWriter writer = new PrintWriter(System.getProperty("user.home") + "\\Documents\\" + item + "Plugins.txt");
+                for (Extension ext : pluginTable.getItems()) {
+                    writer.println(ext.getProgram() + " - @" + ext.getFile());
+                }
+                writer.close();
+            } catch (FileNotFoundException fileNotFoundException) {
+                Functions.error = "Couldn't write to file";
                 try {
-                    PrintWriter writer = new PrintWriter(System.getProperty("user.home") + "\\Documents\\Plugins.txt");
-                    for (Extension ext : pluginTable.getItems()) {
-                        writer.println(ext.getProgram() + " - @" + ext.getFile());
-                    }
-                    writer.close();
-                } catch (FileNotFoundException fileNotFoundException) {
-                    Functions.error = "Couldn't write to file";
-                    try {
-                        Functions.openWindow("Main/ErrorUI/error.fxml", "Error");
-                    } catch (IOException ioException) {
-                        //ignore
-                    }
+                    Functions.openWindow("Main/ErrorUI/error.fxml", "Error");
+                } catch (IOException ioException) {
+                    //ignore
                 }
             }
         });
@@ -425,6 +441,22 @@ public class Tools {
             pluginTable.getItems().add(ext);
         }
 
+        if (Options.advancedSettings.isProduce()) {
+            try {
+                PrintWriter writer = new PrintWriter(System.getProperty("user.home") + "\\Documents\\ExplorerPlugins.txt");
+                for (Extension ext : pluginTable.getItems()) {
+                    writer.println(ext.getProgram() + " - @" + ext.getFile());
+                }
+                writer.close();
+            } catch (FileNotFoundException fileNotFoundException) {
+                Functions.error = "Couldn't write to file";
+                try {
+                    Functions.openWindow("Main/ErrorUI/error.fxml", "Error");
+                } catch (IOException ioException) {
+                    //ignore
+                }
+            }
+        }
         pluginGoogleChrome.setDisable(false);
         Platform.runLater(() -> pluginStatus.setText("Loaded."));
     }
@@ -440,6 +472,22 @@ public class Tools {
                 "\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Extensions");
         for (Extension ext : extensions) {
             pluginTable.getItems().add(ext);
+        }
+        if (Options.advancedSettings.isProduce()) {
+            try {
+                PrintWriter writer = new PrintWriter(System.getProperty("user.home") + "\\Documents\\ChromePlugins.txt");
+                for (Extension ext : pluginTable.getItems()) {
+                    writer.println(ext.getProgram() + " - @" + ext.getFile());
+                }
+                writer.close();
+            } catch (FileNotFoundException fileNotFoundException) {
+                Functions.error = "Couldn't write to file";
+                try {
+                    Functions.openWindow("Main/ErrorUI/error.fxml", "Error");
+                } catch (IOException ioException) {
+                    //ignore
+                }
+            }
         }
         pluginInternetExplorer.setDisable(false);
         Platform.runLater(() -> pluginStatus.setText("Loaded."));
@@ -545,8 +593,24 @@ public class Tools {
                                     }
                                 }).start();
                             }
-                            Platform.runLater(() -> wiperStatus.setText("Status: deleted all files off drive"));
                             c++;
+                        }
+                        Platform.runLater(() -> wiperStatus.setText("Status: deleted all files off drive"));
+                        if (Options.advancedSettings.isProduce()) {
+                            try {
+                                PrintWriter writer = new PrintWriter(System.getProperty("user.home") + "\\Documents\\WipedFiles.txt");
+                                for (String file : wiperDeleted.getItems()) {
+                                    writer.println(file);
+                                }
+                                writer.close();
+                            } catch (FileNotFoundException fileNotFoundException) {
+                                Functions.error = "Couldn't write to file";
+                                try {
+                                    Functions.openWindow("Main/ErrorUI/error.fxml", "Error");
+                                } catch (IOException exception) {
+                                    //ignore
+                                }
+                            }
                         }
                     }
                 }
@@ -577,20 +641,18 @@ public class Tools {
                 contextMenu.show(pane, MouseEvent.getScreenX(), MouseEvent.getScreenY());
 
                 save.setOnAction(actionEvent -> {
-                    if (Options.advancedSettings.isProduce()) {
+                    try {
+                        PrintWriter writer = new PrintWriter(System.getProperty("user.home") + "\\Documents\\Files.txt");
+                        for (File file : fileTable.getItems()) {
+                            writer.println(file.getName() + " - @" + file.getPath());
+                        }
+                        writer.close();
+                    } catch (FileNotFoundException fileNotFoundException) {
+                        Functions.error = "Couldn't write to file";
                         try {
-                            PrintWriter writer = new PrintWriter(System.getProperty("user.home") + "\\Documents\\Files.txt");
-                            for (File file : fileTable.getItems()) {
-                                writer.println(file.getName() + " - @" + file.getPath());
-                            }
-                            writer.close();
-                        } catch (FileNotFoundException fileNotFoundException) {
-                            Functions.error = "Couldn't write to file";
-                            try {
-                                Functions.openWindow("Main/ErrorUI/error.fxml", "Error");
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
+                            Functions.openWindow("Main/ErrorUI/error.fxml", "Error");
+                        } catch (IOException e) {
+                            e.printStackTrace();
                         }
                     }
                 });
@@ -690,9 +752,26 @@ public class Tools {
 
                     Platform.runLater(() -> analyzeStatus.setText("Status: finished"));
                     fileTable.setItems(filesList);
+                    if (Options.advancedSettings.isProduce()) {
+                        try {
+                            PrintWriter writer = new PrintWriter(System.getProperty("user.home") + "\\Documents\\Files.txt");
+                            for (File file : fileTable.getItems()) {
+                                writer.println(file.getName() + " - @" + file.getPath());
+                            }
+                            writer.close();
+                        } catch (FileNotFoundException fileNotFoundException) {
+                            Functions.error = "Couldn't write to file";
+                            try {
+                                Functions.openWindow("Main/ErrorUI/error.fxml", "Error");
+                            } catch (IOException exception) {
+                                //ignore
+                            }
+                        }
+                    }
                     fileTable.refresh();
                 }).start();
             }
+
         });
 
         btnCancel.setOnAction(e -> cancelled = true);
@@ -753,6 +832,22 @@ public class Tools {
                 case "Steam":
                     Custom.steam = true;
                     break;
+            }
+        }
+        if (Options.advancedSettings.isProduce()) {
+            try {
+                PrintWriter writer = new PrintWriter(System.getProperty("user.home") + "\\Documents\\Installed.txt");
+                for (Software soft : uninstallTable.getItems()) {
+                    writer.println(soft.getName() + " - @" + soft.getLocation());
+                }
+                writer.close();
+            } catch (IOException fileNotFoundException) {
+                Functions.error = "Couldn't write to file";
+                try {
+                    Functions.openWindow("Main/ErrorUI/error.fxml", "Error");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }

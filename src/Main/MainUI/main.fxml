@@ -113,7 +113,7 @@
    </AnchorPane>
    <AnchorPane fx:id="specificationsPane" layoutX="107.0" layoutY="91.0" prefHeight="567.0" prefWidth="893.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="42.0" AnchorPane.leftAnchor="107.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="91.0">
       <ListView fx:id="specsList" layoutX="173.0" layoutY="14.0" prefHeight="540.0" prefWidth="547.0" stylesheets="@list.css" AnchorPane.bottomAnchor="13.0" AnchorPane.leftAnchor="173.0" AnchorPane.rightAnchor="173.0" AnchorPane.topAnchor="14.0" />
-      <JFXButton layoutX="729.0" layoutY="516.0" onAction="#saveToTXT" prefHeight="37.0" prefWidth="156.0" style="-fx-background-color: #6eace0;" text="Save to text file" textFill="WHITE">
+      <JFXButton layoutX="729.0" layoutY="516.0" onAction="#saveToTXT" prefHeight="37.0" prefWidth="156.0" style="-fx-background-color: #6eace0;" text="Save to text file" textFill="WHITE" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="8.0">
          <font>
             <Font name="Calibri Light" size="15.0" />
          </font>

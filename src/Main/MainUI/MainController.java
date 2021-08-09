@@ -243,11 +243,11 @@ public class MainController implements Initializable {
         pluginVersion.setCellValueFactory(new PropertyValueFactory<>("Version"));
 
         //loads date onto panels
+        Options.load();
         Tools.load();
         Clean.load();
         Custom.load();
         Drivers.load();
-        Options.load();
         Specifications.load();
 
         //setting images
