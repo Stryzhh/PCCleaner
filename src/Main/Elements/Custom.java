@@ -71,16 +71,16 @@ public class Custom {
     public static JFXButton selectSteam;
     public static JFXCheckBox steamDump;
 
+    private static boolean chromeSelected = false;
+    private static boolean spotifySelected = false;
+    private static boolean steamSelected = false;
+
     private static boolean IE = false;
     private static boolean ED = false;
     private static boolean SYS = false;
     private static boolean CH = false;
     private static boolean SP = false;
     private static boolean ST = false;
-
-    private static boolean chromeSelected = false;
-    private static boolean spotifySelected = false;
-    private static boolean steamSelected = false;
 
     public static void load() {
         windowsPanel.toFront();
@@ -129,7 +129,6 @@ public class Custom {
             ST = !ST;
             steamDump.setSelected(ST);
         });
-
         analyze.setOnAction(e -> analyzeFiles());
         clean.setOnAction(e ->
         {
@@ -140,6 +139,7 @@ public class Custom {
                 cleanFiles();
             }
         });
+
         windows.setOnAction(e -> windowsPanel.toFront());
         applications.setOnAction(e -> applicationPanel.toFront());
     }
@@ -260,6 +260,7 @@ public class Custom {
 
     private static void analyzeFiles() {
         list.getItems().clear();
+
         try {
             for (File file : getFiles()) {
                 if (file.isDirectory()) {

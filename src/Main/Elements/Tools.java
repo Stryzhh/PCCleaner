@@ -139,13 +139,14 @@ public class Tools {
         uninstallTable.setOnMouseClicked(MouseEvent -> {
             if (MouseEvent.getButton().equals(MouseButton.SECONDARY)) {
                 final ContextMenu contextMenu = new ContextMenu();
-                final AnchorPane pane = new AnchorPane();
                 MenuItem open = new MenuItem("Open containing folder");
-
                 uninstallTable.setContextMenu(contextMenu);
+
                 if (uninstallTable.getSelectionModel().getSelectedItem().getLocation().equals("Unknown")) {
                     open.setDisable(true);
                 }
+
+                final AnchorPane pane = new AnchorPane();
                 contextMenu.getItems().addAll(open);
                 contextMenu.show(pane, MouseEvent.getScreenX(), MouseEvent.getScreenY());
 
@@ -232,13 +233,14 @@ public class Tools {
     public static void startup() {
         loadStartup();
         startupTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+
         startupTable.setOnMouseClicked(MouseEvent -> {
             if (MouseEvent.getButton().equals(MouseButton.SECONDARY)) {
                 final ContextMenu contextMenu = new ContextMenu();
-                final AnchorPane pane = new AnchorPane();
                 MenuItem delete = new MenuItem("Remove application(s)");
-
                 startupTable.setContextMenu(contextMenu);
+
+                final AnchorPane pane = new AnchorPane();
                 contextMenu.getItems().addAll(delete);
                 contextMenu.show(pane, MouseEvent.getScreenX(), MouseEvent.getScreenY());
 
@@ -296,6 +298,7 @@ public class Tools {
         for (Main.Objects.Application app : startupApps) {
             startupTable.getItems().add(app);
         }
+
         if (Options.advancedSettings.isProduce()) {
             try {
                 PrintWriter writer = new PrintWriter(System.getProperty("user.home") + "\\Documents\\StartUp.txt");
@@ -412,6 +415,7 @@ public class Tools {
             } else {
                 item = "Explorer";
             }
+
             try {
                 PrintWriter writer = new PrintWriter(System.getProperty("user.home") + "\\Documents\\" + item + "Plugins.txt");
                 for (Extension ext : pluginTable.getItems()) {
@@ -457,6 +461,7 @@ public class Tools {
                 }
             }
         }
+
         pluginGoogleChrome.setDisable(false);
         Platform.runLater(() -> pluginStatus.setText("Loaded."));
     }
@@ -466,13 +471,14 @@ public class Tools {
         chrome = true;
         pluginGoogleChrome.setDisable(true);
         pluginInternetExplorer.setDisable(true);
-
         pluginTable.getItems().clear();
+
         ArrayList<Extension> extensions = getExtensions(System.getProperty("user.home") +
                 "\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Extensions");
         for (Extension ext : extensions) {
             pluginTable.getItems().add(ext);
         }
+
         if (Options.advancedSettings.isProduce()) {
             try {
                 PrintWriter writer = new PrintWriter(System.getProperty("user.home") + "\\Documents\\ChromePlugins.txt");
@@ -489,6 +495,7 @@ public class Tools {
                 }
             }
         }
+
         pluginInternetExplorer.setDisable(false);
         Platform.runLater(() -> pluginStatus.setText("Loaded."));
     }
@@ -506,13 +513,14 @@ public class Tools {
                     String file = folder.getAbsolutePath();
 
                     String version;
-                    assert files != null;
-                    if (files.length > 0) {
-                        version = Objects.requireNonNull(folder.listFiles())[0].getName();
-                    } else {
-                        version = "Unknown";
+                    if (files != null) {
+                        if (files.length > 0) {
+                            version = Objects.requireNonNull(folder.listFiles())[0].getName();
+                        } else {
+                            version = "Unknown";
+                        }
+                        pluginList.add(new Extension(name, file, version, URL));
                     }
-                    pluginList.add(new Extension(name, file, version, URL));
                 }
             }
         }
@@ -596,6 +604,7 @@ public class Tools {
                             c++;
                         }
                         Platform.runLater(() -> wiperStatus.setText("Status: deleted all files off drive"));
+
                         if (Options.advancedSettings.isProduce()) {
                             try {
                                 PrintWriter writer = new PrintWriter(System.getProperty("user.home") + "\\Documents\\WipedFiles.txt");
@@ -631,12 +640,12 @@ public class Tools {
         fileTable.setOnMouseClicked(MouseEvent -> {
             if (MouseEvent.getButton().equals(MouseButton.SECONDARY)) {
                 final ContextMenu contextMenu = new ContextMenu();
-                final AnchorPane pane = new AnchorPane();
                 MenuItem delete = new MenuItem("Delete selected files");
                 MenuItem save = new MenuItem("Save to .txt file");
                 MenuItem open = new MenuItem("Open containing folder");
-
                 fileTable.setContextMenu(contextMenu);
+
+                final AnchorPane pane = new AnchorPane();
                 contextMenu.getItems().addAll(delete, save, open);
                 contextMenu.show(pane, MouseEvent.getScreenX(), MouseEvent.getScreenY());
 
@@ -749,9 +758,9 @@ public class Tools {
                         if (!analyzeStatus.getText().equals("Status: loading..."))
                             Platform.runLater(() -> analyzeStatus.setText("Status: loading..."));
                     }
-
                     Platform.runLater(() -> analyzeStatus.setText("Status: finished"));
                     fileTable.setItems(filesList);
+
                     if (Options.advancedSettings.isProduce()) {
                         try {
                             PrintWriter writer = new PrintWriter(System.getProperty("user.home") + "\\Documents\\Files.txt");
@@ -819,6 +828,7 @@ public class Tools {
 
     private static void loadUninstall() {
         uninstallTable.getItems().removeAll(uninstallTable.getItems());
+
         Map<String, Software> installed = Applications.getInstalledApps(false);
         for (Map.Entry<String, Software> app : installed.entrySet()) {
             uninstallTable.getItems().add(app.getValue());
@@ -834,6 +844,7 @@ public class Tools {
                     break;
             }
         }
+
         if (Options.advancedSettings.isProduce()) {
             try {
                 PrintWriter writer = new PrintWriter(System.getProperty("user.home") + "\\Documents\\Installed.txt");
