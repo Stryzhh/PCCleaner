@@ -149,6 +149,7 @@ public class Custom {
 
         if (systemClipboard.isSelected()) {
             Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(""), null);
+            Platform.runLater(() -> list.getItems().add("cleared clipboard"));
         }
         if (systemBin.isSelected()) {
             try {
@@ -164,6 +165,7 @@ public class Custom {
 
                 if (folder != null) {
                     FileUtils.deleteDirectory(folder);
+                    Platform.runLater(() -> list.getItems().add("cleared recycling bin"));
                 }
             } catch (Exception ex) {
                 Functions.error = "Couldn't empty recycling bin";

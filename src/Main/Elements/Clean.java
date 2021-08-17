@@ -38,7 +38,9 @@ public class Clean {
 
                         if (f != null) {
                             ArrayList<File> files = new ArrayList<>(Arrays.asList(f));
-                            files.removeAll(cfg.getExcludeItems());
+                            for (String item : cfg.getExcludeItems()) {
+                                files.remove(new File(item));
+                            }
 
                             for (File file : files) {
                                 if (file.isDirectory()) {
@@ -52,7 +54,8 @@ public class Clean {
                         }
                     }
 
-                    for (File include : cfg.getIncludeItems()) {
+                    for (String location : cfg.getIncludeItems()) {
+                        File include = new File(location);
                         if (include.isDirectory()) {
                             recursiveDelete(include, deleted);
                         } else {

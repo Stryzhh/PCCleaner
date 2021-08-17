@@ -64,13 +64,13 @@ public class Options extends Component {
     public static JFXCheckBox shutdownCustom;
     public static JFXButton restoreAdvanced;
 
-    public static Config config;
+    public static Config config = new Config();
     public static BasicSettings basicSettings;
     public static AdvancedSettings advancedSettings;
 
     public static void load() {
         aboutPane.toFront();
-        config = loadSettings();
+        loadSettings();
         loadLists();
         settings();
         include();
@@ -99,6 +99,7 @@ public class Options extends Component {
 
         startup.selectedProperty().addListener((ObservableValue<? extends Boolean> ov, Boolean old_val, Boolean new_val) -> {
             basicSettings.setStartup(startup.isSelected());
+
             amendBasicSettings();
             try {
                 setStartup(startup.isSelected());
@@ -125,15 +126,17 @@ public class Options extends Component {
             File result = fileChooser.showOpenDialog(null);
 
             if (result != null) {
-                if (!config.getIncludeItems().contains(result)) {
-                    config.getIncludeItems().add(result);
-                    includeList.getItems().add(result);
+                if (config.getIncludeItems() != null) {
+                    if (!config.getIncludeItems().contains(result.toString())) {
+                        config.getIncludeItems().add(result.toString());
+                        includeList.getItems().add(result);
+                    }
+                    config.getExcludeItems().remove(result.toString());
                 }
-                config.getExcludeItems().remove(result);
             }
             try {
                 updateJSON();
-                config = loadSettings();
+                loadSettings();
                 loadLists();
             } catch (IOException ioException) {
                 Functions.error = "Couldn't update changes";
@@ -149,15 +152,17 @@ public class Options extends Component {
             File result = chooser.showDialog(null);
 
             if (result != null) {
-                if (!config.getIncludeItems().contains(result)) {
-                    config.getIncludeItems().add(result);
-                    includeList.getItems().add(result);
+                if (config.getIncludeItems() != null) {
+                    if (!config.getIncludeItems().contains(result.toString())) {
+                        config.getIncludeItems().add(result.toString());
+                        includeList.getItems().add(result);
+                    }
+                    config.getExcludeItems().remove(result.toString());
                 }
-                config.getExcludeItems().remove(result);
             }
             try {
                 updateJSON();
-                config = loadSettings();
+                loadSettings();
                 loadLists();
             } catch (IOException ioException) {
                 Functions.error = "Couldn't update changes";
@@ -172,7 +177,7 @@ public class Options extends Component {
             File item = includeList.getSelectionModel().getSelectedItem();
             if (item != null) {
                 includeList.getItems().remove(item);
-                config.getIncludeItems().remove(item);
+                config.getIncludeItems().remove(item.toString());
             }
             try {
                 updateJSON();
@@ -195,15 +200,17 @@ public class Options extends Component {
             File result = fileChooser.showOpenDialog(null);
 
             if (result != null) {
-                if (!config.getExcludeItems().contains(result)) {
-                    config.getExcludeItems().add(result);
-                    excludeList.getItems().add(result);
+                if (config.getExcludeItems() != null) {
+                    if (!config.getExcludeItems().contains(result.toString())) {
+                        config.getExcludeItems().add(result.toString());
+                        excludeList.getItems().add(result);
+                    }
+                    config.getIncludeItems().remove(result.toString());
                 }
-                config.getIncludeItems().remove(result);
             }
             try {
                 updateJSON();
-                config = loadSettings();
+                loadSettings();
                 loadLists();
             } catch (IOException ioException) {
                 Functions.error = "Couldn't update changes";
@@ -219,15 +226,17 @@ public class Options extends Component {
             File result = chooser.showDialog(null);
 
             if (result != null) {
-                if (!config.getExcludeItems().contains(result)) {
-                    config.getExcludeItems().add(result);
-                    excludeList.getItems().add(result);
+                if (config.getExcludeItems() != null) {
+                    if (!config.getExcludeItems().contains(result.toString())) {
+                        config.getExcludeItems().add(result.toString());
+                        excludeList.getItems().add(result);
+                    }
+                    config.getIncludeItems().remove(result.toString());
                 }
-                config.getIncludeItems().remove(result);
             }
             try {
                 updateJSON();
-                config = loadSettings();
+                loadSettings();
                 loadLists();
             } catch (IOException ioException) {
                 Functions.error = "Couldn't update changes";
@@ -242,7 +251,7 @@ public class Options extends Component {
             File item = excludeList.getSelectionModel().getSelectedItem();
             if (item != null) {
                 excludeList.getItems().remove(item);
-                config.getExcludeItems().remove(item);
+                config.getExcludeItems().remove(item.toString());
             }
             try {
                 updateJSON();
@@ -355,23 +364,23 @@ public class Options extends Component {
         fw.close();
     }
 
-    private static Config loadSettings() {
+    private static void loadSettings() {
         try {
-            return new Gson().fromJson(new FileReader("config/files.json"), Config.class);
-        } catch (Exception ex) {
+            config = new Gson().fromJson(new FileReader("config/files.json"), Config.class);
+        } catch (IOException e) {
             //ignore
         }
-        return null;
     }
 
     private static void loadLists() {
         includeList.getItems().clear();
         excludeList.getItems().clear();
-        for (File file : config.getIncludeItems()) {
-            includeList.getItems().add(file);
+
+        for (String file : config.getIncludeItems()) {
+            includeList.getItems().add(new File(file));
         }
-        for (File file : config.getExcludeItems()) {
-            excludeList.getItems().add(file);
+        for (String file : config.getExcludeItems()) {
+            excludeList.getItems().add(new File(file));
         }
     }
 

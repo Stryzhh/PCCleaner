@@ -5,16 +5,23 @@ import java.util.ArrayList;
 
 public class Config {
 
-    private final ArrayList<File> includeItems = new ArrayList<>();
-    private final ArrayList<File> excludeItems = new ArrayList<>();
+    private ArrayList<String> include = new ArrayList<>();
+    private ArrayList<String> exclude = new ArrayList<>();
 
-    public ArrayList<File> getIncludeItems() {
-        return includeItems;
+    public void setIncludeItems(ArrayList<String> includeItems) {
+        this.include = includeItems;
     }
 
-    public java.util.ArrayList<File> getExcludeItems() {
-        return excludeItems;
+    public ArrayList<String> getIncludeItems() {
+        return include;
     }
 
+    public void setExcludeItems(ArrayList<String> excludeItems) {
+        this.exclude = excludeItems;
+    }
+
+    public java.util.ArrayList<String> getExcludeItems() {
+        return exclude;
+    }
 
 }
