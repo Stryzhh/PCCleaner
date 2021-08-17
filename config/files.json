@@ -1,8 +1,4 @@
 {
-  "include": [
-    "C:\\Users\\gmaun\\Documents\\ComputerSpecs.txt"
-  ],
-  "exclude": [
-    "C:\\Users\\gmaun\\Documents\\Installed.txt"
-  ]
+  "include": [],
+  "exclude": []
 }

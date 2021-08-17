@@ -187,7 +187,7 @@ public class Tools {
             if (alert.getResult() == ButtonType.YES) {
                 try {
                     for (Software item : uninstallTable.getSelectionModel().getSelectedItems()) {
-                        new ProcessBuilder(item.getUninstall()).start();
+                        Runtime.getRuntime().exec(item.getUninstall());
                     }
                 } catch (IOException e) {
                     Functions.error = "Couldn't uninstall program - need administrator privileges";
